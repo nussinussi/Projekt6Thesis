@@ -1,0 +1,15 @@
+\section{Einleitung}
+Für eine integrale Raumautomation müssen alle beteiligten Gewerke geregelt werden, dazu gehören: Beschattung, Licht, Heizung, Lüftung und Klima.
+Der Auftraggeber möchte eine möglichst preisgünstige Sensor/Aktor-Plattform um jene integrale Raumautomation zu ermöglichen. Bisher wurde die Idee, verschiedene Sensoren und Aktoren über IOT miteinander auszulesen bzw. zu steuern, in der Raumautomations-Branche verwirklicht, jedoch hat es sich als schwierig erwiesen solch eine anwendungsfreundliche Plattform, wie sich der Auftraggeber gewünscht hat, käuflich zu erwerben. Um die Situation zu verbessern soll eine Plattform auf Basis eines Single-Chip-uC, welcher Ein- und Ausgänge sowie ein Sensor-Baustein beinhalten realisiert werden. Zusätzlich möchte man mithilfe eines MQTT-Brokers die IOT-Geräte verbinden. Die Erstinbetriebnahme der Plattform soll mit Hilfe eines Web-Interface ablaufen, wofür das Gerät erstmal als WiFi Access-Point auf startet. 
+Die folgende Tabelle \ref{tab: Ausgangslage} fasst die Anforderungen an die Plattform zusammen.
+\begin{table}[h!]
+	\centering
+	\begin{tabular}{|c|l|}
+		\hline
+		\textbf{\begin{tabular}[c]{@{}c@{}}Aktor\\   Baustein\end{tabular}} & \begin{tabular}[c]{@{}l@{}}\textbullet 4 Relais Schaltspannung 230 V\\ \textbullet 2 Ausgänge 0-10 V\\ \textbullet 2 Eingänge 0-10 V\\ \textbullet Netzwerkschnittstelle\\ \textbullet 24 VDC Versorgungsspannung\end{tabular} \\ \hline
+		\textbf{Sensor Baustein}                                            & \begin{tabular}[c]{@{}l@{}}\textbullet 4 Taster\\ \textbullet Netzwerkschnittstelle\\ \textbullet Geometrie: Standard Lichtschalter\\ \textbullet 5 VDC Versorgungsspannung\end{tabular}                                       \\ \hline
+		\multicolumn{1}{|l|}{\textbf{Kommunikation}}                        & \begin{tabular}[c]{@{}l@{}}\textbullet MQTT Brocker\\ \textbullet WEB Interface\end{tabular}                                                                                                                                   \\ \hline
+	\end{tabular}
+	\caption{Ausgangslage}
+	\label{tab: Ausgangslage}
+\end{table}

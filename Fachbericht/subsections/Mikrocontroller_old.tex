@@ -1,0 +1,47 @@
+\subsection{Mikrocontroller}\label{subsec: Mikrocontroller}
+Für die Auswahl des Mikrocontrollers welcher auf dem Sensor wie auch auf dem Aktor-Layout eingebaut wird, werden nachfolgenden Kriterien in Betracht bezogen. Das erste Kriterium ist die Rechenleistung des Controller, welche die Aufgaben wie Kommunikation, ADC Wandlungen und einer kleiner State Maschine übernehmen muss.
+Ein weiteres Kriterium ist die Sicherheit, der Mikrocontroller soll den Benutzer schützen, darf somit keinem Ungewollten Fremdzugriff auf vorhandene Daten wie auch auf Handlungen oder Schaltvorgänge zulassen. Ein weiteres Kriterium sind die Schnittstellen, welche Funkverbindung zur Übertragung der Daten während des Betriebes gewährleisten, wie auch die Schnittstelle bei welcher zu Beginn das Framework geladen wird. Das Pinout des jeweiligen Mikrocontrollers muss in den nachfolgenden Tabellen \ref{tab: MC:Sensor} und \ref{tab: MC:Aktor} aufgelisteten Bauteilen jeweils Verbindungen gewährleisten.
+
+
+\begin{table}[h!]
+	\centering
+	\begin{tabular}{|l|l|c|}
+		\hline 
+		Sensor & Typ & Menge \\ 
+		\hline 
+		Taster/Button & Digitaler Eingang & 4 \\ 
+		\hline 
+		Reset Taster & Digitaler Eingang & 1 \\ 
+		\hline 
+		Status LED & Digitaler Eingang & 1 \\ 
+		\hline 
+	\end{tabular}
+	\caption{In dieser Tabelle in die Anforderungen an Schnittstellen von Sensorprint an den Mikrocontroller} 
+	\label{tab: MC:Sensor}
+\end{table}
+
+\begin{table}[h!]
+	\centering
+	\begin{tabular}{|l|l|c|}
+		\hline 
+		Aktor & Typ  & Menge  \\ 
+		\hline 
+		Ausgang Last & Digitaler Ausgang & 4 \\ 
+		\hline 
+		Ausgang 0-10 V & Analoger Ausgang & 2 \\ 
+		\hline 
+		Eingang 0-10 V & Analoger Eingang & 2 \\ 
+		\hline 
+		Reset Taster & Digitaler Eingang & 1 \\ 
+		\hline 
+		Status LED & Digitaler Ausgang & 4 \\ 
+		\hline 
+	\end{tabular} 
+	\caption{In dieser Tabelle in die Anforderungen an Schnittstellen von Aktorprint an den Mikrocontroller}
+	\label{tab: MC:Aktor}
+\end{table}
+
+Bei der Auswahl wird als letztes Kriterium darauf geachtet, dass die Kosten für den Mikrocontroller nicht wahnsinnig hoch anfallen, sodass sich die Gesamtkosten des Systems in einem Rahmen befindet für eine mögliche Massenproduktion. Die fertig entwickelten Komponenten sollen sich zu einem Konkurrenzfähigem Preis verkaufen lassen.
+
+\subsection{Recherche}
+In IoT Anwendungen wird der ESP8266 sehr oft eingesetzt, aus dem Grund weil der Microkontroller WiFI Kompatibilität anbietet. In diesem Projekt wird ein Versuch mit dem nachfolger Modell ESP32 durchgeführt.

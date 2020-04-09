@@ -1,0 +1,74 @@
+% !TeX encoding = UTF-8
+\documentclass[final]{fhnwreport}         %[mode] = draft or final
+\input{fhnwheader}                        %loads all packages, definitions and settings	
+											
+\title{Fachbericht}  %Project Title
+\author{Integrierte IOT-Raumautomation mit MQTT-Prototokoll}                      %Document Type => Technical Report, ...
+\date{Windisch, 01.01.2020}               %Place and Date
+
+
+\begin{document}
+
+%%---TITLEPAGE---------------------------------------------------------------------------
+\selectlanguage{ngerman}                  %ngerman or english
+\maketitle
+
+\vspace*{-1cm}
+\vfill
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{TitelbildP5.png}
+\end{figure}
+\vfill
+
+\begin{center}
+\renewcommand\arraystretch{2}
+\begin{tabular}{>{\bf}p{4cm} l}
+Hochschule                 &    Hochschule für Technik - FHNW\\
+Studiengang                &    Elektro- und Informationstechnik\\
+Autoren   		                 & 	 Lukas Meienberger und Gabriel Nussbaumer\\
+Betreuer                   &     Albert Zihlmann\\
+Auftraggeber               &    Albert Zihlmann\\
+Version                    &    1.0 %(Normally not used!)
+\end{tabular}
+\end{center}
+
+\clearpage
+			
+%%---ABSTRACT----------------------------------------------------------------------------
+\selectlanguage{ngerman}				%ngerman or english
+\thispagestyle{empty}
+\include{sections/abstract}
+
+%%---TABLE OF CONTENTS-------------------------------------------------------------------
+\pagenumbering{Roman}		
+\selectlanguage{ngerman}				%ngerman or english
+\tableofcontents
+\clearpage
+
+%%---TEXT--------------------------------------------------------------------------------
+\pagenumbering{arabic}
+\include{sections/Einleitung}%EXAMPLE
+\include{sections/Gesamtuebersicht}
+\include{sections/Theorie}
+\include{sections/Openhab}
+\include{sections/Software}
+\include{sections/Hardware}
+\include{sections/Schluss}
+\include{sections/Ehrlichkeitserklaerung}
+
+
+%%---BIBLIOGRAPHY------------------------------------------------------------------------
+{\sloppypar
+\printbibliography[heading=bibintoc]
+}
+
+%%---APPENDIX----------------------------------------------------------------------------
+%\include{sections/appendix}
+
+%%---NOTES for DEBUG---------------------------------------------------------------------
+%\newpage
+%\listoftodos[\section{Todo-Notes}]
+%\clearpage
+
+\end{document}

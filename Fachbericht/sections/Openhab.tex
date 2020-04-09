@@ -1,0 +1,35 @@
+\section{OpenHab}
+\subsection{Archidektur}
+OpenHab basiert auf der modularen OSGI Architektur.
+\subsubsection{OSGI}
+Die OSGI Technologie bietet eine Vielzahl  von dynamischen Spezifikationen für Java Systemkomponenten. Dies ermöglicht ein Entwicklungsmodell, bei dem eine Anwendung aus  mehreren Komponenten Entsteht die als Pakete gebündelt sind. Die Komponenten sind Bausteine und sind wiederverwendbar, sie kommunizieren lokal untereinander. Die OSGI Architektur ermöglicht es den Komponenten die Implementierung vor andern Komponenten zu verbergen, während Dienste kommunizieren über Objekte gerade wenn sie von anderen Komponenten gemeinsam genutzt werden. Dies reduziert die Gesamtkomplexität und ermöglicht eine hohe Zuverlässigkeit, da während laufendem System Wartung und Entwicklungsarbeiten Durchführt werden können.  
+
+%quelle: https://www.openhab.org/v2.2/docs/developer/prerequisites/osgi.html#bundles
+
+ \begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{graphics/OSGI.png}
+	\caption{OSGI Layers https://www.osgi.org/wp-content/uploads/layering-osgi.png} 	
+	\label{pic: OSGILayers}
+\end{figure} 
+
+Bundles sind Module sie sind die kleinste Einheit der Modularisierung. Ein Bundle ist eine JAR-Datei mit zusätzlichen Meta-Informationen.\\
+\\
+In den Meta-Informationen sind Bundlesabhängigkeits Informationen. Ein Bundle kann von einem andern Bundel oder von einem Paket abhängig sein.\\
+\\
+Die OSGi-Runtime verwendet die Informationen über die Abhängigkeiten, um die Bundles zu verdrahten und versteckt alles in dieser JAR, sofern es nicht explizit exportiert wird. Die Abhängigkeiten zu den Java-Standardbibliotheken werden durch den Bundle-Header verwaltet, so dass es nicht notwendig ist, die Java-Kernpakete zu importieren.\\
+\\
+Bundles werden werden oft zur Registrierung und zum Konsum von Dienstleistungen verwendet.\\
+\\
+Die Bundles können in Laufzeit installiert, deinstalliert und geändert werden. Die Spezifikationen der OSGI Architektur also Abhängigkeiten und der Mechanismus wird mit Hilfe des Lebenszykluskonzepts erreicht. Der Rahmen führt verschiedene Zustände ein und regelt wie sich die vom Bundle exportierten Pakete und Dienste auswirken. 
+
+ \begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{graphics/BundleState.png}
+	\caption{Bundle State Diagramm} 	
+	\label{pic: BundleState}
+\end{figure} 
+
+In diesem Diagramm ist ersichtlich, dass Bundles während des Ausführens nicht geändert werden können, sonnst aber jederzeit.
+
+\subsubsection{JAR}
