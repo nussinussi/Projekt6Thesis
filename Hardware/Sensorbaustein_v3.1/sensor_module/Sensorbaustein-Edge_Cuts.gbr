@@ -1,0 +1,19 @@
+G04 #@! TF.GenerationSoftware,KiCad,Pcbnew,(5.1.4)-1*
+G04 #@! TF.CreationDate,2020-04-17T22:35:52+02:00*
+G04 #@! TF.ProjectId,Sensorbaustein,53656e73-6f72-4626-9175-737465696e2e,1.7*
+G04 #@! TF.SameCoordinates,Original*
+G04 #@! TF.FileFunction,Profile,NP*
+%FSLAX46Y46*%
+G04 Gerber Fmt 4.6, Leading zero omitted, Abs format (unit mm)*
+G04 Created by KiCad (PCBNEW (5.1.4)-1) date 2020-04-17 22:35:52*
+%MOMM*%
+%LPD*%
+G04 APERTURE LIST*
+%ADD10C,0.150000*%
+G04 APERTURE END LIST*
+D10*
+X170000000Y-105000000D02*
+G75*
+G03X170000000Y-105000000I-30000000J0D01*
+G01*
+M02*
