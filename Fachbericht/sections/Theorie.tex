@@ -106,9 +106,29 @@ MQTT ist ein binärbasiertes Protokoll, bei dem die Steuerelemente Binäre Bytes
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=\textwidth]{graphics/MQTTProtocolCommands.jpg}
-	\caption{Bestätigung} 	
-	\label{pic: OverMQTT}
+	\caption{Protokoll Verbindung Client zu Broker} 	
+	\label{pic: MQTTBrokerToClient}
 \end{figure} 
 
-\
+Topic Namen, Client-ID und Benutzernamen werden als UTF-8-strings kodiert. Die Payload sind binäre Daten, und der Inhalt wie das Format sind anwendungsspezifisch. Das MQTT-Packet besteht aus einem festen 2 Byte-Header und der Payload bei bedarf kann noch ein variablen Header hinzugefügt werden.
 
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{graphics/MQTT-Standard-Packet.jpg}
+	\caption{Standard MQTT Paket Struktur} 	
+	\label{pic: Struktur}
+\end{figure} 
+
+Es gibt 3 Grundlegende Paket Formate
+
+\begin{itemize}
+	\item Fester Header (Steuerfeld und Länge)\\
+	\item Fester Header (Steuerfeld und Länge) und variable Payload\\
+	\item Fester Header (Steuerfeld und Länge) variabler Header und variable Payload\\
+\end{itemize}
+
+Die Mindestgrösse des Paketlänge Felds beträgt 1 Bit was für Nachrichten die ohne Header kleiner als 127 Byte sind. 
+
+Die maximale Paket grösse beträgt 256 MB
+
+Das Steuerfeld ist das erste Byte des Headers es ist in zwei 4-Bit Felder unterteilt und enthält Protokollbefehle und antworten.
