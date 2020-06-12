@@ -27,7 +27,7 @@ const char* mqtt_server = "192.168.137.152";//"m16.cloudmqtt.com";
 #define MQTT_SERIAL_RECEIVER_CH "datensammlung/revpi01/devboard"
 
 // change with your threshold value
-const int threshold = 20;
+const int threshold = 25;
 // variable for storing the touch pin value 
 int touchValue;
 int z =0;
