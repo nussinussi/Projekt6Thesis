@@ -126,13 +126,13 @@ void setup() {
   pinMode(16, OUTPUT);
   pinMode(28, OUTPUT);
   pinMode(30, OUTPUT);
-  pinMode(31, OUTPUT);
+  pinMode(19, OUTPUT);
 
 //Touch
   pinMode(14, INPUT);
   pinMode(12, INPUT);
   pinMode(8, INPUT);
-  pinMode(9, INPUT);
+  pinMode(32, INPUT);
 
   WiFiManager wifiManager;
   WiFiManagerParameter custom_mqtt_server("Mserver", "mqtt server", "revpi01", 40);
@@ -150,13 +150,13 @@ void setup() {
 
   void loop(){
   // read the state of the pushbutton value:                  test
-  touchValue = touchRead(14);
+  touchValue = touchRead(32);
   Serial.print(touchValue);
   // check if the touchValue is below the threshold
   // if it is, set ledPin to HIGH
   if(touchValue < threshold){
     // turn LED on
-    digitalWrite(16, HIGH);
+    digitalWrite(19, HIGH);
     Serial.println("K1on");
     publishSerialData("K1on");
     if (z==0)
@@ -175,7 +175,7 @@ void setup() {
   }
   else{
     // turn LED off
-    digitalWrite(16, LOW);
+    digitalWrite(19, LOW);
     Serial.println("LED1off");
   }
   delay(500);
