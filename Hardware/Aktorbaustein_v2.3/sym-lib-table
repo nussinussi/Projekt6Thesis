@@ -1,3 +1,0 @@
-(sym_lib_table
-  (lib (name Aktorbaustein-rescue)(type Legacy)(uri ${KIPRJMOD}/Aktorbaustein-rescue.lib)(options "")(descr ""))
-)
