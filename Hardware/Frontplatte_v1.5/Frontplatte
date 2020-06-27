@@ -1,0 +1,24 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>KiCad BOM Example 5</title>
+    </head>
+    <body>
+    <h1>C:\Users\FT12L\Documents\KiCad\projekt5\Frontplatte_v1.4\Frontplatte.sch</h1>
+    <p>24.04.2020 14:56:02</p>
+    <p>Eeschema (5.1.4)-1</p>
+    <p><b>Component Count:</b>14</p>
+    <table>
+    <tr><th style='width:640px'>Ref</th><th>Qnty</th><th>Value</th><th>Part</th><th>Footprint</th><th>Description</th><th>Vendor</th></tr>
+    <tr><td>D1, D2, D3, D4</td><td>4</td><td>156120RS75000</td><td>Device:LED</td><td>reverse_LED:reverse_mounted_LED_hole_2.3mm</td><td>Light emitting diode</td><td>710-156120RS75000</td></tr>
+    <tr><td>J1</td><td>1</td><td>61000621121</td><td>Connector_Generic:Conn_02x06_Odd_Even</td><td>Connector_PinHeader_2.54mm:PinHeader_2x06_P2.54mm_Vertical_SMD</td><td>Generic connector, double row, 02x06, odd/even pin numbering scheme (row 1 odd numbers, row 2 even numbers), script generated (kicad-library-utils/schlib/autogen/connector/)</td><td></td></tr>
+    <tr><td>R1, R2, R3, R4</td><td>4</td><td>100</td><td>Device:R</td><td>Resistor_SMD:R_0603_1608Metric_Pad1.05x0.95mm_HandSolder</td><td>Resistor</td><td>660-RN73H1JT1000F100</td></tr>
+    <tr><td>TA1, TA2, TA3, TA4</td><td>4</td><td>touch_area_round_12mm</td><td>touch_area:touch_area_round_12mm</td><td>touch_area:touch_area</td><td></td><td></td></tr>
+    <tr><td>TH1</td><td>1</td><td>NCU18WF104J60RB</td><td>Device:Thermistor_NTC</td><td>Resistor_SMD:R_0603_1608Metric_Pad1.05x0.95mm_HandSolder</td><td>Temperature dependent resistor, negative temperature coefficient</td><td>81-NCU18WF104J60RB</td></tr><!--TABLEROW-->
+    </table>
+    </body>
+</html>
+    
