@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<export version="D">
+  <design>
+    <source>C:\Users\FT12L\Documents\KiCad\projekt5\Frontplatte_v1.4\Frontplatte.sch</source>
+    <date>24.04.2020 14:56:02</date>
+    <tool>Eeschema (5.1.4)-1</tool>
+    <sheet number="1" name="/" tstamps="/">
+      <title_block>
+        <title/>
+        <company/>
+        <rev/>
+        <date/>
+        <source>Frontplatte.sch</source>
+        <comment number="1" value=""/>
+        <comment number="2" value=""/>
+        <comment number="3" value=""/>
+        <comment number="4" value=""/>
+      </title_block>
+    </sheet>
+  </design>
+  <components>
+    <comp ref="TH1">
+      <value>NCU18WF104J60RB</value>
+      <footprint>Resistor_SMD:R_0603_1608Metric_Pad1.05x0.95mm_HandSolder</footprint>
+      <datasheet>~</datasheet>
+      <fields>
+        <field name="Vendor">81-NCU18WF104J60RB</field>
+      </fields>
+      <libsource lib="Device" part="Thermistor_NTC" description="Temperature dependent resistor, negative temperature coefficient"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5E871497</tstamp>
+    </comp>
+    <comp ref="D1">
+      <value>156120RS75000</value>
+      <footprint>reverse_LED:reverse_mounted_LED_hole_2.3mm</footprint>
+      <datasheet>~</datasheet>
+      <fields>
+        <field name="Vendor">710-156120RS75000</field>
+      </fields>
+      <libsource lib="Device" part="LED" description="Light emitting diode"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5E8764B5</tstamp>
+    </comp>
+    <comp ref="D2">
+      <value>156120RS75000</value>
+      <footprint>reverse_LED:reverse_mounted_LED_hole_2.3mm</footprint>
+      <datasheet>~</datasheet>
+      <fields>
+        <field name="Vendor">710-156120RS75000</field>
+      </fields>
+      <libsource lib="Device" part="LED" description="Light emitting diode"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5E877385</tstamp>
+    </comp>
+    <comp ref="D3">
+      <value>156120RS75000</value>
+      <footprint>reverse_LED:reverse_mounted_LED_hole_2.3mm</footprint>
+      <datasheet>~</datasheet>
+      <fields>
+        <field name="Vendor">710-156120RS75000</field>
+      </fields>
+      <libsource lib="Device" part="LED" description="Light emitting diode"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5E877646</tstamp>
+    </comp>
+    <comp ref="D4">
+      <value>156120RS75000</value>
+      <footprint>reverse_LED:reverse_mounted_LED_hole_2.3mm</footprint>
+      <datasheet>~</datasheet>
+      <fields>
+        <field name="Vendor">710-156120RS75000</field>
+      </fields>
+      <libsource lib="Device" part="LED" description="Light emitting diode"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5E87798E</tstamp>
+    </comp>
+    <comp ref="R1">
+      <value>100</value>
+      <footprint>Resistor_SMD:R_0603_1608Metric_Pad1.05x0.95mm_HandSolder</footprint>
+      <datasheet>~</datasheet>
+      <fields>
+        <field name="Vendor">660-RN73H1JT1000F100</field>
+      </fields>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5E877C24</tstamp>
+    </comp>
+    <comp ref="R3">
+      <value>100</value>
+      <footprint>Resistor_SMD:R_0603_1608Metric_Pad1.05x0.95mm_HandSolder</footprint>
+      <datasheet>~</datasheet>
+      <fields>
+        <field name="Vendor">660-RN73H1JT1000F100</field>
+      </fields>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5E878ACA</tstamp>
+    </comp>
+    <comp ref="R2">
+      <value>100</value>
+      <footprint>Resistor_SMD:R_0603_1608Metric_Pad1.05x0.95mm_HandSolder</footprint>
+      <datasheet>~</datasheet>
+      <fields>
+        <field name="Vendor">660-RN73H1JT1000F100</field>
+      </fields>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5E8791EF</tstamp>
+    </comp>
+    <comp ref="R4">
+      <value>100</value>
+      <footprint>Resistor_SMD:R_0603_1608Metric_Pad1.05x0.95mm_HandSolder</footprint>
+      <datasheet>~</datasheet>
+      <fields>
+        <field name="Vendor">660-RN73H1JT1000F100</field>
+      </fields>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5E8797D4</tstamp>
+    </comp>
+    <comp ref="J1">
+      <value>61000621121</value>
+      <footprint>Connector_PinHeader_2.54mm:PinHeader_2x06_P2.54mm_Vertical_SMD</footprint>
+      <datasheet>~</datasheet>
+      <fields>
+        <field name="mouser">710-61000621121</field>
+      </fields>
+      <libsource lib="Connector_Generic" part="Conn_02x06_Odd_Even" description="Generic connector, double row, 02x06, odd/even pin numbering scheme (row 1 odd numbers, row 2 even numbers), script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5E96E803</tstamp>
+    </comp>
+    <comp ref="TA1">
+      <value>touch_area_round_12mm</value>
+      <footprint>touch_area:touch_area</footprint>
+      <libsource lib="touch_area" part="touch_area_round_12mm" description=""/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5E9C42C8</tstamp>
+    </comp>
+    <comp ref="TA2">
+      <value>touch_area_round_12mm</value>
+      <footprint>touch_area:touch_area</footprint>
+      <libsource lib="touch_area" part="touch_area_round_12mm" description=""/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5E9C552F</tstamp>
+    </comp>
+    <comp ref="TA3">
+      <value>touch_area_round_12mm</value>
+      <footprint>touch_area:touch_area</footprint>
+      <libsource lib="touch_area" part="touch_area_round_12mm" description=""/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5E9C59ED</tstamp>
+    </comp>
+    <comp ref="TA4">
+      <value>touch_area_round_12mm</value>
+      <footprint>touch_area:touch_area</footprint>
+      <libsource lib="touch_area" part="touch_area_round_12mm" description=""/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5E9C5D52</tstamp>
+    </comp>
+  </components>
+  <libparts>
+    <libpart lib="Connector_Generic" part="Conn_02x06_Odd_Even">
+      <description>Generic connector, double row, 02x06, odd/even pin numbering scheme (row 1 odd numbers, row 2 even numbers), script generated (kicad-library-utils/schlib/autogen/connector/)</description>
+      <docs>~</docs>
+      <footprints>
+        <fp>Connector*:*_2x??_*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">J</field>
+        <field name="Value">Conn_02x06_Odd_Even</field>
+      </fields>
+      <pins>
+        <pin num="1" name="Pin_1" type="passive"/>
+        <pin num="2" name="Pin_2" type="passive"/>
+        <pin num="3" name="Pin_3" type="passive"/>
+        <pin num="4" name="Pin_4" type="passive"/>
+        <pin num="5" name="Pin_5" type="passive"/>
+        <pin num="6" name="Pin_6" type="passive"/>
+        <pin num="7" name="Pin_7" type="passive"/>
+        <pin num="8" name="Pin_8" type="passive"/>
+        <pin num="9" name="Pin_9" type="passive"/>
+        <pin num="10" name="Pin_10" type="passive"/>
+        <pin num="11" name="Pin_11" type="passive"/>
+        <pin num="12" name="Pin_12" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Device" part="LED">
+      <description>Light emitting diode</description>
+      <docs>~</docs>
+      <footprints>
+        <fp>LED*</fp>
+        <fp>LED_SMD:*</fp>
+        <fp>LED_THT:*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">D</field>
+        <field name="Value">LED</field>
+      </fields>
+      <pins>
+        <pin num="1" name="K" type="passive"/>
+        <pin num="2" name="A" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Device" part="R">
+      <description>Resistor</description>
+      <docs>~</docs>
+      <footprints>
+        <fp>R_*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">R</field>
+        <field name="Value">R</field>
+      </fields>
+      <pins>
+        <pin num="1" name="~" type="passive"/>
+        <pin num="2" name="~" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Device" part="Thermistor_NTC">
+      <description>Temperature dependent resistor, negative temperature coefficient</description>
+      <docs>~</docs>
+      <footprints>
+        <fp>*NTC*</fp>
+        <fp>*Thermistor*</fp>
+        <fp>PIN?ARRAY*</fp>
+        <fp>bornier*</fp>
+        <fp>*Terminal?Block*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">TH</field>
+        <field name="Value">Thermistor_NTC</field>
+      </fields>
+      <pins>
+        <pin num="1" name="~" type="passive"/>
+        <pin num="2" name="~" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="touch_area" part="touch_area_round_12mm">
+      <fields>
+        <field name="Reference">TA</field>
+        <field name="Value">touch_area_round_12mm</field>
+      </fields>
+    </libpart>
+  </libparts>
+  <libraries>
+    <library logical="Connector_Generic">
+      <uri>C:\Program Files\KiCad\share\kicad\library/Connector_Generic.lib</uri>
+    </library>
+    <library logical="Device">
+      <uri>C:\Program Files\KiCad\share\kicad\library/Device.lib</uri>
+    </library>
+    <library logical="touch_area">
+      <uri>C:/Users/FT12L/Documents/KiCad/Library/touch_area.lib</uri>
+    </library>
+  </libraries>
+  <nets>
+    <net code="1" name="touch1">
+      <node ref="J1" pin="6"/>
+    </net>
+    <net code="2" name="GND">
+      <node ref="J1" pin="1"/>
+      <node ref="D4" pin="1"/>
+      <node ref="D3" pin="1"/>
+      <node ref="D2" pin="1"/>
+      <node ref="D1" pin="1"/>
+    </net>
+    <net code="3" name="+3V3">
+      <node ref="J1" pin="3"/>
+    </net>
+    <net code="4" name="touch2">
+      <node ref="J1" pin="8"/>
+    </net>
+    <net code="5" name="ntcf">
+      <node ref="TH1" pin="1"/>
+      <node ref="J1" pin="4"/>
+    </net>
+    <net code="6" name="LED3">
+      <node ref="R3" pin="2"/>
+      <node ref="J1" pin="9"/>
+    </net>
+    <net code="7" name="LED2">
+      <node ref="R2" pin="2"/>
+      <node ref="J1" pin="7"/>
+    </net>
+    <net code="8" name="LED1">
+      <node ref="J1" pin="5"/>
+      <node ref="R1" pin="2"/>
+    </net>
+    <net code="9" name="ntcr">
+      <node ref="TH1" pin="2"/>
+      <node ref="J1" pin="2"/>
+    </net>
+    <net code="10" name="touch4">
+      <node ref="J1" pin="12"/>
+    </net>
+    <net code="11" name="LED4">
+      <node ref="R4" pin="2"/>
+      <node ref="J1" pin="11"/>
+    </net>
+    <net code="12" name="touch3">
+      <node ref="J1" pin="10"/>
+    </net>
+    <net code="13" name="Net-(D2-Pad2)">
+      <node ref="D2" pin="2"/>
+      <node ref="R2" pin="1"/>
+    </net>
+    <net code="14" name="Net-(D1-Pad2)">
+      <node ref="D1" pin="2"/>
+      <node ref="R1" pin="1"/>
+    </net>
+    <net code="15" name="Net-(D4-Pad2)">
+      <node ref="R4" pin="1"/>
+      <node ref="D4" pin="2"/>
+    </net>
+    <net code="16" name="Net-(D3-Pad2)">
+      <node ref="D3" pin="2"/>
+      <node ref="R3" pin="1"/>
+    </net>
+  </nets>
+</export>
