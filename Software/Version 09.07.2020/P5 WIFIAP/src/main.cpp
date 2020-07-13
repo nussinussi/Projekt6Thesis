@@ -17,23 +17,29 @@
 //#include <Adafruit_BME280.h>
 
 extern "C" {
-uint8_t temprature_sens_read();}
+uint8_t temprature_sens_read();
+}
 
+//#define PIN1 35
+//#define PIN2 34
+//#define GLED 32
+//#define RLED 33
+//#define S1 25
+//#define S2 26
+//MQTT Konfigurationen
 const char* mqtt_server = "192.168.137.6";//"m16.cloudmqtt.com";
 #define mqtt_port 1883//12595
 #define MQTT_USER "revpi01"//"eapcfltj"
 #define MQTT_PASSWORD "ganzeasy"//"3EjMIy89qzVn"
-#define MQTT_SERIAL_PUBLISH_CH "data/aktorboard/1/tx"//"/ESP32/serialdata/FHNW/P5/tx"
-#define MQTT_SERIAL_RECEIVER_CH "data/aktorboard/1/rx"
-
-// change with your threshold value
-const int threshold = 10;
-// variable for storing the touch pin value 
-int touchValue;
-int z =0;
+#define MQTT_SERIAL_PUBLISH_CH "data/aktorboard/1/rx"//"/ESP32/serialdata/FHNW/P5/tx"
+#define MQTT_SERIAL_RECEIVER_CH "data/aktorboard/1/tx"
 
 WiFiClient wifiClient;
 PubSubClient client(wifiClient);
+
+double tcount = 0;
+int NUM_SEC = 2; // Zeit Intervall Messungen
+int status = 0;
 
 void setup_wifi() {
     delay(10);
@@ -81,9 +87,44 @@ void callback(char* topic, byte *payload, unsigned int length) {
     Serial.println(topic);
     Serial.print("data:");  
     Serial.write(payload, length);
-    Serial.println(); 
+    Serial.println();
+    if(!strncmp((char *)payload, "K1on", length)){
+    digitalWrite(18,HIGH);
+    digitalWrite(04,HIGH);
     }
-    
+    if(!strncmp((char *)payload, "K1off", length))
+    {
+    digitalWrite(18,LOW);
+    digitalWrite(04,LOW);
+    }
+    if(!strncmp((char *)payload, "K2on", length)){
+    digitalWrite(19,HIGH);
+    digitalWrite(13,HIGH);
+    }
+    if(!strncmp((char *)payload, "K2off", length))
+    {
+    digitalWrite(19,LOW);
+    digitalWrite(13,LOW);
+    }
+    if(!strncmp((char *)payload, "K3on", length)){
+    digitalWrite(21,HIGH);
+    digitalWrite(23,HIGH);
+    }
+    if(!strncmp((char *)payload, "K3off", length))
+    {
+    digitalWrite(21,LOW);
+    digitalWrite(23,LOW);
+    }
+    if(!strncmp((char *)payload, "K4on", length)){
+    digitalWrite(22,HIGH);
+    digitalWrite(27,HIGH);
+    }
+    if(!strncmp((char *)payload, "K4off", length))
+    {
+    digitalWrite(22,LOW);
+    digitalWrite(27,LOW);
+    }
+  }
 void publishSerialData(char *serialData){
   if (!client.connected()) {
     reconnect();
@@ -121,19 +162,29 @@ float temperatur1000(int pin)
 } //bis hier MQTT
 
 void setup() {
+  //pinMode(35, INPUT);
+  pinMode(34, INPUT);
+  //pinMode(25, INPUT);
 
   //LEDS
-  pinMode(16, OUTPUT);
-  pinMode(17, OUTPUT);
+  pinMode(02, OUTPUT);
+  pinMode(04, OUTPUT);
+  pinMode(05, OUTPUT);
+  pinMode(13, OUTPUT);
+  pinMode(23, OUTPUT);
+  pinMode(27, OUTPUT);
+ 
+ //Relais
   pinMode(18, OUTPUT);
   pinMode(19, OUTPUT);
+  pinMode(21, OUTPUT);
+  pinMode(22, OUTPUT);
+//Taster
+  pinMode(00, INPUT);
+  pinMode(02, INPUT);
 
-//Touch
-  pinMode(04, INPUT);
-  pinMode(12, INPUT);
-  pinMode(19, INPUT);
-  pinMode(18, INPUT);
 
+  
   WiFiManager wifiManager;
   WiFiManagerParameter custom_mqtt_server("Mserver", "mqtt server", "revpi01", 40);
   WiFiManagerParameter custom_mqtt_pw("Mpasswort", "Passwort", "ganzeasy", 40);
@@ -145,74 +196,108 @@ void setup() {
   client.setServer(mqtt_server, mqtt_port);
   client.setCallback(callback);
   reconnect();
+
+  
+
+  
 }
 
+void loop() {
 
-  void loop(){
-  // read the state of the pushbutton value:                  test
-  touchValue = touchRead(19);
-  Serial.print(touchValue);
-  // check if the touchValue is below the threshold
-  // if it is, set ledPin to HIGH
-  if(touchValue < threshold){
-    // turn LED on
-    digitalWrite(16, HIGH);
-    Serial.println("K1on");
-    publishSerialData("K1on");
-    if (z==0)
-    {
-       Serial.println("K1on");
-    publishSerialData("K1on");
-    z=1;
-    }
-    else
-     {
-       Serial.println("K1off");
-    publishSerialData("K1off");
-    z=0;
-    }
+   client.loop();
+     if (Serial.available() > 0) {
+     char mun[501];
+     memset(mun,0, 501);
+     Serial.readBytesUntil( '\n',mun,500);
+     publishSerialData(mun);
+     }
 
-  }
-  else{
-    // turn LED off
-    digitalWrite(16, LOW);
-    Serial.println("LED1off");
-  }
-  delay(500);
-/*
+  clock_t this_time = clock();
+  clock_t last_time = this_time;
+ //printf("Gran = %ld\n", NUM_SEC * CLOCKS_PER_SEC);
+        this_time = clock();
+        tcount += (double)(this_time - last_time);
+        last_time = this_time;
+          if(tcount > (double)(NUM_SEC * CLOCKS_PER_SEC)) // wird nur alle 10 Sec durchgeführt
+         {
+            tcount -= (double)(NUM_SEC * CLOCKS_PER_SEC);
+            Serial.println(status);
+            if(status==0){
+              digitalWrite(05,HIGH);
+              status=1;
+            } else
+            {
+              digitalWrite(05,LOW);
+              status=0;
+            }
+            
+
+         }
+}
+
+      /*
+
+     
+
+
+
+
+
+      if(digitalRead(25)==1){
+       publishSerialData("tasterMode");
+       Serial.println("tasterMode");
+     };
+     */
+
+    /*
+  {
    
-  if(touchRead(12) < threshold){
-   digitalWrite(28, HIGH);
-    Serial.println("LED1on");
-    publishSerialData("Touch1");
-  }
-  else{
-    // turn LED off
-    digitalWrite(28, LOW);
-    Serial.println("LED1off");
-  }
-  delay(500);
-    if(touchRead(9) < threshold){
-   digitalWrite(30, HIGH);
-    Serial.println("LED1on");
-    publishSerialData("Touch1");
-  }
-  else{
-    // turn LED off
-    digitalWrite(30, LOW);
-    Serial.println("LED1off");
-  }
-  delay(500);
-    if(touchRead(8) < threshold){
-   digitalWrite(31, HIGH);
-    Serial.println("LED1on");
-    publishSerialData("Touch1");
-  }
-  else{
-    // turn LED off
-    digitalWrite(31, LOW);
-    Serial.println("LED1off");
-  }
-  delay(500);
-  */
-}
+ }
+     
+            //printf("%d\n", count);
+            //Serial.println(temperatur1000(PIN2));
+            //Serial.print("internal temp [°C]: ");
+           // unsigned temp = temperatur(PIN1);
+            //Serial.println(temp);
+            //char tempString[40];
+            //snprintf(tempString,sizeof(tempString),"%3d",temp);
+
+            /*
+            publishSerialData(tempString);
+            count++;
+
+            if (digitalRead(16)==0){
+            digitalWrite(16,HIGH);
+            digitalWrite(24,HIGH);
+            }else
+            {
+            digitalWrite(16,LOW);
+            digitalWrite(24,LOW);
+            }
+            
+
+
+            
+            /*
+
+                adc1_config_width(ADC_WIDTH_BIT_12);
+                adc1_config_channel_atten(ADC1_CHANNEL_7,ADC_ATTEN_DB_0);
+                int val = adc1_get_raw(ADC1_CHANNEL_7);
+                 
+                Serial.println(val);
+                adc2_vref_to_gpio(GPIO_NUM_25) ;
+
+                //adc1_vref_to_gpio(GPIO_NUM_34); 
+            */
+              
+
+/*
+
+
+        
+        }
+        //printf("DebugTime = %f\n", tcount);
+    }
+    return;
+    */ 
+

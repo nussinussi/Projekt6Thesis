@@ -1,4 +1,5 @@
 \section{OpenHab}
+In dieser Arbeit wird als Server ein RaspberryPi verwendet. Als Software befindet sich Openhab auf dem Linux Betriebssystem vom RaspberryPi. Openhab ist eine Gebäudeautomation Software und bietet Kontabilität zwischen verschiedenen Smarthome Komponenten wie KNX, Sonos, oder Philips Hue. Der für das Projekt benötigte MQTT Brocker kann als Binding in Openhab eingebunden werden. Nach den Installationen kann der funktionserhalt mit den Geräten im selben lokalen Netzwerk gewährleistet werden, auch ohne Verbindung mit dem öffentlichen Internet.
 \subsection{Archidektur}
 OpenHab basiert auf der modularen OSGI Architektur.
 \subsubsection{OSGI}
@@ -19,7 +20,7 @@ In den Meta-Informationen sind Bundlesabhängigkeits Informationen. Ein Bundle k
 \\
 Die OSGi-Runtime verwendet die Informationen über die Abhängigkeiten, um die Bundles zu verdrahten und versteckt alles in dieser JAR, sofern es nicht explizit exportiert wird. Die Abhängigkeiten zu den Java-Standardbibliotheken werden durch den Bundle-Header verwaltet, so dass es nicht notwendig ist, die Java-Kernpakete zu importieren.\\
 \\
-Bundles werden werden oft zur Registrierung und zum Konsum von Dienstleistungen verwendet.\\
+Bundles werden oft zur Registrierung und zum Konsum von Dienstleistungen verwendet.\\
 \\
 Die Bundles können in Laufzeit installiert, deinstalliert und geändert werden. Die Spezifikationen der OSGI Architektur also Abhängigkeiten und der Mechanismus wird mit Hilfe des Lebenszykluskonzepts erreicht. Der Rahmen führt verschiedene Zustände ein und regelt wie sich die vom Bundle exportierten Pakete und Dienste auswirken. 
 
@@ -33,3 +34,16 @@ Die Bundles können in Laufzeit installiert, deinstalliert und geändert werden.
 In diesem Diagramm ist ersichtlich, dass Bundles während des Ausführens nicht geändert werden können, sonnst aber jederzeit.
 
 \subsubsection{JAR}
+\subsubsection{Übersicht Kommunikation Verbindungen}
+Die Kommunikation zwischen den Komponenten geschieht mittels Event Bus. Alle nicht statusbezogenen Bundels informieren darüber andere Bundles über den Status von Events. Über diesen Bus Kommunizieren alle Binding mit einem phsikalischen Link zur realen Hardware. Mit dem Events werden auf asynchrone weise in diesem Bus veröffentlicht, durch den EventSubscriber definierte Callback-Schnittstellen werden diese zur entsprechender Funktion vorgesehenen Events wiederum Empfangen. Der EventSubsciber ist als OSGI Dienst registriert.
+
+https://www.openhab.org/docs/developer/utils/events.html
+   
+  \begin{figure}[H]
+ 	\centering
+ 	\includegraphics[width=\textwidth]{graphics/Eventbus.PNG}
+ 	\caption{Eventbus Openhab https://www.innoq.com/de/articles/2014/11/durchbruch/} 	
+ 	\label{pic: Eventbus}
+ \end{figure} 
+ 
+ In der Abbildung \ref{pic: Eventbus} ist der Eventbus dargestellt verschiedene Bindings mit Hardwarekomponenten von verschiedenen Smarthome lösungen empfange, die für sie vorgesehene Events

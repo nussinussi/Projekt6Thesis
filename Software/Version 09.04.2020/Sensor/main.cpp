@@ -23,11 +23,16 @@ const char* mqtt_server = "192.168.137.6";//"m16.cloudmqtt.com";
 #define mqtt_port 1883//12595
 #define MQTT_USER "revpi01"//"eapcfltj"
 #define MQTT_PASSWORD "ganzeasy"//"3EjMIy89qzVn"
-#define MQTT_SERIAL_PUBLISH_CH "data/aktorboard/1/tx"//"/ESP32/serialdata/FHNW/P5/tx"
-#define MQTT_SERIAL_RECEIVER_CH "data/aktorboard/1/rx"
+#define MQTT_SERIAL_PUBLISH_CH "data/aktorboard/1/rx"//"/ESP32/serialdata/FHNW/P5/tx"
+#define MQTT_SERIAL_RECEIVER_CH "data/aktorboard/1/tx"
+
+double tcount = 0;
+int NUM_SEC = 1; // Zeit Intervall Messungen
+int status = 0;
+
 
 // change with your threshold value
-const int threshold = 10;
+const int threshold = 25;
 // variable for storing the touch pin value 
 int touchValue;
 int z =0;
@@ -82,6 +87,8 @@ void callback(char* topic, byte *payload, unsigned int length) {
     Serial.print("data:");  
     Serial.write(payload, length);
     Serial.println(); 
+
+
     }
     
 void publishSerialData(char *serialData){
@@ -124,15 +131,15 @@ void setup() {
 
   //LEDS
   pinMode(16, OUTPUT);
-  pinMode(17, OUTPUT);
-  pinMode(18, OUTPUT);
+  pinMode(28, OUTPUT);
+  pinMode(30, OUTPUT);
   pinMode(19, OUTPUT);
 
 //Touch
-  pinMode(04, INPUT);
+  pinMode(14, INPUT);
   pinMode(12, INPUT);
-  pinMode(19, INPUT);
-  pinMode(18, INPUT);
+  pinMode(8, INPUT);
+  pinMode(32, INPUT);
 
   WiFiManager wifiManager;
   WiFiManagerParameter custom_mqtt_server("Mserver", "mqtt server", "revpi01", 40);
@@ -149,36 +156,78 @@ void setup() {
 
 
   void loop(){
-  // read the state of the pushbutton value:                  test
-  touchValue = touchRead(19);
-  Serial.print(touchValue);
-  // check if the touchValue is below the threshold
-  // if it is, set ledPin to HIGH
-  if(touchValue < threshold){
-    // turn LED on
-    digitalWrite(16, HIGH);
+
+
+
+ client.loop();
+     if (Serial.available() > 0) {
+     char mun[501];
+     memset(mun,0, 501);
+     Serial.readBytesUntil( '\n',mun,500);
+     publishSerialData(mun);
+     }
+
+  clock_t this_time = clock();
+  clock_t last_time = this_time;
+ //printf("Gran = %ld\n", NUM_SEC * CLOCKS_PER_SEC);
+        this_time = clock();
+        tcount += (double)(this_time - last_time);
+        last_time = this_time;
+          if(tcount > (double)(NUM_SEC * CLOCKS_PER_SEC)) // wird nur alle 10 Sec durchgeführt
+         {
+            tcount -= (double)(NUM_SEC * CLOCKS_PER_SEC);
+            Serial.println(status);
+            if(status==0){
+              digitalWrite(05,HIGH);
+              status=1;
+            } else
+            {
+              digitalWrite(05,LOW);
+              status=0;
+            }
+              touchValue = touchRead(32);
+    Serial.print(touchValue);
+    if(touchValue < threshold){
+    digitalWrite(19, HIGH);
     Serial.println("K1on");
     publishSerialData("K1on");
     if (z==0)
-    {
-       Serial.println("K1on");
+    {Serial.println("K1on");
     publishSerialData("K1on");
-    z=1;
-    }
-    else
-     {
-       Serial.println("K1off");
+    z=1;}
+    else{
+    Serial.println("K1off");
     publishSerialData("K1off");
-    z=0;
-    }
+    z=0;}
 
-  }
-  else{
-    // turn LED off
-    digitalWrite(16, LOW);
-    Serial.println("LED1off");
-  }
-  delay(500);
+            
+
+
+
+
+
+
+
+         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  // read the state of the pushbutton value:                  test
+
 /*
    
   if(touchRead(12) < threshold){
