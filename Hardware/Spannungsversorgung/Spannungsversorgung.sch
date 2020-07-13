@@ -1,4 +1,5 @@
 EESchema Schematic File Version 4
+LIBS:Spannungsversorgung-cache
 EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
@@ -21,6 +22,7 @@ F 0 "PS1" H 5350 3125 50  0000 C CNN
 F 1 "IRM-02-5" H 5350 3034 50  0000 C CNN
 F 2 "Converter_ACDC:Converter_ACDC_MeanWell_IRM-02-xx_THT" H 5350 2500 50  0001 C CNN
 F 3 "https://www.meanwell.com/Upload/PDF/IRM-02/IRM-02-SPEC.PDF" H 5750 2450 50  0001 C CNN
+F 4 "709-IRM02-5" H 5350 2800 50  0001 C CNN "Vendor"
 	1    5350 2800
 	1    0    0    -1  
 $EndComp
@@ -43,6 +45,7 @@ F 0 "J1" H 4168 2525 50  0000 C CNN
 F 1 "Screw_Terminal_01x02" H 4168 2616 50  0000 C CNN
 F 2 "TerminalBlock_RND:TerminalBlock_RND_205-00012_1x02_P5.00mm_Horizontal" H 4250 2850 50  0001 C CNN
 F 3 "~" H 4250 2850 50  0001 C CNN
+F 4 "490-TB003-500-P02BE" H 4250 2850 50  0001 C CNN "Vendor"
 	1    4250 2850
 	-1   0    0    1   
 $EndComp

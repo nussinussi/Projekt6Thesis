@@ -1,4 +1,5 @@
 EESchema Schematic File Version 4
+LIBS:Sensorbaustein-cache
 EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
@@ -576,6 +577,7 @@ F 8 "FT231XS-U" H 4400 3050 50  0001 L CNN "Arrow Part Number"
 F 9 "https://www.arrow.com/en/products/ft231xs-u/ftdi-chip" H 4400 2950 50  0001 L CNN "Arrow Price/Stock"
 F 10 "895-FT231XS-U" H 4400 2850 50  0001 L CNN "Mouser Part Number"
 F 11 "https://www.mouser.co.uk/ProductDetail/FTDI/FT231XS-U?qs=Gp1Yz1mis3WFP7tMtj2Z9g%3D%3D" H 4400 2750 50  0001 L CNN "Mouser Price/Stock"
+F 12 "895-FT231XS-U" H 3250 3550 50  0001 C CNN "Vendor"
 	1    3250 3550
 	1    0    0    -1  
 $EndComp
@@ -651,6 +653,7 @@ F 0 "C1" H 2065 4146 50  0000 L CNN
 F 1 "10uF" H 2065 4055 50  0000 L CNN
 F 2 "Capacitor_SMD:C_0603_1608Metric_Pad1.05x0.95mm_HandSolder" H 1988 3950 50  0001 C CNN
 F 3 "~" H 1950 4100 50  0001 C CNN
+F 4 "81-GRM188R60J106ME4J" H 1950 4100 50  0001 C CNN "Vendor"
 	1    1950 4100
 	1    0    0    -1  
 $EndComp
@@ -743,6 +746,7 @@ F 0 "D3" V 954 1279 50  0000 L CNN
 F 1 "D_Schottky" V 1045 1279 50  0000 L CNN
 F 2 "Diode_SMD:D_SOT-23_ANK" H 1000 1200 50  0001 C CNN
 F 3 "~" H 1000 1200 50  0001 C CNN
+F 4 "583-BAT54" V 1000 1200 50  0001 C CNN "Vendor"
 	1    1000 1200
 	0    1    1    0   
 $EndComp
@@ -754,6 +758,7 @@ F 0 "D2" V 954 979 50  0000 L CNN
 F 1 "D_Schottky" V 1045 979 50  0000 L CNN
 F 2 "Diode_SMD:D_SOT-23_ANK" H 1000 900 50  0001 C CNN
 F 3 "~" H 1000 900 50  0001 C CNN
+F 4 "583-BAT54" V 1000 900 50  0001 C CNN "Vendor"
 	1    1000 900 
 	0    1    1    0   
 $EndComp
@@ -790,6 +795,7 @@ F 0 "D5" V 954 2429 50  0000 L CNN
 F 1 "D_Schottky" V 1045 2429 50  0000 L CNN
 F 2 "Diode_SMD:D_SOT-23_ANK" H 1000 2350 50  0001 C CNN
 F 3 "~" H 1000 2350 50  0001 C CNN
+F 4 "583-BAT54" V 1000 2350 50  0001 C CNN "Vendor"
 	1    1000 2350
 	0    1    1    0   
 $EndComp
@@ -801,6 +807,7 @@ F 0 "D4" V 954 2129 50  0000 L CNN
 F 1 "D_Schottky" V 1045 2129 50  0000 L CNN
 F 2 "Diode_SMD:D_SOT-23_ANK" H 1000 2050 50  0001 C CNN
 F 3 "~" H 1000 2050 50  0001 C CNN
+F 4 "583-BAT54" V 1000 2050 50  0001 C CNN "Vendor"
 	1    1000 2050
 	0    1    1    0   
 $EndComp
@@ -847,7 +854,7 @@ F 0 "J3" H 3650 1667 50  0000 C CNN
 F 1 "Conn_02x06_Odd_Even" H 3650 1576 50  0000 C CNN
 F 2 "Connector_PinSocket_2.54mm:PinSocket_2x06_P2.54mm_Vertical" H 3600 1250 50  0001 C CNN
 F 3 "~" H 3600 1250 50  0001 C CNN
-F 4 "" H 3600 1250 50  0001 C CNN "mouser"
+F 4 "437-8038701210001101" H 3600 1250 50  0001 C CNN "Vendor"
 	1    3600 1250
 	-1   0    0    1   
 $EndComp
@@ -859,6 +866,7 @@ F 0 "D9" V 1854 2429 50  0000 L CNN
 F 1 "D_Schottky" V 1945 2429 50  0000 L CNN
 F 2 "Diode_SMD:D_SOT-23_ANK" H 1900 2350 50  0001 C CNN
 F 3 "~" H 1900 2350 50  0001 C CNN
+F 4 "583-BAT54" V 1900 2350 50  0001 C CNN "Vendor"
 	1    1900 2350
 	0    1    1    0   
 $EndComp
@@ -870,6 +878,7 @@ F 0 "D8" V 1854 2129 50  0000 L CNN
 F 1 "D_Schottky" V 1945 2129 50  0000 L CNN
 F 2 "Diode_SMD:D_SOT-23_ANK" H 1900 2050 50  0001 C CNN
 F 3 "~" H 1900 2050 50  0001 C CNN
+F 4 "583-BAT54" V 1900 2050 50  0001 C CNN "Vendor"
 	1    1900 2050
 	0    1    1    0   
 $EndComp
@@ -895,6 +904,7 @@ F 0 "D7" V 1854 1279 50  0000 L CNN
 F 1 "D_Schottky" V 1945 1279 50  0000 L CNN
 F 2 "Diode_SMD:D_SOT-23_ANK" H 1900 1200 50  0001 C CNN
 F 3 "~" H 1900 1200 50  0001 C CNN
+F 4 "583-BAT54" V 1900 1200 50  0001 C CNN "Vendor"
 	1    1900 1200
 	0    1    1    0   
 $EndComp
@@ -906,6 +916,7 @@ F 0 "D6" V 1854 979 50  0000 L CNN
 F 1 "D_Schottky" V 1945 979 50  0000 L CNN
 F 2 "Diode_SMD:D_SOT-23_ANK" H 1900 900 50  0001 C CNN
 F 3 "~" H 1900 900 50  0001 C CNN
+F 4 "583-BAT54" V 1900 900 50  0001 C CNN "Vendor"
 	1    1900 900 
 	0    1    1    0   
 $EndComp
@@ -965,7 +976,7 @@ F 2 "SW_SKTHAHE010" H 8750 4450 50  0001 L BNN
 F 3 "ALPS" H 8750 4450 50  0001 L BNN
 F 4 "1.8mm" H 8750 4450 50  0001 L BNN "Feld4"
 F 5 "Manufacturer recommendations" H 8750 4450 50  0001 L BNN "Feld5"
-F 6 "" H 8750 4450 50  0001 L BNN "Feld6"
+F 6 "688-SKTHAHE010" H 8750 4450 50  0001 L BNN "Vendor"
 	1    8750 4450
 	0    1    1    0   
 $EndComp
@@ -1022,7 +1033,7 @@ F 2 "SW_SKTHAHE010" H 9650 4450 50  0001 L BNN
 F 3 "ALPS" H 9650 4450 50  0001 L BNN
 F 4 "1.8mm" H 9650 4450 50  0001 L BNN "Feld4"
 F 5 "Manufacturer recommendations" H 9650 4450 50  0001 L BNN "Feld5"
-F 6 "" H 9650 4450 50  0001 L BNN "Feld6"
+F 6 "688-SKTHAHE010" H 9650 4450 50  0001 L BNN "Vendor"
 	1    9650 4450
 	0    1    1    0   
 $EndComp
@@ -1102,7 +1113,7 @@ F 2 "SW_SKTHAHE010" H 10550 4450 50  0001 L BNN
 F 3 "ALPS" H 10550 4450 50  0001 L BNN
 F 4 "1.8mm" H 10550 4450 50  0001 L BNN "Feld4"
 F 5 "Manufacturer recommendations" H 10550 4450 50  0001 L BNN "Feld5"
-F 6 "" H 10550 4450 50  0001 L BNN "Feld6"
+F 6 "688-SKTHAHE010" H 10550 4450 50  0001 L BNN "Vendor"
 	1    10550 4450
 	0    1    1    0   
 $EndComp

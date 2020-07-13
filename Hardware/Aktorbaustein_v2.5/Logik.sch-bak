@@ -1,5 +1,4 @@
 EESchema Schematic File Version 4
-LIBS:Aktorbaustein-cache
 EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
@@ -1252,7 +1251,7 @@ F 4 "710-150060BS55040" V 2450 4450 50  0001 C CNN "Vendor"
 	1    2450 4450
 	0    1    1    0   
 $EndComp
-NoConn ~ 4950 2250
-Text GLabel 4950 2350 2    50   Input ~ 0
+Text GLabel 4950 2250 2    50   Input ~ 0
 LED_2
+NoConn ~ 4950 2350
 $EndSCHEMATC
