@@ -31,7 +31,7 @@ Die Frontplatte besteht aus einem 2-Lagen Print. Auf der Vorderseite (Abb. \ref{
 \end{figure}
 
 \subsubsection{Übersicht Hauptplatine}
-Auf der Vorderseite der Hauptplatine des Sensorbausteins (Abb. \ref{pic: Hauptplatine_vorne}) befindet sich der ESP32, der Programmieranschluss über USB und den 5V/3V Wandler. Über die Buchse kann dann die Frontplatte angeschlossen werden, wobei auf die Richtung geschaut werden muss. Auf der Rückseite (Abb. \ref{pic: Frontplatte_hinten}) sind Shottky-Dioden, welche bei einem allfälligen ESD auf den Touchflächen greiffen. Ebenso befinden sich dort Buttons, eine Status LED sowie 5V und RX/TX Anschlüsse. 
+Auf der Vorderseite der Hauptplatine des Sensorbausteins (Abb. \ref{pic: Hauptplatine_vorne}) befindet sich der ESP32, der Programmieranschluss über USB und den 5V/3V Wandler. Über die Buchse kann dann die Frontplatte angeschlossen werden, wobei auf die Richtung geschaut werden muss. Auf der Rückseite (Abb. \ref{pic: Frontplatte_hinten}) sind Shottky-Dioden, welche bei einem allfälligen ESD auf den Touchflächen greiffen. Ebenso befinden sich dort Buttons, eine Status LED sowie 5V und RX/TX Anschlüsse. Randnotiz: Es wurde darauf geachtet, dass die Leiterbahnen zu den Dioden kürzer sind als, die zu den ADC Eingängen.
 
 \begin{figure}[h!]
 	\centering
@@ -94,56 +94,50 @@ Der ESP32 verfügt über alle benötigten Schnittstellen, die für den Sensorbau
 \\
 \begin{figure}[h!]
 	\centering
-	\includegraphics[width=0.5\textwidth]{graphics/shematics_sensor_ESP32.png}
+	\includegraphics[width=0.4\textwidth]{graphics/shematics_sensor_ESP32.png}
 	\caption{Mikrocontroller ESP32 im Sensorbaustein}
 	\label{pic: ESP32_sensor}
 \end{figure}
 \subsubsection{Temperatursensor}
-Es wird der NTC NCU18WF104J60RB von Murata Electronics verwendet. Dieser hat den preislichen Vorteil gegenüber anderen Varianten, wie ein Temperaturfühler IC. Der verwendete NTC hat eine B-Konstante von 4250\,K im Bereich 25/50\,°C mit einer Toleranz von 2\%. Der Widerstandswert des NTCs bei 25\,°C beträgt 100\,K mit einer Toleranz von 5\%. Um die Temperatur zu ermitteln wird ein Spannungsteiler (Abb. \ref{pic: Temperatursensor}) ist die verwendete Temperaturschaltung abgebildet. Das Signal ntc $_{ref}$ gibt eine Referenzspannung $U_{ref}$ mithilfe eines DACs aus, da der DAC ungenau ist, wird dieses Signal mithilfe von ntck eingelesen. Die Spannung über dem NTC $U_{ntc}$ wird mit ntcf gemessen und ntcr ist mit Ground verbunden, welches eine separate Rückleitung zur Hauptplatine des Sensorbausteins verfügt, um allfällige Störeinflüsse zu vermeiden. Die Temperatur wird berechnet indem als erstes der Widerstand des NTCs $R_T$ mit $R_T = \frac{U_{ntc}}{U_{ref}\;-\;U_{ntc}}$berechnet wird. Für $U_{ref}$ wird maximal eine Spannung von 2.5V verwendet, da der ADC danach nicht mehr linear ansteigt. Dann muss nur noch die Lineare Umrechnung des ADC wertes in eine Spannung beachtet werden. Die Temperatur in Kelvin ergibt sich dann aus $T = \frac{1}{\frac{1}{T_N}+\frac{1}{B} \cdot ln(R_T)}$.
+Es wird der NTC NCU18WF104J60RB von Murata Electronics verwendet. Dieser hat den preislichen Vorteil gegenüber anderen Varianten, wie ein Temperaturfühler IC. Der verwendete NTC hat eine B-Konstante von 4250\,K im Bereich 25/50\,°C mit einer Toleranz von 2\%. Der Widerstandswert des NTCs bei 25\,°C beträgt 100\,K mit einer Toleranz von 5\%. Um die Temperatur zu ermitteln wird ein Spannungsteiler (Abb. \ref{pic: Temperatursensor}) ist die verwendete Temperaturschaltung abgebildet. Das Signal ntc $_{ref}$ gibt eine Referenzspannung $U_{ref}$ mithilfe eines DACs aus, da der DAC ungenau ist, wird dieses Signal mithilfe von ntck eingelesen. Die Spannung über dem NTC $U_{ntc}$ wird mit ntcf gemessen und ntcr ist mit Ground verbunden, welches eine separate Rückleitung zur Hauptplatine des Sensorbausteins verfügt, um allfällige Störeinflüsse zu vermeiden. Die Temperatur wird berechnet indem als erstes der Widerstand des NTCs $R_T$ mit $R_T = \frac{U_{ntc}}{U_{ref}\;-\;U_{ntc}}$berechnet wird. Für $U_{ref}$ wird maximal eine Spannung von 2.5\,V verwendet, da der ADC danach nicht mehr linear ansteigt. Dann muss nur noch der ADC Wert mittels einer Geraden in eine Spannung beachtet werden. Die Temperatur in Kelvin ergibt sich dann aus $T = \frac{1}{\frac{1}{T_N}+\frac{1}{B} \cdot ln(R_T)}$.
 \begin{figure}[h!]
 	\centering
-	\includegraphics[width=0.5\textwidth]{graphics/shematics_sensor_Temp.png}
+	\includegraphics[width=0.4\textwidth]{graphics/shematics_sensor_Temp.png}
 	\caption{Schaltung Temperatursensor}
 	\label{pic: Temperatursensor}
 \end{figure}
 
 \subsubsection{Programmieranschluss}
 \label{par: Programmieranschluss}
-Der Mikrocontroller kann mittels eines USB to UART Wandlers programmiert werden. Hierzu wird der CP2104 verwendet. In Abbildung \ref{pic: USB Anschluss} ist das Schema abgebildet. Auf dem Schema sind dabei zwei Beipolartransistoren zu erkennen welche es erlauben den ESP32 ohne drücken des Modetasters in den Programmiermodus zu versetzen. Falls es zu Komplikationen kommt steht aber auch die Option mittels des Enable- und Mode-Buttons (Abb. \ref{pic: sensor_progrmmierbuttons}) sich in den Programmiermodus zu versetzen offen. Im Aktorbaustein befindet sich die gleiche Schaltung wieder. Falls man einen Systemreset machen möchte kann man den Clear Button betätigen. Die LED5 zeigt mittels eines kurzen Blinkens das Aufstarten des ESP32 an oder oder dass der ESP32 im Programmiermodus ist.
+Der Mikrocontroller kann mittels eines USB to UART Wandlers programmiert werden. Hierzu wird der FT231XS-U verwendet. In Abbildung \ref{pic: USB Anschluss} ist das Schema abgebildet. Auf dem Schema sind dabei zwei Bipolartransistoren zu erkennen, welche es erlauben den ESP32 ohne drücken des Mode- und Enabletasters in den Programmiermodus zu versetzen. Falls es zu Komplikationen kommt steht aber auch die Option mittels des Enable- und Modetaster (Abb. \ref{pic: sensor_progrmmierbuttons}) sich in den Programmiermodus zu versetzen offen. Dazu muss der Modetaster (auch während des ganzen Flashprozesses) gedrückt bleiben, dann mit dem Enabletaster mittels eines kurzen Betätigens den Reset ausgeführt werden und danach kann geflasht werden. Im Aktorbaustein befindet sich die gleiche Schaltung wieder. Falls man einen Systemreset machen möchte kann man den Clear Button betätigen. Die LED5 zeigt mittels eines kurzen Blinkens das Aufstarten des ESP32 an oder oder dass der ESP32 im Programmiermodus ist.
 \begin{figure}[h!]
 	\centering
-	\includegraphics[width=0.75\textwidth]{graphics/shematics_usb.png}
+	\includegraphics[width=0.7\textwidth]{graphics/shematics_usb.png}
 	\caption{USB Anschluss}
 	\label{pic: USB Anschluss}
 \end{figure}
 \begin{figure}[h!]
 	\centering
-	\includegraphics[width=0.6
-	\textwidth]{graphics/shematics_sensor_buttons_LED.png}
+	\includegraphics[width=0.4\textwidth]{graphics/shematics_sensor_buttons_LED.png}
 	\caption{Buttons und LED auf Sensorbaustein}
 	\label{pic: sensor_progrmmierbuttons}
 \end{figure}
+
+
 \subsubsection{Spannungsversorgung}
-Der minimale Strom, welche die Spannungsquelle zur Verfügung stellen muss sind laut Datenblatt vom ESP32 500 mA, wobei im Normalbetrieb 80 mA und im WiFi Sendebtrieb 160 mA bis 260 mA gebraucht werden.
-Um den Sensorbaustein mit 5 V zu versorgen, macht es aus Platz gründen Sinn den 230 V/AC zu 5 V/DC Wandler separat und nicht auf der Leiterplatte zu haben. Hier kommt beispielsweise der Mean Well RS-15-5 AC/DC infrage, welcher 90 V/AC bis 264 V/AC zu 5 V/DC bei max. 15 W bzw. 3 A wandeln kann. Dieser kostet bei Digi-Key momentan 9.47 Fr und ist noch dem unteren Preissegment zugeordnet, was aber immer noch relativ teuer ist im Vergleich zu den restlichen Komponenten. Da der Wandler separat zur Leiterplatte ist kann er jedoch immer noch im Nachhinein durch einen günstigeren mit vielleicht weniger Leistung ca. 5 W ausgetauscht werden.
-Der Mikrocontroller benötigt 3.3 V, jedoch soll der Sensorbaustein mit 5V betrieben werden können. Hierfür wird einen Spannungswandler eingesetzt. Der ausgewählte AP1117S33CTR hat einen maximale Input Spannung von 15V, eine maximale Dropoutspannung von 1.2 V bei 800mA und ist, mit momentan 0.42\$ bei Digi-Key, günstig. Im Schema (Abb. \ref{pic: Wandler_Sensor}) erkennt man, dass sowohl über USB wie auch über einen Stecker den Print mit 5 V versorgt werden können. Eingebaut ist eine Sicherung die verhindern soll, dass bei einem Kurzschluss der Sensorbautein anfängt grossen Schaden zu nehmen oder schlimmeres.
+Der minimale Strom, welche die Spannungsquelle zur Verfügung stellen muss sind laut Datenblatt vom ESP32 500\,mA, wobei im Normalbetrieb 80\,mA und im WiFi Sendebtrieb 160\,mA bis 260\,mA gebraucht werden.
+Um den Sensorbaustein mit 5\,V zu versorgen, macht es aus Platz gründen Sinn den 230\,VAC zu 5\,VDC Wandler separat und nicht auf der Hauptplatine zu haben. Dazu wurde der IRM-02-5 verwendet, welcher maximal 2\,W zur Verfügung stellt. Der Mikrocontroller benötigt 3.3\,V, jedoch soll der Sensorbaustein mit 5V betrieben werden können. Hierfür wird einen Spannungswandler eingesetzt. Der ausgewählte AP1117S33CTR hat einen maximale Input Spannung von 15V, eine maximale Dropoutspannung von 1.2\,V bei 800\,mA und ist, mit momentan 0.42\$ bei Digi-Key, günstig. Im Schema (Abb. \ref{pic: Wandler_Sensor}) erkennt man, dass sowohl über USB wie auch über einen Stecker den Print mit 5 V versorgt werden können. Eingebaut ist eine PTC Sicherung sowie eine Diode die verhindern sollen, dass bei einem Kurzschluss oder ähnlichem der Sensorbautein anfängt grossen Schaden zu nehmen.
+
 \begin{figure}[h!]
 	\centering
-	\includegraphics[width=0.7\textwidth]{graphics/shematics_sensor_33V.png}
+	\includegraphics[width=0.5\textwidth]{graphics/shematics_sensor_33V.png}
 	\caption{Spannungswandler Sensorbaustein}
 	\label{pic: Wandler_Sensor}
 \end{figure}
-\subsubsection{Interface}
-Der Sensorbaustein wird Taster und dazugehörige LEDs beinhalten, jedoch macht es Sinn diese auf einen separaten Print zur Verfügung zu stellen. Gründe hierfür sind der begrenzte Platz auf dem Hauptprint, separater Print kann als Frontplatte verwendet werden und bessere Integration der LEDs. Angedacht ist eine Frontplatte welche Touchsensoren, diese sind nichts anderes als dicke Leiterbahnen, beinhalten. Das einlesen der Touchsensoren gestaltet sich mit dem ESP32 äusserst einfach und läuft unabhängig vom WiFi, dies sei gesagt weil es z.B. Probleme gibt wenn der ADC2 und das WiFi gleichzeitig benutzt werden. Die LEDs könnten dann rückwärts montiert (reverse mounted LEDs) werden, welche durch die Leiterdplatte hindurchläuchten. In der Abbildung \ref{pic: Stecker_Sensor} sind die Steckverbindungen abgebildet, welche jeweils aus 4 Stecker für den Touch und LEDs bestehen, dazu kommen noch 3.3 V und GND Stecker sowie GPIO2, GPIO15, RXD und TXD Stecker, welche nützlich sind wenn man den Mikrocontroller über diese Schnittstelle programmieren oder einfach eine Verbindung haben möchte.
-\begin{figure}[h!]
-	\centering
-	\includegraphics[width=0.8\textwidth]{graphics/shematics_sensor_stecker.png}
-	\caption{Steckverbindungen Sensorbaustein}
-	\label{pic: Stecker_Sensor}
-\end{figure}
+
 \subsubsection{Platzstudie}
 Nun wird mittels einer Platzstudie überprüft ob der Sensorbaustein, mit den verwendeten Komponenten, wie eine Unterputzsteckdose eingebaut werden kann.
-Im Bild \ref{pic: Montageplatte.png} ist eine Montageplatte für UP-Steckdosen abgebildet. Der blaue Kreis Zeigt dabei den Radius von 60 mm des Tasters bzw. Kleinkombination. Diese Masse wurden für die Dimensionen der Platine in Abbildung \ref{pic: pcb_sensor_dimensionen.png} übernommen. Abbildung \ref{pic: pcb_sensor_vorne} und \ref{pic: pcb_sensor_hinten} zeigen, wie die Komponenten auf der begrenzten Platine angeordnet werden können.
+Im Bild \ref{pic: Montageplatte.png} ist eine Montageplatte für UP-Steckdosen abgebildet. Der blaue Kreis Zeigt dabei den Radius von 60 mm des Tasters bzw. Kleinkombination. Diese Masse wurden für die Dimensionen der Platine in Abbildung \ref{pic: pcb_sensor_dimensionen.png} übernommen.
 
 \begin{figure}[htb]
 	\centering
@@ -162,22 +156,6 @@ Im Bild \ref{pic: Montageplatte.png} ist eine Montageplatte für UP-Steckdosen a
 	\end{minipage}
 \end{figure}
 
-\begin{figure}[htb]
-	\centering
-	\begin{minipage}[t]{0.45\linewidth}
-		\centering
-	\includegraphics[width=0.90\textwidth]{graphics/pcb_sensor_vorne.png}
-\caption{PCB Sensorbaustein von vorne}
-\label{pic: pcb_sensor_vorne}
-	\end{minipage}% <- sonst wird hier ein Leerzeichen eingefügt
-	\hfill
-	\begin{minipage}[t]{0.45\linewidth}
-		\centering
-	\includegraphics[width=0.90\textwidth]{graphics/pcb_sensor_hinten.png}
-\caption{PCB Sensorbaustein von hinten}
-\label{pic: pcb_sensor_hinten}
-	\end{minipage}
-\end{figure}
 
 
 
