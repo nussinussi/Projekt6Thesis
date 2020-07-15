@@ -1,0 +1,11 @@
+Group:Switch:OR(ON,OFF)     Relais_all_on
+
+
+Group   Relais  "Aktorboard 1" (GF_Dining)
+
+Switch Relais1 "Relais1" (Relais,Relais_all_on){channel="mqtt:topic:6e810ecf:Relais1"} 
+Switch Relais2 "Relais2" (Relais,Relais_all_on){channel="mqtt:topic:6e810ecf:Relais2"}
+Switch Relais3 "Relais3" (Relais,Relais_all_on){channel="mqtt:topic:6e810ecf:Relais3"}
+Switch Relais4 "Relais4" (Relais,Relais_all_on){channel="mqtt:topic:6e810ecf:Relais4"}
+
+   
