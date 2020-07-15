@@ -112,6 +112,10 @@ void shine(){
 
 void Tread(){
 int count = 15;
+T1v = 0;
+T2v = 0;
+T3v = 0;
+T4v = 0;
 for (size_t i = 0; i < count; i++)
 {
   T1v = T1v + touchRead(T1_pin);
