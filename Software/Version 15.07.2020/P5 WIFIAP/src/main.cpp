@@ -24,9 +24,9 @@ const char* mqtt_server = "192.168.137.6";//"m16.cloudmqtt.com";
 #define MQTT_USER "revpi01"//"eapcfltj"
 #define MQTT_PASSWORD "ganzeasy"//"3EjMIy89qzVn"
 #define MQTT_SERIAL_PUBLISH_CH "data/aktorboard/1/rx"//"/ESP32/serialdata/FHNW/P5/tx"
-#define MQTT_SERIAL_PUBLISH_CH1 "data/aktorboard/1/rx/1"
-#define MQTT_SERIAL_PUBLISH_CH2 "data/aktorboard/1/rx/2"
-#define MQTT_SERIAL_RECEIVER_CH "data/aktorboard/#"
+#define MQTT_SERIAL_PUBLISH_CH1 "data/aktorboard/1/E1"
+#define MQTT_SERIAL_PUBLISH_CH2 "data/aktorboard/1/E2"
+#define MQTT_SERIAL_RECEIVER_CH "data/aktorboard/1/#"
 
 WiFiClient wifiClient;
 PubSubClient client(wifiClient);
@@ -35,7 +35,7 @@ double tcount = 0;
 int NUM_SEC = 1; // Zeit Intervall Messungen
 int status = 0;
 
-// the number of the LED pin
+// the number of the pin
 const int out1 = 16;  // 16 corresponds to GPIO16
 const int out2 = 17;  // 16 corresponds to GPIO17
 const int AD1 = 34;
@@ -102,43 +102,48 @@ void callback(char* topic, byte *payload, unsigned int length) {
     Serial.print("data:");  
     Serial.write(payload, length);
     Serial.println();
-    if(!strncmp((char *)payload, "K1on", length)){ 
-    digitalWrite(18,HIGH);
-    digitalWrite(04,HIGH);
+    if(!strncmp((char *)topic, "data/aktorboard/1/K1",50)){ //subscribe relais k1-k4
+       if(!strncmp((char *)payload, "ON", length)){
+      digitalWrite(18,HIGH);
+      digitalWrite(04,HIGH);
     }
-    if(!strncmp((char *)payload, "K1off", length))
-    {
+      if(!strncmp((char *)payload, "OFF", length)){
     digitalWrite(18,LOW);
     digitalWrite(04,LOW);
     }
-    if(!strncmp((char *)payload, "K2on", length)){
+    }
+    if(!strncmp((char *)topic, "data/aktorboard/1/K2",50)){
+     if(!strncmp((char *)payload, "ON", length)){
     digitalWrite(19,HIGH);
     digitalWrite(13,HIGH);
     }
-    if(!strncmp((char *)payload, "K2off", length))
-    {
+     if(!strncmp((char *)payload, "OFF", length)){
     digitalWrite(19,LOW);
     digitalWrite(13,LOW);
     }
-    if(!strncmp((char *)payload, "K3on", length)){
+    }
+    if(!strncmp((char *)topic, "data/aktorboard/1/K3",50)){
+    if(!strncmp((char *)payload, "ON", length)){
     digitalWrite(21,HIGH);
     digitalWrite(23,HIGH);
     }
-    if(!strncmp((char *)payload, "K3off", length))
-    {
+    if(!strncmp((char *)payload, "OFF", length)){
     digitalWrite(21,LOW);
     digitalWrite(23,LOW);
     }
-    if(!strncmp((char *)payload, "K4on", length)){
+    }
+    if(!strncmp((char *)topic, "data/aktorboard/1/K4",50)){
+    if(!strncmp((char *)payload, "ON", length)){
     digitalWrite(22,HIGH);
     digitalWrite(27,HIGH);
     }
-    if(!strncmp((char *)payload, "K4off", length))
+    if(!strncmp((char *)payload, "OFF", length))
     {
     digitalWrite(22,LOW);
     digitalWrite(27,LOW);
     }
-    if(!strncmp((char *)topic, "data/aktorboard/A1",50)){
+    }
+    if(!strncmp((char *)topic, "data/aktorboard/1/A1",50)){ //Subscribe Analogausgänge
     payload[length] = '\0';
     Serial.println(length);
     voltage1=String((char*)payload).toFloat()*10;
@@ -148,7 +153,7 @@ void callback(char* topic, byte *payload, unsigned int length) {
     ledcWrite(Channel1, duty1);
     }
 
-    if(!strncmp((char *)topic, "data/aktorboard/A2",50)){
+    if(!strncmp((char *)topic, "data/aktorboard/1/A2",50)){
     payload[length] = '\0';
     voltage2=String((char*)payload).toFloat()*10;
     Serial.print("Voltage_2: ");
@@ -163,38 +168,7 @@ void publishSerialData(char *serialData){
   }
  
   client.publish(MQTT_SERIAL_PUBLISH_CH, serialData);
-  //Serial.println(strcat(MQTT_SERIAL_PUBLISH_CH,canal);
 }
-
-
-float temperatur(int pin) 
-{
-  float aufloesung = 1023.0;
-  float reading = 0;
-  //analogReadResolution(12);
-  for (size_t i = 0; i < 10; i++)
-  {
-  reading += analogRead(pin);
-	}
-  float voltage = (reading )/(aufloesung*10);
-	int temp = (voltage - 0.5) * 100.0;
-  return temp;
-}
-
-float temperatur1000(int pin) 
-{
-  float aufloesung = 4096;
-  float reading = 0;
-  //analogReadResolution(12);
-  for (size_t i = 0; i < 10; i++)
-  {
-  reading += analogRead(pin);
-	}
-  float voltage = (reading )/(aufloesung*10)*3.3;
-  Serial.println(voltage);
-	int temp = (voltage-2.265)*(218.9624); // offset test 1 = 2.265
-  return temp;
-} //bis hier MQTT
 
 void setup() {
   Serial.begin(115200);
@@ -254,7 +228,7 @@ void setup() {
     int temp=in1*1000; // Umrechnung in millivolts
     char tempString1[40];
     char tempString2[40];
-    snprintf(tempString1,sizeof(tempString1),"%6d",temp);
+    snprintf(tempString1,sizeof(tempString1),"%6d",temp); //Problem ESP absturtz
     temp=in2*1000;
     snprintf(tempString2,sizeof(tempString2),"%6d",temp);
     if (!client.connected()) {
