@@ -1989,44 +1989,4 @@
     <bcf:citekey order="12">noauthor_cc3235s.pdf_nodate</bcf:citekey>
     <bcf:citekey order="13">noauthor_cc3235s.pdf_nodate</bcf:citekey>
     <bcf:citekey order="14">noauthor_visual_nodate</bcf:citekey>
-    <bcf:citekey order="15">platformio_platformio_nodate</bcf:citekey>
-    <bcf:citekey order="16">noauthor_arduino_nodate</bcf:citekey>
-    <bcf:citekey order="17">noauthor_introducing_nodate</bcf:citekey>
-    <bcf:citekey order="18">noauthor_mbed_nodate</bcf:citekey>
-    <bcf:citekey order="19">noauthor_get_nodate-1</bcf:citekey>
-    <bcf:citekey order="20">st33zy_media_mqtt_nodate</bcf:citekey>
-    <bcf:citekey order="21">st33zy_media_mqtt_nodate</bcf:citekey>
-    <bcf:citekey order="22">st33zy_media_mqtt_nodate</bcf:citekey>
-    <bcf:citekey order="23">st33zy_media_mqtt_nodate</bcf:citekey>
-    <bcf:citekey order="24">iobroker_einsteiger_nodate</bcf:citekey>
-    <bcf:citekey order="25">korte_script_2018</bcf:citekey>
-    <bcf:citekey order="26">zhouhan0126_zhouhan0126/wifimanager-esp32_2019</bcf:citekey>
-    <bcf:citekey order="27">noauthor_arduino_nodate-1</bcf:citekey>
-    <bcf:citekey order="28">noauthor_gnu.org_nodate</bcf:citekey>
-    <bcf:citekey order="29">noauthor_download_nodate</bcf:citekey>
-    <bcf:citekey order="30">noauthor_balenaetcher_nodate</bcf:citekey>
-    <bcf:citekey order="31">noauthor_eigener_nodate</bcf:citekey>
-    <bcf:citekey order="32">espressif_esp32-wroom-32_datasheet_en_2019</bcf:citekey>
-    <bcf:citekey order="33">hager_hager_kat1_08_technik_d_2019</bcf:citekey>
-    <bcf:citekey order="34">hager_hager_kat1_08_technik_d_2019</bcf:citekey>
-    <bcf:citekey order="35">mikrocontroller.net_relais_nodate</bcf:citekey>
-    <bcf:citekey order="36">ronald_locher_2017</bcf:citekey>
-    <bcf:citekey order="37">miller_rc-glied_nodate</bcf:citekey>
-  </bcf:section>
-  <!-- SORTING TEMPLATES -->
-  <bcf:sortingtemplate name="none">
-    <bcf:sort order="1">
-      <bcf:sortitem order="1">citeorder</bcf:sortitem>
-    </bcf:sort>
-  </bcf:sortingtemplate>
-  <!-- DATALISTS -->
-  <bcf:datalist section="0"
-                name="none/global//global/global"
-                type="entry"
-                sortingtemplatename="none"
-                sortingnamekeytemplatename="global"
-                labelprefix=""
-                uniquenametemplatename="global"
-                labelalphanametemplatename="global">
-  </bcf:datalist>
-</bcf:controlfile>
+    <bcf:citekey order="15">platformio_platformio_nodate</bcf:
