@@ -1,0 +1,27 @@
+Bridge mqtt:broker:MyMQTTBroker [ host="192.168.137.6", secure=false, username="MyUserName", password="MyPassword"] {
+  Thing topic sonoff_Dual_Thing "Light_Dual" @ "Sonoff" {
+    Channels:
+      Type switch : PowerSwitch1  [ stateTopic="stat/sonoff_dual/POWER1" , commandTopic="cmnd/sonoff_dual/POWER1", on="ON", off="OFF"]
+      Type switch : PowerSwitch2  [ stateTopic="stat/sonoff_dual/POWER2" , commandTopic="cmnd/sonoff_dual/POWER2", on="ON", off="OFF"]
+      Type string : Version [stateTopic="stat/sonoff_dual/STATUS2", transformationPattern="JSONPATH:$.StatusFWR.Version"]
+      }
+  Thing topic sonoff_TH_Thing "Light_TH" @ "Sonoff" {
+    Channels:
+      Type switch : PowerSwitch  [ stateTopic="stat/sonoff_TH/POWER", commandTopic="cmnd/sonoff_TH/POWER", on="ON", off="OFF" ]
+      Type string : Version [stateTopic="stat/sonoff_TH/STATUS2", transformationPattern="JSONPATH:$.StatusFWR.Version"]
+      Type number : Temperature [stateTopic="tele/sonoff_TH/SENSOR", transformationPattern="JSONPATH:$.AM2301.Temperature"]
+      Type number : Humidity [stateTopic="tele/sonoff_TH/SENSOR", transformationPattern="JSONPATH:$.AM2301.Humidity"]
+   }
+
+   
+
+   
+}
+
+Bridge mqtt:broker:primarymqtt "Mosquitto " [ host="192.168.137.6", secure=false ]
+{
+  Thing topic  FloorLight "Flurlicht Steuerung" @ "ESP"{
+     Channels:
+        Type switch : KgLight "Flurlicht Keller" [ stateTopic="Fusebox/Sensor1/Switch", commandTopic="Fusebox/cmd", on="pulse,2,0,500",off="pulse,2,0,500", transformationPattern="MAP:switchbinary.map" ]
+   }
+}

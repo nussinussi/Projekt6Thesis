@@ -1,0 +1,15 @@
+rule "voltumrechneung1"
+
+when
+Item voltage1 received update
+then 
+SpannungVolts1.postUpdate(voltage1.state)
+end
+
+rule "voltumrechneung2"
+
+when
+Item voltage3 received update
+then 
+SpannungVolts2.postUpdate(voltage3.state)
+end
