@@ -136,7 +136,7 @@ void WiFiManager::setupConfigPortal() {
 }
 
 boolean WiFiManager::autoConnect() {
-  String ssid = "Aktor " + String(ESP_getChipId());
+  String ssid = "Sensor " + String(ESP_getChipId());
   return autoConnect(ssid.c_str(), NULL);
 }
 
