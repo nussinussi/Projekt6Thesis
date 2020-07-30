@@ -1,0 +1,26 @@
+Group:Switch:OR(ON,OFF)     Relais_all_on
+
+
+Group   Relais  "Aktorboard 1" 
+
+Switch Relais1 "Relais1" (Relais,Relais_all_on){channel="mqtt:topic:6e810ecf:Relais1"} 
+Switch Relais2 "Relais2" (Relais,Relais_all_on){channel="mqtt:topic:6e810ecf:Relais2"}
+Switch Relais3 "Relais3" (Relais,Relais_all_on){channel="mqtt:topic:6e810ecf:Relais3"}
+Switch Relais4 "Relais4" (Relais,Relais_all_on){channel="mqtt:topic:6e810ecf:Relais4"}
+
+Group   Analog "Analog 1"
+
+Dimmer Out1 "Out1" (Analog) {channel="mqtt:topic:63fc5bf5:Out1"}
+Dimmer Out2 "Out2" (Analog) {channel="mqtt:topic:63fc5bf5:Out2"}
+
+
+Number voltage1 "Spannung [%.1f]" {channel="mqtt:topic:63fc5bf5:In1"}
+Number SpannungVolts1 "Spannung 1 in Volt [%.2f V]" (Analog) 
+
+Number voltage3 "Spannung [%.1f]" {channel="mqtt:topic:63fc5bf5:In1"}
+Number SpannungVolts2 "Spannung 2 in Volt [%.2f V]" (Analog)
+
+
+    
+
+
