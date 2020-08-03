@@ -250,7 +250,7 @@ void setup()
   WiFiManagerParameter custom_mqtt_port("port", "mqtt port", port_buffer, 6);
   WiFiManagerParameter custom_board_token("board", "board location", board_token, 40);
   WiFiManager wifiManager;
-
+ 
   //set config save notify callback
   wifiManager.setSaveConfigCallback(saveConfigCallback);
 
@@ -258,6 +258,7 @@ void setup()
   wifiManager.addParameter(&custom_mqtt_server);
   wifiManager.addParameter(&custom_mqtt_port);
   wifiManager.addParameter(&custom_board_token);
+  
   if (digitalRead(02) == 1) //Sobald reset =1 Fehler auf Layout Theoretisch pin 00 oder 25
   {
     wifiManager.startConfigPortal();
