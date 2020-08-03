@@ -59,6 +59,29 @@ Ist die Verbindung nicht in Ordnung, wird sie mit der Funktion connect(), herges
 
 Ist die Verbindung in Ordnung werden die Daten mit dem Befehl publish() veröffentlicht \cite{noauthor_arduino_nodate-1}.
 
+\subsection{Programmcode Sensorboard}
+Die Aufgabe welcher der Mikrocontroller vom Sensorboard  übernehmen besteht darin, dass er Betätigungen der Touchtasten auf dem Frontprint erkennt. Jeder Touchtaster besitzt ein LED mit dem das Betätigen bestätigt wird. Diese Funktion wurde so initialisiert, damit der User eine sofortige Kenntnis über die ausgelöste Aktion bekommt. Mit dem Sensorboard wird auf dem Frontprint die Umgebungstemperatur gemessen.
+
+
+
+\subsubsection{	Übersicht} 
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.5\textwidth]{graphics/StatemaschineSensor.png}
+	\caption{In dieser Abbildung ist das Statediagram vom Sensorboard abgebildet}
+	\label{pic: statemaschine sensor}
+\end{figure} 
+
+Wir der Mikrocontroller aufgestartet so werden als erstes Configurations-Daten im EEPROM gesucht. Werden keine Daten gefunden oder wird die Reset-taste betätigt wird ein Accespoint eröffnet und die Confugurations Parameter können eingegeben werden mittels Browser eingegeben werden. Dieser vorgang wird im Kapitel kommunikation genauer beschrieben. Als nächster Schritt werden für die MQTT-Messages die Topics anhand der Bordbezeichnung und der Anwendung generiert. Die Bordbezeichnung wird im Configportal eingegeben und im EEPROM abgespeichert, sie dient dazu, wenn mehrere Boards installiert werden um die empfangenen Nachrichten zu unterscheiden Eine mögliche Topic für eine MQTT Nachticht wenn beispielsweise der erste Taster betätigt wird kann folgendermassen aussehen: "data/sesnorboard/wohnzimmer/S1" in diesem Fall wurde die Bordbezeichnung Wohnzimmer gewählt. Im loop() wird als erstes die Funktion touch() aufgerufen, danach die Momentane Zeit mit der Funktion clock() genommen. In der Variabel count wird die Zeitdifferenz zwischen den wiederholenden Durchgängen von touch() addiert. Dies passiert solange bis der Wert x erreicht ist, in diesem Fall alle 10 Sekunden. Wenn der Wert x erreicht ist wird die Funktion tempf() aufgerufen, mit dieser wird mittels NTC die Temperatur gemessen. Im gleichen Zyklus wie die Temperaturmessungen Durchgeführt werden wird die Staus LED geschaten, so kann überprüft werden, ob sich das Bord im normalen Betrieb befindet, sprich der loop() wird gewiss komplett Durchlaufen. Die Funktionen sind in der nachfolgenden Abbildung abgebildet und werden anschliessend erläutert.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{graphics/FunktionenSensor.png}
+	\caption{In dieser Abbildung sind die Funktionen vom Sensorboard abgebildet}
+	\label{pic: funktionen sensor}
+\end{figure}      
 \subsubsection{Lizenzen} \todo{anpassen auf github min 1 ganze Seite, veröffentlichen usw}
 Die Bibliotheken welche in den Kapiteln \ref{subsub: Wlan Konfiguration} , \ref{subsec: Framework} erwähnt wurden, sind freie Softwarepakete und können unter der Bedingung der GNU Lesser General Public Lizenz (LGPL) geändert werden. Die LGPL gibt die Freiheit das Programm, für jeden Zweck auszuführen, anzupassen und die Änderungen zu veröffentlichen. \cite{noauthor_gnu.org_nodate}.
+
+
  
