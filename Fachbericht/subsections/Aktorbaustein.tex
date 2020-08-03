@@ -56,7 +56,7 @@ Die $10\;V$ Eingänge werden mittels eines Varistors vor Überspannung geschütz
 	\label{pic: Output_aktor}
 \end{figure}
 \newpage
-\subsubsection{Spannungsversorgung}
+\subsubsection{Spannungsversorgung} \todo{zu viel nummerische Werte im Text eventuell Tabelle erstellen und Formeln separat}
 Mithilfe eines üblichen $24\;V$ Netzgerätes, welches einen Zylinderstecker 2.1 x 5.5 $mm$ (engl. DC Barrel Jack) hat, kann der Aktorbaustein betrieben werden. So gibt z.B von XP-Power ein $18\;W$  $24\;V/DC$ Netzgerät für 11.73 CHF bei mouser. Um die Logik zu betreiben werden jedoch $3.3\;V$ benötigt. Hier kommt der Spannungswandler MIC4680 zum Einsatz, welcher eine Effizienz von bis zu 90 \% aufweist. Vom Wandler Ausgegeben werden typischerweise $3.3\;V$, im aller schlimmsten Fall kann die Spannung jedoch zwischen $3.201\;V$ und $3.399\;V$ liegen. In der Abbildung \ref{pic: Versorgung_aktor} ist das Schema der $3.3\;V$ Spannungsversorgung zu erkennen, es wurde hier noch eine Sicherung eingebaut da der Print nicht zerstört wird, falls zu viel Strom fliesst. Der Schraubklemmen sind dafür da, um z.B einen ON-OFF-Wippschalter, welcher am Gehäuse montiert wird, anzuschliessen. Die Beschaltung um den Spannungswandler ist dem Datenblatt des MIC4680 zu entnehmen.
 \begin{figure}[h!]
 	\centering
