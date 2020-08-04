@@ -19,9 +19,7 @@ extern "C"
   uint8_t temprature_sens_read();
 }
 
-
 #define MQTT_SERIAL_RECEIVER_CH "data/sensorboard/#"
-
 #define T1_pin 4
 #define T2_pin 12
 #define T3_pin 14
@@ -32,10 +30,9 @@ extern "C"
 #define LED4 19
 #define LEDS 02
 #define reset 13
-
-#define UOref_pin 25 //Gibt Ref Spannung auf den Spannungsteiler aus
-#define UMref_pin 34 //Misst ntc Ref Spannung
-#define Untc_pin 35  // Misst Spannung am ntc
+#define UOref_pin 25 //outputs the voltage via the voltage divider
+#define UMref_pin 34 //messures voltage ntc Ref
+#define Untc_pin 35  // messures voltage ntc
 
 char mqtt_server[40];
 int mqtt_port = 1883;
@@ -43,20 +40,18 @@ char board_token[20];
 char port_buffer[40];
 bool shouldSaveConfig = false;
 char const *topic[] = {"S1", "S2", "S3", "S4", "S0"};
-int outpins[] = {LED1, LED2, LED3, LED4,LEDS};
+int outpins[] = {LED1, LED2, LED3, LED4, LEDS};
 int inpins[] = {T1_pin, T2_pin, T3_pin, T4_pin};
 
 WiFiClient wifiClient;
 PubSubClient client(wifiClient);
-
 clock_t this_time = clock();
 clock_t last_time = this_time;
 
 double tcount = 0;
-int NUM_SEC = 10; // Zeit Intervall Messungen
+int NUM_SEC = 10; // time intervall messure temparatur
 int status = 0;
-
-int tresh = 15;
+int tresh = 15; //limit value from touch sensor signal is defined as pressed
 int tastervalue[4];
 boolean touchstate[] = {false, false, false, false};
 
@@ -70,7 +65,7 @@ float Uref = 0;
 float RT = 0;
 
 void shine();
-void Tread();
+void tread();
 void tempf();
 
 long unsigned int Time;
@@ -153,9 +148,8 @@ void publishSerialData(char *serialData)
   client.publish(topic[4], serialData);
 }
 
-void touch()
+void touch() //only debuggin Function
 {
-  // put your main code here, to run repeatedly:
   waitTime = 250;
   Time = millis();
   if (Time % waitTime < 2)
@@ -168,8 +162,6 @@ void touch()
       Serial.println(tastervalue[i]);
     }
   }
-  Tread();
-  shine();
 }
 void shine()
 {
@@ -198,7 +190,7 @@ void shine()
   }
 }
 
-void Tread()
+void tread()
 {
   int count = 15;
   for (size_t i = 0; i < 4; i++)
@@ -210,7 +202,7 @@ void Tread()
   {
     for (size_t j = 0; j < 4; j++)
     {
-      tastervalue[j] = tastervalue[j]+touchRead(inpins[j]);
+      tastervalue[j] = tastervalue[j] + touchRead(inpins[j]);
     }
   }
   for (size_t l = 0; l < 4; l++)
@@ -236,7 +228,7 @@ void tempf()
     temp = temp + temp2;
   }
   temp = temp / 10;
-  Serial.println(temp);
+  //Serial.println(temp); //only debugging
   char buffer1[40];
   sprintf(buffer1, "%.2f", temp);
   publishSerialData(buffer1);
@@ -247,14 +239,14 @@ void setup()
   Serial.begin(115200);
   for (size_t i = 0; i < 5; i++)
   {
-   pinMode(outpins[i],OUTPUT);
+    pinMode(outpins[i], OUTPUT);
   }
-  
+
   pinMode(UOref_pin, OUTPUT);
 
   Serial.println("mounting FS...");
 
-  if (SPIFFS.begin(true)) //true/false, Je nach dem wieviel flash ein MC hat
+  if (SPIFFS.begin(true)) //true/false, Depending on how much flash an MC has
   {
     Serial.println("mounted file system");
     if (SPIFFS.exists("/config.json"))
@@ -301,12 +293,12 @@ void setup()
   //set config save notify callback
   wifiManager.setSaveConfigCallback(saveConfigCallback);
 
-  //add all your parameters here
+  //add parameters to configportal
   wifiManager.addParameter(&custom_mqtt_server);
   wifiManager.addParameter(&custom_mqtt_port);
   wifiManager.addParameter(&custom_board_token);
 
-  if (digitalRead(reset) == 1) //Sobald reset =1 Fehler auf Layout Theoretisch pin 00 oder 25
+  if (digitalRead(reset) == 1) //Sobald reset =1 Fehler auf Layout Theoretisch pin 25
   {
     wifiManager.startConfigPortal();
   }
@@ -350,11 +342,10 @@ void setup()
     Serial.println("end save");
   }
   mqtt_port = String((char *)port_buffer).toInt();
-
   client.setServer(mqtt_server, mqtt_port);
   client.setCallback(callback);
   reconnect();
-  for (size_t i = 0; i < 5; i++) //Mqtt topic generieren
+  for (size_t i = 0; i < 5; i++) //generate mqtt topic
   {
     topic[i] = generat_topic(topic[i]);
   }
@@ -362,19 +353,20 @@ void setup()
 
 void loop()
 {
-  //client.loop();
-  touch();
+  //client.loop(); //for sevice MQTT message
+  //touch(); only debbugin to define tresh
+  tread();
+  shine();
 
-  //printf("Gran = %ld\n", NUM_SEC * CLOCKS_PER_SEC);
   this_time = clock();
   tcount += (double)(this_time - last_time);
   last_time = this_time;
-  if (tcount > (double)(NUM_SEC * CLOCKS_PER_SEC)) // wird nur alle x Sec durchgeführt
+  if (tcount > (double)(NUM_SEC * CLOCKS_PER_SEC)) // is only performed every x Sec
   {
     tcount -= (double)(NUM_SEC * CLOCKS_PER_SEC);
     if (status == 0)
     {
-      digitalWrite(outpins[4], HIGH); // Status LED blink Modus
+      digitalWrite(outpins[4], HIGH); // Status LED flashes mode
       status = 1;
     }
     else
