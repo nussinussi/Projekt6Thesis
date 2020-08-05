@@ -72,10 +72,12 @@ Die Aufgabe welcher der Mikrocontroller vom Sensorboard  übernehmen besteht dar
 	\label{pic: statemaschine sensor}
 \end{figure} 
 
-\subsubsection{setup()}
+\newpage
+
+\subsubsection{setup()}\label{subsubsec: sensor setup}
 Wird der Mikrocontroller gestartet so werden als erstes Configurations-Daten im EEPROM gesucht. Werden keine Daten gefunden oder wird die Reset-taste betätigt wird ein Accespoint eröffnet und Confugurations Parameter können mittels Browser eingegeben werden. Dieser Vorgang wird im Kapitel Kommunikation genauer beschrieben. Als nächster Schritt werden für die MQTT-Messages die Topics anhand der Bordbezeichnung und der Anwendung generiert. Die Bordbezeichnung wird im Configportal eingegeben und im EEPROM abgespeichert, sie dient dazu, wenn mehrere Boards installiert werden um die empfangenen Nachrichten zu unterscheiden. Eine mögliche Topic für eine MQTT Nachricht wenn beispielsweise der erste Taster betätigt wird kann folgendermassen aussehen: "data/sesnorboard/wohnzimmer/S1" in diesem Fall wurde die Bordbezeichnung Wohnzimmer gewählt. 
 
-\subsubsection{loop()}
+\subsubsection{loop()} \label{subsubsec: sensorloop}
 Im loop() wird als erstes die Funktion tread(), dann shine() aufgerufen, danach wird die Momentane Zeit mit der Funktion clock() geholt. In der Variabel count wird die Zeitdifferenz zwischen den wiederholenden Durchgängen von touch() addiert. Dies passiert solange bis der Wert x erreicht ist, in diesem Fall alle 10 Sekunden. Wenn der Wert x erreicht ist wird die Funktion tempf() aufgerufen, mit dieser wird mittels NTC die Temperatur gemessen. Im gleichen Zyklus wie die Temperaturmessungen Durchgeführt werden, wird die Staus LED geschaltet, so kann überprüft werden, ob sich das Bord im normalen Betrieb befindet, sprich der loop() wird gewiss komplett Durchlaufen. Die Funktionen sind in der nachfolgenden Abbildung abgebildet und werden anschliessend erläutert.
 
 \begin{figure}[H]
@@ -84,8 +86,8 @@ Im loop() wird als erstes die Funktion tread(), dann shine() aufgerufen, danach 
 	\caption{In dieser Abbildung sind die Funktionen vom Sensorboard abgebildet}
 	\label{pic: funktionen sensor}
 \end{figure}   
-\subsubsection{touch()}
-Wie in der Abbildung \ref{pic: statemaschine sensor} zu erkennen ist, wird die Funktion touch() nicht aufgerufen. Sie dient alleine zum debuggen also um den optimalen tresh Wert zu finden. Dieser Wert definiert ab wann die Touchsensoren als gedrückt erkannt werden. In der Funktion wird die Variabel waitTime initialisiert mit dem wert 250 weiter wird der Wert millis() in die Variable Time gesetzt. In einer for-wihle werden so lange Time modulo waitTime kleiner als 2 sind, sprich die ersten 2 Millisekunden von 250 Millisekunden, mit Serial.prinln() der aktuell eingelesene Touchwert ausgegeben. Dieser Wert befindet sich im Ruhezustand um 50-80, wenn eine entsprechende Touch-Taste betätigt wird sinkt dieser Wert auf 10-30.  
+\subsubsection{touch()} 
+Wie in der Abbildung \ref{pic: statemaschine sensor} zu erkennen ist, wird die Funktion touch() nicht aufgerufen. Sie dient alleine zum debuggen also um den optimalen tresh Wert zu finden. Dieser Wert definiert ab wann die Touchsensoren als gedrückt erkannt werden. In der Funktion wird die Variabel waitTime initialisiert mit dem wert 250 weiter wird der Wert millis() in die Variable Time gesetzt. In einer for-wihle werden so lange Time modulo waitTime kleiner als 2 sind, sprich die ersten 2 Millisekunden von 250 Millisekunden, mit Serial.println() der aktuell eingelesene Touchwert ausgegeben. Dieser Wert befindet sich im Ruhezustand um 50-80, wenn eine entsprechende Touch-Taste betätigt wird sinkt dieser Wert auf 10-30.  
 \subsubsection{shine()}
 In der Funktion shine() wird in einer for-while der Eingelesene Wert das sogenannte taservalue der jeweiligen Touchtasten mit dem Tresholdwert, tresh verglichen. Ist das tastervalue kleiner als tresh, wird eine MQTT-Message mit der entsprechenden Topic und der Payloud "ON" published. Ebenso wird die Led der entsprechenden Taste HIGH gesetzt. Trifft der andere Fall zu, wenn das tastervalue grösser als tresh ist wird die entsprechende Led LOW gesetzt.
 \subsubsection{tread()}
@@ -94,16 +96,64 @@ In der Funktion tread() werden in einer for-while die aktuellen Werte der vier T
 In dieser Funktion wird die Temperatur mit dem NTC ermittelt. In einer for-wihle wird der Analogwert am NTC in die Variabel Untc gesetzt ebenso wird der gemessene Referenzwert am Spannungsteiler gemessen. Nach der Umwandlung vom eingelesenen Wert des ADCs in Volts mit der Formel \todo{referenz formel adc}, wird anschliessend der Wert des Widerstands aus dem Spannungsteiler berechnet \todo{(ref auf Formel)}. Der Wert des Widerstand wird mit der Formel \todo{formel} in Grad $°C$ umgerechnet. Der gesamte Vorgang wird 10 mal wiederholt, damit der Mittelwert ermittelt werden kann. Der berechnete Temperaturwert wird von float in ein char umgewandelt und mit MQTT published. 
 \newpage
 \subsection{Programmcode Aktorbord}
-Die Aufgabe des Aktorbord besteht darin, dass Befehle empfangen, verarbeitet und ausgeführt werden. Es befinden sich vier Relais auf dem Bord,welche 230 Volt schalten können, diese werden mit Digitalen IO Pins angesteuert. Eine weitere Aufgabe ist die Ausgabe von zwei DC-Spannnugen 0-10.  
+Die Aufgabe des Aktorbord besteht darin, dass Befehle empfangen, verarbeitet und ausgeführt werden. Es befinden sich vier Relais auf dem Bord,welche 230 Volt schalten können, diese werden mit Digitalen IO Pins angesteuert. Eine weitere Aufgabe ist die Ausgabe von zwei DC-Spannnugen 0-10 Volt. Die jeweilige Spannung entsteht durch ein PWM Signal. Eine letzte Aufgabe ist, 0-10 Volt einlesen. Das Eingangssignal gelangt über ein Spannungsteiler an den AD-Wandler. Der Mikrocontroller wertet das Signal aus und generiert eine MQTT-Message welche in einem Periodischen Zyklus publishd wird.    
 
 
 \subsubsection{	Übersicht} 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.5\textwidth]{graphics/StatemaschineSensor.png}
-	\caption{In dieser Abbildung ist das Statediagram vom Sensorboard abgebildet}
-	\label{pic: statemaschine sensor}
+	\includegraphics[width=\textwidth]{graphics/StatemaschineAktor.png}
+	\caption{In dieser Abbildung ist das Statediagram vom Aktorbord abgebildet}
+	\label{pic: statemaschine Aktor}
 \end{figure} 
+\newpage
+
+\subsubsection{setup()}
+In der Abbildung ist zu erkennen, dass genau der gleiche Ablauf wie beim Sensorprint \ref{subsubsec: sensor setup} statt findet. Wird aber der Programm Code selber betrachtet werden andere Bezeichnungen wie andere Definitionen von pinMode() usw. im Bezug zum Sensorbord Festgestellt werden. 
+\subsubsection{loop()}
+Im loop() wird als erstes die Funktion clien.loop() aufgerufen. Diese Funktion ist im wesentlichen zuständig, dass MQTT Befehle empfangen und verarbeitet werden, Sie wird anschliessend ausführlich erläutert. In einem weiteren Schritt wird wie im loop() vom Sensorbord beschrieben \ref{subsubsec: sensorloop}, Periodischer Zyklus erstellt welche nur alle 10 Sekunden ausgeführt wird. In diesem Zyklus befindet sich die Funktion publishADC, welche die gemessenen Werte von den 0-10 Volt Eingenen als MQTT-Message published.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{graphics/FunktionenAktor.png}
+	\caption{In dieser Abbildung sind die Funktionen vom Sensorboard abgebildet}
+	\label{pic: funktionen Aktor}
+\end{figure}   
+\subsubsection{client.loop()}
+ Das Objekt \textit{client} wurde aus dem PubSubClient gebaut, wo der loop() implementiert wurde. Als erstes wird die Verbindung zum MQTT-Broker überprüft, dann bei bedarf die MQTT-Message empfangen und vorbereitet, dass sie in der Funktion callback()  genutzt werden kann. callback() wird aufgerufen.
+ \subsubsection{callback()}
+ In dieser Funktion wird als erstes der Inhalt von der Empfangenen Topic überprüft, fällt der Vergleich positiv aus wird der Inhalt der Payload überprüft. Die vier Verschiedenen Relais und die zwei Analogausgänge unterscheiden sich an Hand der Topic. Bei den Relais ist die Payload ON oder OFF und das Relais wie auch das Led des entsprechenden Relais wird in den geforderten zustand gesetzt. Trift die Topic auf ein Analog Ausgang wird nach Umwandlung der Payloud von einem String in ein Float, das PWM-Signal für den entsprechenden Ausgang gesetzt.
+ \subsubsection{publishADC}
+Mit dieser Funktion werden die 0-10 Volt Eingänge ausgewertet und Resultate als MQTT-Message versendet. Der jeweiligen Messreihe am ADC wird der Mittelwert berechnet, welcher dann von einem float in ein char-Array umgewandelt wird. Als nächstes wird der char-Array und die entsprechende Topic vom PupsubClient veröffentlicht.
+
+\newpage
+
+\subsection{Programmcode Openhab}        
+Der Aufbau des Systems besteht aus verschiedenen Komponenten welche in nachfolgender Tabelle aufgelistet sind
+\begin{table}[H]
+	\begin{tabular}{|l|l|}
+		\hline 
+		Bezeichnung	& Beschreibung \\ 
+		\hline 
+		Bindings	& Schnittstellen verknüpft verschiedene Dienste miteinander  \\ 
+		\hline 
+		Things	& Definition von Gerät, Verbraucher, Teilnehmer des Systems  \\ 
+		\hline 
+		Channel	& Verbindung zwischen Thing und Item  \\ 
+		\hline 
+		Item	& Repräsentiert Informationen des Gerätes, Schalter, Label usw. \\ 
+		\hline 
+		Rules	& Festgelegte Regeln für automatische Abläufe\\ 
+		\hline 
+		Sitmaps	& Benutzeroberfläche, präsentiert Informationen  \\ 
+		\hline 
+	\end{tabular} 
+	\caption{Komponenten Openhab Software}
+	\label{tab: Komponenten Openhab Software}
+\end{table}
+
+\subsubsection{Bindings}
+Als Schnittstelle 
+
    
 \subsubsection{Lizenzen} \todo{anpassen auf github min 1 ganze Seite, veröffentlichen usw}
 Die Bibliotheken welche in den Kapiteln \ref{subsub: Wlan Konfiguration} , \ref{subsec: Framework} erwähnt wurden, sind freie Softwarepakete und können unter der Bedingung der GNU Lesser General Public Lizenz (LGPL) geändert werden. Die LGPL gibt die Freiheit das Programm, für jeden Zweck auszuführen, anzupassen und die Änderungen zu veröffentlichen. \cite{noauthor_gnu.org_nodate}.
