@@ -217,13 +217,13 @@ void tempf() {
     temp = 0;
     Untc = 0;
     Uref = 0;
-    for (int i = 0; i < 100; i++)
+    for (int i = 0; i < 10; i++)
     {
         Untc += analogRead(Untc_pin);
         Uref += analogRead(UMref_pin);
     }
-    Untc = Untc/100;
-    Uref = Uref/100;
+    Untc = Untc/10;
+    Uref = Uref/10;
     Untc = Untc * m_temp + b_temp;
     Uref = Uref * m_temp + b_temp;
     RT = Untc / (Uref-Untc);
