@@ -150,10 +150,27 @@ Der Aufbau des Systems besteht aus verschiedenen Komponenten welche in nachfolge
 	\caption{Komponenten Openhab Software}
 	\label{tab: Komponenten Openhab Software}
 \end{table}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{graphics/Openhabian.png}
+	\caption{Komponenten und Verbindungen von Openhab}
+	\label{pic: Komponenten Openhab}
+\end{figure}   
 
 \subsubsection{Bindings}
-Als Schnittstelle 
+Als Schnittstelle von den Items zu den Things wird ein MQTT-Broker benötigt. Um die Systemzuverlässigkeit zu steigern wurde ein eigener Broker Installiert, so kann die Kommunikation auch ohne Netzwerkanschluss ans Öffentliche Netz funktionieren. Ein weiterer Vorteil ist die Sicherheit, es kann auf Passwörter verzichtet werden, da kein Zugriff von ausserhalb des Home-Netzwerk möglich ist.
 
+\subsubsection{Things}
+ Als Geräte wurden drei Komponenten hinzugefügt, welche in der Abbildung \ref{pic: Komponenten Openhab} zu erkennen sind. Zum Aktor Thing gelangen im ganzen 8 Channels, um die Relais einzeln anzusprechen wurde pro Relais eine MQTT-Topic erstellt welche je einen Channel verfügt und so mit je einem Item verbunden. Zwei Channel sind für die 0-10 Volt Eingänge und zwei weiter Channel für die 0-10 Volt Ausgänge. Das Sensor Thing verfügt 5 Channel jeder Taster einzeln und ein Channel für die Temperaturmessung.
+
+\subsubsection{Channel}
+Die Channes sind die Verbindungen von den Geräten zu den Items also den Software-Zustände, in diesem Projekt werden alle möglichen Fähigkeiten der Geräte genutzt und mit einem Channel gebunden.
+
+\subsubsection{Item}
+Das Item zeigt den Status des Verbrauchers oder den gemessenen Wert eines Sensors an. Items werden verwendet wenn Regeln definiert werden,ebenso sind sie mit den Channels verlinkt und können einzeln oder als Gruppen auf dem Sitmap genutzt werden.
+
+
+ 
    
 \subsubsection{Lizenzen} \todo{anpassen auf github min 1 ganze Seite, veröffentlichen usw}
 Die Bibliotheken welche in den Kapiteln \ref{subsub: Wlan Konfiguration} , \ref{subsec: Framework} erwähnt wurden, sind freie Softwarepakete und können unter der Bedingung der GNU Lesser General Public Lizenz (LGPL) geändert werden. Die LGPL gibt die Freiheit das Programm, für jeden Zweck auszuführen, anzupassen und die Änderungen zu veröffentlichen. \cite{noauthor_gnu.org_nodate}.
