@@ -123,7 +123,7 @@ Im loop() wird als erstes die Funktion clien.loop() aufgerufen. Diese Funktion i
  \subsubsection{callback()}
  In dieser Funktion wird als erstes der Inhalt von der Empfangenen Topic überprüft, fällt der Vergleich positiv aus wird der Inhalt der Payload überprüft. Die vier Verschiedenen Relais und die zwei Analogausgänge unterscheiden sich an Hand der Topic. Bei den Relais ist die Payload ON oder OFF und das Relais wie auch das Led des entsprechenden Relais wird in den geforderten zustand gesetzt. Trift die Topic auf ein Analog Ausgang wird nach Umwandlung der Payloud von einem String in ein Float, das PWM-Signal für den entsprechenden Ausgang gesetzt. Den Duty cycle für das PWM Signal wird berechnet indem die gewünschte Spannung voltage folgender Massen verrechnet wird : $(voltage/3.2 \cdot 4095)/3.25$. 3.2 sind es, weil die Verstärkung 3.2 beträgt und 3.25, weil das die Amplitude des PWM Signales ist. Leider kann die Amplitude abweichen und ist nicht sehr genau. Mehr zur Genauigkeit in der Validierung.
  
- \subsubsection{publishADC}
+ \subsubsection{publishADC()}
 Mit dieser Funktion werden die 0-10 Volt Eingänge ausgewertet und Resultate als MQTT-Message versendet. Der jeweiligen Messreihe am ADC wird der Mittelwert berechnet, welcher dann von einem float in ein char-Array umgewandelt wird. Als nächstes wird der char-Array und die entsprechende Topic vom PupsubClient veröffentlicht.
 
 
@@ -149,7 +149,7 @@ Der Aufbau des Systems besteht aus verschiedenen Komponenten welche in nachfolge
 		Sitmaps	& Benutzeroberfläche, präsentiert Informationen  \\ 
 		\hline 
 	\end{tabular} 
-	\caption{Komponenten Openhab Software}
+	\caption{Komponenten Openhab Software \cite{noauthor_introduction_nodate-1}}
 	\label{tab: Komponenten Openhab Software}
 \end{table}
 \begin{figure}[H]
@@ -169,8 +169,12 @@ Als Schnittstelle von den Items zu den Things wird ein MQTT-Broker benötigt. Um
 Die Channes sind die Verbindungen von den Geräten zu den Items also den Software-Zustände, in diesem Projekt werden alle möglichen Fähigkeiten der Geräte genutzt und mit einem Channel gebunden.
 
 \subsubsection{Item}
-Das Item zeigt den Status des Verbrauchers oder den gemessenen Wert eines Sensors an. Items werden verwendet wenn Regeln definiert werden,ebenso sind sie mit den Channels verlinkt und können einzeln oder als Gruppen auf dem Sitmap genutzt werden.
+Das Item zeigt den Status des Verbrauchers oder den gemessenen Wert eines Sensors an. Items werden verwendet wenn Regeln definiert werden,ebenso sind sie mit den Channels verlinkt und können einzeln oder als Gruppen auf dem Sitmap genutzt werden. Als anwendung eines Icons können verschiedene Typen gewählt werden. In diesm Projekt wird in erste Linie der normale Switch verweden welcher in den Zustand ON oder OFF geschalten wird. Für die 0-10 Volt ausgänge werden Dimmer verwendet die als Slider in der Sitmap angezeigt wird und Sie generieren je nach Position einen Wert zwischen 0-1. Um die Messwerte an den 0-10 Volt Eingängen zu verwenden werden die Items als Number genutzt.
 
+\subsubsection{Rules} 
+Automatische Prozesse werden mit i Rules definiert. Um das System Benutzerfreundlicher zu Gestalten werden in den Rules die Befehle der Taster verarbeitet und die Entsprechenden Befehle an die Relais generiert. So kann gewährleistet werden, dass der Kunde selber keine Änderungen an den Aktoren und Sensoren selber vornehmen muss. Die Rule Syntax basiert auf Xbase \cite{noauthor_xtext_nodate}. Um die Aufgeben der Befehls Weiterleitung zu übernehmen bestehen die Ruls im wesentlichen aus when und then. In diesem Fall sind sie im Teil when, auf den Empfang des jeweiligen Update getriggert. Somit wird mit einem Update des Status der Teil then ausgelöst, wo sich eine if Bedingung befinden. In diese Bedingung wird der Stus überprüft      
+
+\subsubsection{Sitmaps} 
 
  
    
