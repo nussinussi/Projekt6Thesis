@@ -121,9 +121,11 @@ Im loop() wird als erstes die Funktion clien.loop() aufgerufen. Diese Funktion i
 \subsubsection{client.loop()}
  Das Objekt \textit{client} wurde aus dem PubSubClient gebaut, wo der loop() implementiert wurde. Als erstes wird die Verbindung zum MQTT-Broker überprüft, dann bei bedarf die MQTT-Message empfangen und vorbereitet, dass sie in der Funktion callback()  genutzt werden kann. callback() wird aufgerufen.
  \subsubsection{callback()}
- In dieser Funktion wird als erstes der Inhalt von der Empfangenen Topic überprüft, fällt der Vergleich positiv aus wird der Inhalt der Payload überprüft. Die vier Verschiedenen Relais und die zwei Analogausgänge unterscheiden sich an Hand der Topic. Bei den Relais ist die Payload ON oder OFF und das Relais wie auch das Led des entsprechenden Relais wird in den geforderten zustand gesetzt. Trift die Topic auf ein Analog Ausgang wird nach Umwandlung der Payloud von einem String in ein Float, das PWM-Signal für den entsprechenden Ausgang gesetzt.
+ In dieser Funktion wird als erstes der Inhalt von der Empfangenen Topic überprüft, fällt der Vergleich positiv aus wird der Inhalt der Payload überprüft. Die vier Verschiedenen Relais und die zwei Analogausgänge unterscheiden sich an Hand der Topic. Bei den Relais ist die Payload ON oder OFF und das Relais wie auch das Led des entsprechenden Relais wird in den geforderten zustand gesetzt. Trift die Topic auf ein Analog Ausgang wird nach Umwandlung der Payloud von einem String in ein Float, das PWM-Signal für den entsprechenden Ausgang gesetzt. Den Duty cycle für das PWM Signal wird berechnet indem die gewünschte Spannung voltage folgender Massen verrechnet wird : $(voltage/3.2 \cdot 4095)/3.25$. 3.2 sind es, weil die Verstärkung 3.2 beträgt und 3.25, weil das die Amplitude des PWM Signales ist. Leider kann die Amplitude abweichen und ist nicht sehr genau. Mehr zur Genauigkeit in der Validierung.
+ 
  \subsubsection{publishADC}
 Mit dieser Funktion werden die 0-10 Volt Eingänge ausgewertet und Resultate als MQTT-Message versendet. Der jeweiligen Messreihe am ADC wird der Mittelwert berechnet, welcher dann von einem float in ein char-Array umgewandelt wird. Als nächstes wird der char-Array und die entsprechende Topic vom PupsubClient veröffentlicht.
+
 
 \newpage
 

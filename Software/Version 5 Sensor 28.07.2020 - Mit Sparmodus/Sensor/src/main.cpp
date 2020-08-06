@@ -33,6 +33,8 @@ extern "C"
 #define UOref_pin 25 //outputs the voltage via the voltage divider
 #define UMref_pin 34 //messures voltage ntc Ref
 #define Untc_pin 35  // messures voltage ntc
+#define m_temp 0.0008155002
+#define b_temp 0.1369856
 
 char mqtt_server[40];
 int mqtt_port = 1883;
@@ -211,27 +213,22 @@ void tread()
   }
 }
 
-void tempf()
-{
-  temp = 0;
-  float temp2 = 0;
-  for (int i = 0; i < 10; i++)
-  {
-    dacWrite(UOref_pin, UOref);
-    Untc = analogRead(Untc_pin);
-    Uref = analogRead(UMref_pin);
-    Untc = (Untc + 218.54) / 1253.1;
-    Uref = (Uref + 218.54) / 1253.1;
-    RT = Untc / (Uref - Untc);
-    temp2 = 100 / (100 / TN + 100 / B * log(RT));
-    temp2 = temp2 - TK;
-    temp = temp + temp2;
-  }
-  temp = temp / 10;
-  //Serial.println(temp); //only debugging
-  char buffer1[40];
-  sprintf(buffer1, "%.2f", temp);
-  publishSerialData(buffer1);
+void tempf() {
+    temp = 0;
+    Untc = 0;
+    Uref = 0;
+    for (int i = 0; i < 100; i++)
+    {
+        Untc += analogRead(Untc_pin);
+        Uref += analogRead(UMref_pin);
+    }
+    Untc = Untc/100;
+    Uref = Uref/100;
+    Untc = Untc * m_temp + b_temp;
+    Uref = Uref * m_temp + b_temp;
+    RT = Untc / (Uref-Untc);
+    temp = 100/(100/TN + 100/B * log(RT));
+    temp = temp - TK;
 }
 
 void setup()

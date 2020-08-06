@@ -30,6 +30,7 @@ extern "C"
 #define R_4 22
 #define LED_4 27
 #define LED_status 05
+#define clear_pin 25 //clear und mode beschriftung vertauscht
 
 char mqtt_server[40];
 int mqtt_port = 1883;
@@ -37,8 +38,6 @@ char board_token[20];
 char port_buffer[40];
 bool shouldSaveConfig = false;
 char const *topic[] = {"K1", "K2", "K3", "K4", "A1", "A2", "E1", "E2"};
-
-int outpins[][2] = {{R_1, LED_1}, {R_2, LED_2}, {R_3, LED_3}, {R_4, LED_4}};
 
 WiFiClient wifiClient;
 PubSubClient client(wifiClient);
@@ -60,15 +59,34 @@ const int AD2 = 35;
 const int freq = 40000;
 const int Channel1 = 0;
 const int Channel2 = 1;
+#define Channel3 2
+#define Channel4 3
+#define Channel5 4
+#define Channel6 5
 const int resolution = 12;
 float voltage1 = 0;
 float voltage2 = 0;
 int duty1 = 0;
 int duty2 = 0;
 
+int R_duty1 = 4095;       //Anfangsmodus
+int R_duty2 = 4095 * 0.3; //Stromsparmodus
+int R_duty3 = 0;          //Off
+
 // variable for storing analog input
 float in1 = 0;
 float in2 = 0;
+
+// liniear fit constants for analog input
+float m = 0.00344919;
+float b = -0.276399;
+
+// Outputs
+int outpins[][2] = {{Channel3, LED_1}, {Channel4, LED_2}, {Channel5, LED_3}, {Channel6, LED_4}};
+
+// Task für 2 Core
+TaskHandle_t Task2;
+int sparmodus[4] = {0, 0, 0, 0}; //Sparmodus für Relais
 
 void saveConfigCallback()
 {
@@ -129,6 +147,7 @@ char *generat_topic(const char *application)
   return buffer;
 }
 
+
 void callback(char *topicin, byte *payload, unsigned int length)
 {
   for (size_t i = 0; i < 4; i++)
@@ -137,12 +156,13 @@ void callback(char *topicin, byte *payload, unsigned int length)
     { //subscribe relais k1-k4
       if (!strncmp((char *)payload, "ON", length))
       {
-        digitalWrite(outpins[i][0], HIGH);
+        ledcWrite(outpins[i][0], R_duty1);
         digitalWrite(outpins[i][1], HIGH);
+        sparmodus[i] = 1;
       }
       if (!strncmp((char *)payload, "OFF", length))
       {
-        digitalWrite(outpins[i][0], LOW);
+        ledcWrite(outpins[i][0], R_duty3);
         digitalWrite(outpins[i][1], LOW);
       }
     }
@@ -151,15 +171,15 @@ void callback(char *topicin, byte *payload, unsigned int length)
   { //Subscribe Analogausgänge
     payload[length] = '\0';
     voltage1 = String((char *)payload).toFloat() * 10;
-    duty1 = (voltage1 * 4095) / 10.56;
+    int duty1 = (voltage1 / 3.2 * 4095) / 3.25;
     ledcWrite(Channel1, duty1);
   }
   if (!strncmp((char *)topicin, (char *)topic[5], 50))
   {
     payload[length] = '\0';
     voltage2 = String((char *)payload).toFloat() * 10;
-    duty2 = (voltage2 * 4095) / 10.56;
-    ledcWrite(Channel2, duty2);
+      int duty2 = (voltage2 / 3.2 * 4095) / 3.25;
+      ledcWrite(Channel2, duty2);
   }
 }
 void publishSerialData(char *serialData)
@@ -173,8 +193,17 @@ void publishSerialData(char *serialData)
 
 void publishADC()
 {
-  in1 = (((float(analogRead(AD1) + 218.54)) / 1253.2) - 0.212) / 0.234;
-  in2 = (((float(analogRead(AD2) + 218.54)) / 1253.2) - 0.212) / 0.234;
+  in1 = 0;
+  in2 = 0;
+  for (int i = 0; i < 100; i++)
+  {
+    in1 += analogRead(AD1);
+    in2 += analogRead(AD2);
+  }
+
+  in1 = in1 * 0.01 * m + b;
+  in2 = in2 * 0.01 * m + b;
+
   char buffer1[40];
   char buffer2[40];
   sprintf(buffer1, "%.3f", in1);
@@ -190,11 +219,66 @@ void publishADC()
   client.publish(buffer0, buffer2);
 }
 
+//Funktion um 2 Core zu benutzen
+void Task2code(void *pvParameters)
+{
+  int waitTime = 25;
+  int Time0[4] = {0, 0, 0, 0};
+  int Time1[4] = {0, 0, 0, 0};
+  int Time2[4] = {0, 0, 0, 0};
+
+  for (;;)
+  {
+    for (int i = 0; i < 4; i++)
+    {
+      Time0[i] = millis();
+      if (sparmodus[i] == 1)
+      {
+        delay(0.5);
+        Time1[i] = millis() - Time0[i];
+        Time2[i] += Time1[i];
+
+        if (Time2[i] > waitTime - 3 && Time2[i] < waitTime + 3)
+        {
+          ledcWrite(outpins[i][0], R_duty2);
+          sparmodus[i] = 0;
+          Time2[i] = 0;
+        }
+      }
+    }
+  }
+}
+
 void setup()
 {
+  analogReadResolution(12); //Leg die Auflösung von Analogread auf 12 bits
+
+  // configure LED PWM functionalitites
+  ledcSetup(Channel1, freq, resolution); //Out PWM 0-10V Konfigurieren
+  ledcSetup(Channel2, freq, resolution); //Out PWM 0-10V Konfigurieren
+  ledcSetup(Channel3, freq, resolution); //R1
+  ledcSetup(Channel4, freq, resolution); //R2
+  ledcSetup(Channel5, freq, resolution); //R3
+  ledcSetup(Channel6, freq, resolution); //R4
+
+  // attach the channel to the GPIO to be controlled
+  ledcAttachPin(out1, Channel1); // chanel dem Output zuweisen
+  ledcAttachPin(out2, Channel2);
+  ledcAttachPin(R_1, Channel3);
+  ledcAttachPin(R_2, Channel4);
+  ledcAttachPin(R_3, Channel5);
+  ledcAttachPin(R_4, Channel6);
+
+  // Relais auf LOW
+  ledcWrite(Channel3, R_duty3);
+  ledcWrite(Channel4, R_duty3);
+  ledcWrite(Channel5, R_duty3);
+  ledcWrite(Channel6, R_duty3);
+
   Serial.begin(115200);
   pinMode(34, INPUT);
-  pinMode(02, INPUT);          //Pin I02 Prüf-Messstelle
+  pinMode(02, INPUT); //Pin I02 Prüf-Messstelle
+  pinMode(clear_pin, INPUT_PULLUP);
   pinMode(LED_status, OUTPUT); //LED-Status
   pinMode(00, INPUT);          //Mode Taster
   for (size_t i = 0; i < 4; i++)
@@ -250,7 +334,7 @@ void setup()
   WiFiManagerParameter custom_mqtt_port("port", "mqtt port", port_buffer, 6);
   WiFiManagerParameter custom_board_token("board", "board location", board_token, 40);
   WiFiManager wifiManager;
- 
+
   //set config save notify callback
   wifiManager.setSaveConfigCallback(saveConfigCallback);
 
@@ -258,8 +342,8 @@ void setup()
   wifiManager.addParameter(&custom_mqtt_server);
   wifiManager.addParameter(&custom_mqtt_port);
   wifiManager.addParameter(&custom_board_token);
-  
-  if (digitalRead(02) == 1) //Sobald reset =1 Fehler auf Layout Theoretisch pin 00 oder 25
+
+  if (digitalRead(clear_pin) == 0) //Sobald reset = 0 Fehler auf Layout Theoretisch pin 00 oder 25
   {
     wifiManager.startConfigPortal();
   }
@@ -306,15 +390,26 @@ void setup()
   client.setServer(mqtt_server, mqtt_port);
   client.setCallback(callback);
   reconnect();
-  ledcSetup(Channel1, freq, resolution); //Out PWM 0-10V Konfigurieren
-  ledcSetup(Channel2, freq, resolution);
-  analogReadResolution(12);      //Leg die Auflösung von Analogread auf 12 bits
-  ledcAttachPin(out1, Channel1); // chanel dem Output zuweisen
-  ledcAttachPin(out2, Channel2);
 
   for (size_t i = 0; i < 8; i++) //Mqtt topic generieren
   {
     topic[i] = generat_topic(topic[i]);
+  }
+  // Zweiten Core benutzen
+  xTaskCreatePinnedToCore(
+      Task2code, /* Task function. */
+      "Task2",   /* name of task. */
+      10000,     /* Stack size of task */
+      NULL,      /* parameter of the task */
+      1,         /* priority of the task */
+      &Task2,    /* Task handle to keep track of created task */
+      1);        /* pin task to core 1 */
+
+  // ADC warm laufen lassen
+  for (int i = 0; i < 100000; i++)
+  {
+    analogRead(AD1);
+    analogRead(AD2);
   }
 }
 
