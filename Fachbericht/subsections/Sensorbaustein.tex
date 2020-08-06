@@ -111,7 +111,8 @@ Der ESP32 verfügt über alle benötigten Schnittstellen, die für den Sensorbau
 	\label{pic: ESP32_sensor}
 \end{figure}
 \subsubsection{Temperatursensor}
-Es wird der NTC NCU18WF104J60RB von Murata Electronics verwendet. Dieser hat den preislichen Vorteil gegenüber anderen Varianten, wie ein Temperaturfühler IC. Der verwendete NTC hat eine B-Konstante von 4250\,K im Bereich 25/50\,°C mit einer Toleranz von 2\%. Der Widerstandswert des NTCs bei 25\,°C beträgt 100\,K mit einer Toleranz von 5\%. Um die Temperatur zu ermitteln wird ein Spannungsteiler (Abb. \ref{pic: Temperatursensor}) ist die verwendete Temperaturschaltung abgebildet. Das Signal ntc $_{ref}$ gibt eine Referenzspannung $U_{ref}$ mithilfe eines DACs aus, da der DAC ungenau ist, wird dieses Signal mithilfe von ntck eingelesen. Die Spannung über dem NTC $U_{ntc}$ wird mit ntcf gemessen und ntcr ist mit Ground verbunden, welches eine separate Rückleitung zur Hauptplatine des Sensorbausteins verfügt, um allfällige Störeinflüsse zu vermeiden. Die Temperatur wird berechnet indem als erstes der Widerstand des NTCs $R_T$ mit $R_T = \frac{U_{ntc}}{U_{ref}\;-\;U_{ntc}}$berechnet wird.\todo{Formeln nicht direkt im Text} Für $U_{ref}$ wird maximal eine Spannung von 2.5\,V verwendet, da der ADC danach nicht mehr linear ansteigt. Dann muss nur noch der ADC Wert mittels einer Geraden in eine Spannung beachtet werden. Die Temperatur in Kelvin ergibt sich dann aus $T = \frac{1}{\frac{1}{T_N}+\frac{1}{B} \cdot ln(R_T)}$.
+Es wird der NTC NCU18WF104J60RB von Murata Electronics verwendet. Dieser hat den preislichen Vorteil gegenüber anderen Varianten, wie ein Temperaturfühler IC. Der verwendete NTC hat eine B-Konstante von 4250\,K im Bereich 25/50\,°C mit einer Toleranz von 2\%. Der Widerstandswert des NTCs bei 25\,°C beträgt 100\,K mit einer Toleranz von 5\%. Um die Temperatur zu ermitteln wird ein Spannungsteiler (Abb. \ref{pic: Temperatursensor}) ist die verwendete Temperaturschaltung abgebildet. Das Signal ntc $_{ref}$ gibt eine Referenzspannung $U_{ref}$ mithilfe eines DACs aus, da der DAC ungenau ist, wird dieses Signal mithilfe von ntck eingelesen. Die Spannung über dem NTC $U_{ntc}$ wird mit ntcf gemessen und ntcr ist mit Ground verbunden, welches eine separate Rückleitung zur Hauptplatine des Sensorbausteins verfügt, um allfällige Störeinflüsse zu vermeiden. Die Temperatur wird berechnet indem als erstes der Widerstand des NTCs $R_T$ mit $R_T = \frac{U_{ntc}}{U_{ref}\;-\;U_{ntc}}$ berechnet wird. Für $U_{ref}$ wird maximal eine Spannung von 2.5\,V verwendet, da der ADC danach nicht mehr linear ansteigt. Dann muss nur noch der ADC Wert mittels einer Geraden in eine Spannung beachtet werden. Die Temperatur in Kelvin ergibt sich dann aus $T = \frac{1}{\frac{1}{T_N}+\frac{1}{B} \cdot ln(R_T)}$.
+
 \begin{figure}[h!]
 	\centering
 	\includegraphics[width=0.4\textwidth]{graphics/shematics_sensor_Temp.png}
@@ -149,7 +150,7 @@ Um den Sensorbaustein mit 5\,V zu versorgen, macht es aus Platz gründen Sinn de
 
 \subsubsection{Platzstudie}
 Nun wird mittels einer Platzstudie überprüft ob der Sensorbaustein, mit den verwendeten Komponenten, wie eine Unterputzsteckdose eingebaut werden kann.
-Im Bild \ref{pic: Montageplatte.png} ist eine Montageplatte für UP-Steckdosen abgebildet. Der blaue Kreis Zeigt dabei den Radius von 60 mm des Tasters bzw. Kleinkombination. Diese Masse wurden für die Dimensionen der Platine in Abbildung \ref{pic: pcb_sensor_dimensionen.png} übernommen.
+Im Bild \ref{pic: Montageplatte.png} ist eine Montageplatte für UP-Steckdosen abgebildet. Der blaue Kreis Zeigt dabei den Radius von 60 mm des Tasters bzw. Kleinkombination. Diese Masse wurden für die Dimensionen der Platine in Abbildung \ref{pic: pcb_sensor_dimensionen.png} übernommen. In Abbildung \ref{pic: sensor_montage} ist zu erkennen wie der Sensorbaustein montiert wird. So wird die Spannungsversorgung mittels Distanzhalter an der Hauptplatine befestigt, welche wiederum an der Montageplatte angeschraubt wird. Die Fronplatte wird mit dem weissen Rahmen an die Hauptplatine gesteckt. Die Richtung des Steckers muss dabei beachtet werden, dazu dient der Markierungspunkt neben Stecker und Buchse. Die Abbildungen  \ref{pic: sensor_montage_vorne}, \ref{pic: sensor_montage_hinten} und \ref{pic: sensor_montage_front} zeigen, wie der Sensorbaustein montiert aussieht.
 
 \begin{figure}[htb]
 	\centering
@@ -168,6 +169,36 @@ Im Bild \ref{pic: Montageplatte.png} ist eine Montageplatte für UP-Steckdosen a
 	\end{minipage}
 \end{figure}
 
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=1\textwidth]{graphics/Sensorbaustein_aufbau.jpg}
+	\caption{Montage des Sensorbausteins}
+	\label{pic: sensor_montage}
+\end{figure}
+
+\begin{figure}[htb]
+	\centering
+	\begin{minipage}[t]{0.45\linewidth}
+		\centering
+		\includegraphics[width=0.9\textwidth]{graphics/Sensorbaustein_Einbau_vorne.jpg}
+		\caption{Montage des Sensors von vorne}
+		\label{pic: sensor_montage_vorne}
+	\end{minipage}% <- sonst wird hier ein Leerzeichen eingefügt
+	\hfill
+	\begin{minipage}[t]{0.45\linewidth}
+		\centering
+		\includegraphics[width=0.90\textwidth]{graphics/Sensor_Einbau_hinten.jpg}
+		\caption{Montage des Sensors von hinten}
+		\label{pic: sensor_montage_hinten}
+	\end{minipage}
+\end{figure}
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=0.4\textwidth]{graphics/Front_Einbau.jpg}
+	\caption{Frontansicht des fertig montierten Sensorbausteins}
+	\label{pic: sensor_montage_front}
+\end{figure}
 
 
 
