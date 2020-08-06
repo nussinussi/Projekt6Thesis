@@ -147,13 +147,6 @@ char *generat_topic(const char *application)
   return buffer;
 }
 
-void output()
-{
-  int duty1 = (voltage1 / 3.2 * 4095) / 3.25;
-  int duty2 = (voltage2 / 3.2 * 4095) / 3.25;
-  ledcWrite(Channel1, duty1);
-  ledcWrite(Channel2, duty2);
-}
 
 void callback(char *topicin, byte *payload, unsigned int length)
 {
@@ -178,13 +171,15 @@ void callback(char *topicin, byte *payload, unsigned int length)
   { //Subscribe Analogausgänge
     payload[length] = '\0';
     voltage1 = String((char *)payload).toFloat() * 10;
-    output();
+    int duty1 = (voltage1 / 3.2 * 4095) / 3.25;
+    ledcWrite(Channel1, duty1);
   }
   if (!strncmp((char *)topicin, (char *)topic[5], 50))
   {
     payload[length] = '\0';
     voltage2 = String((char *)payload).toFloat() * 10;
-    output();
+      int duty2 = (voltage2 / 3.2 * 4095) / 3.25;
+      ledcWrite(Channel2, duty2);
   }
 }
 void publishSerialData(char *serialData)
