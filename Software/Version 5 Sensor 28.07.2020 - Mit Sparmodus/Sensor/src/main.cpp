@@ -33,8 +33,8 @@ extern "C"
 #define UOref_pin 25 //outputs the voltage via the voltage divider
 #define UMref_pin 34 //messures voltage ntc Ref
 #define Untc_pin 35  // messures voltage ntc
-#define m_temp 0.0008155002
-#define b_temp 0.1369856
+#define m_sensor 0.0008155002
+#define b_sensor 0.1369856
 
 char mqtt_server[40];
 int mqtt_port = 1883;
@@ -224,8 +224,8 @@ void tempf() {
     }
     Untc = Untc/10;
     Uref = Uref/10;
-    Untc = Untc * m_temp + b_temp;
-    Uref = Uref * m_temp + b_temp;
+    Untc = Untc * m_sensor + b_sensor;
+    Uref = Uref * m_sensor + b_sensor;
     RT = Untc / (Uref-Untc);
     temp = 100/(100/TN + 100/B * log(RT));
     temp = temp - TK;
