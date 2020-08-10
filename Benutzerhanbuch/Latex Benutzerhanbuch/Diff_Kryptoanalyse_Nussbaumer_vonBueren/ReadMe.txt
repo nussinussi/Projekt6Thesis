@@ -1,1 +1,0 @@
-Gitignore dient dazu die unnützlichen Dateien welche von Latex erstellt werden zu vernachlässigen.

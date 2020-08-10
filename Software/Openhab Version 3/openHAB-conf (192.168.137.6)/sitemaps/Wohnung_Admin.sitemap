@@ -1,0 +1,17 @@
+sitemap wohnung_admin label="Board" {
+    Frame label="Board 1" icon="groundfloor" {
+        Group item=Raum1
+    }
+
+    Frame label="Messungen"{
+        Text item=Temperatur label="Raumtemperatur [%.1f °C]" icon=temperature
+        Text item=SpannungVolts1 label= "Spannung 1 [%.2f V]" icon=pressure
+        Text item=SpannungVolts2 label= "Spannung 1 [%.2f V]" icon=pressure
+
+       
+    }
+    Frame label="Zentral"{
+        Switch item=Relais_all_on    label="Alle Relais" icon="light"
+    }
+
+}
