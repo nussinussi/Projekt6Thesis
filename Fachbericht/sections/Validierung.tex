@@ -6,19 +6,79 @@ Der Sensorbaustein wird wie eine Unterputzsteckdose verbaut und die Frontplatte 
 Genauer bedeutet es, dass der Benutzer, die Touchflächen der Frontplatte berühren muss, um mit dem Sensorbaustein zu interagieren. 
 Durch das berühren kann es jedoch zu elektrostatischen Entladungen kommen, die der Sensorbaustein überstehen muss.
 Deswegen wurde mithilfe eines ESD-Tests, getestet bis zu welchem Prüfschärfegrad, also bis zur welcher Entladespannung der Sensorbaustein funktioniert.
-In der Tabelle \ref{tab: ESD_Testablauf} sind die Prüfschärfegrade und deren Spannungen Abgebildet.
+In der Tabelle \ref{tab: ESD_Testablauf} sind die Prüfschärfegrade und deren Spannungen abgebildet.
 Für den Test wurde die Kontaktentladung genommen, mit welcher eine Entladung über einen Finger nachgestellt wird.\\
-Der Testablauf war wie folgt:\\
+Der Testablauf war wie folgt \cite{schleuniger_emv_w8_2020}:\\
 \\
 - Beginn beim tiefsten Schärfegrad\\
 - 1 Entladung/s\\
 - mind. 10 Entladungen, jeweils auf jeder Touchfläche\\
 
- \begin{figure}[H]
+
+\begin{figure}[H]
 	\centering
-	\includegraphics[width=\textwidth]{graphics/ESD_Testablauf.jpg}
-	\caption{ESD Testablauf} 	
+	\includegraphics[width=0.8\textwidth]{graphics/ESD_Testablauf.jpg}
+	\caption{ESD Testablauf \cite{schleuniger_emv_w8_2020}}
 	\label{tab: ESD_Testablauf}
-\end{figure} 
+\end{figure}
+
+Das Resultat war, dass der Sensorbaustein beim Prüfschärfegrad 4 Schaden nahm. Bei geringeren Spannungen war er funktionstüchtig. Was bedeutet, dass der Sensorbaustein Prüfschärfegrad 3 mit 6\,kV erreicht hat. Der Schaden beim Grad 4 war sichtbar und befand sich beim Seriell/UART-Wandler (Abbildung: \ref{pic: ESD_Schaden}), was nicht zu erwarten war. Der betroffene Pin war die Spannungsversorgung des IC's, dazu wurden direkt die 5\,V der Eingangsspeisung genommen, die Entweder über USB oder Pins angeschlossen wird. Beide Spannungsversorgungen sind miteinander verbunden, da in der Anwendung nur eines von beidem verwendet wird. Theoretisch wäre es auch möglich gewesen die 3.3\,V als Versorgung des Seriell/UART-Wandlers zu nehmen, die Frage ist, ob dann der gleiche Schaden aufgetreten wäre. Die Schutzdioden welche Über- und Unterspannung ableiten sind mit Ground bzw. 3.3\,V verbunden und nur der Seriell/UART-Wandler und der DC/DC Wandler sind an der 5\,V Speisung angeschlossen. Schlussendlich ist der Strom über den Seriell/UART-Wandler abgeflossen und hat ihn zerstört.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{graphics/ESD_Schaden.jpg}
+	\caption{Der Schaden am Seriell/Uart-Wandler welcher, wegen des ESD Tests mit Prüfschärfegrad 4 zu Stande kam}
+	\label{pic: ESD_Schaden}
+\end{figure}
+
+\subsubsection{Energieverbrauch des Sensorbausteins}
+Der Sensorbaustein wurde unter folgenden Bedingungen gemessen:
+\begin{enumerate}
+	\item ungeschalteter Normalzustand (Abbildung: \ref{pic: Sensorbaustein_ungeschaltet}) \\(Der Sensorbaustein wird nicht bedient und hat eine Verbindung mit einem WLAN Netzwerk) \\
+	Der Sensorbaustein hat eine mittlere Leistungsaufnahme von ca. 370\,mW. Auffällig ist, dass die Leistung mit einer Periode von 10\,s schwankt, was dem zu Programm zugrunde liegt, denn die Temperaturmessung, denn das Status LED toggelt alle 10\,s, um anzuzeigen, dass die Temperatur nach 10\,s wieder gemessen wird. Unregelmäßige Leistungssprünge von bis zu ca. 400\,mW kommen häufiger vor, was wahrscheinlich durch das WLAN ausgelöst wird.
+	\\
+	\item geschalteter Normalzustand (Abbildung: \ref{pic: Sensorbaustein_geschaltet})\\ (Der Sensorbaustein wird bedient und hat eine Verbindung mit einem WLAN Netzwerk)\\
+	In den Zeiten um ca. 35\,s, 60\,s und 85\,s werden alle Vier Taster betätigt, die Leistungsaufnahme steigt um 10\,mW von vorher 370\,mW auf ca. 380\,mW, was vertretbar ist.
+	\\
+	\item Keine Verbindung (Abbildung: \ref{pic: Sensorbaustein_keine_Verbindung})\\ (Der Sensorbaustein findet kein zulässiges WLAN Netzwerk)\\
+	In diesem Zustand hat der Sensorbaustein eine mittlere Leistungsaufnahme von 930\,mW, was beträchtlich ist. Dies ist daran geschuldet, dass der Sensorbaustein vermutlich seine seine Signalstärke erhöht, um ein Netzwerk zu finden. Deswegen wird nicht empfohlen, den Sensorbaustein, in diesem Zustand zu lassen.
+\end{enumerate}
+
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{graphics/Sensorbaustein_ungeschaltet.png}
+	\caption{Die Leistung des Sensorbausteins, wenn er nicht bedient wird und mit dem Netzwerk verbunden ist}
+	\label{pic: Sensorbaustein_ungeschaltet}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{graphics/Sensorbaustein_geschaltet.png}
+	\caption{Die Leistung des Sensorbausteins, wenn er bedient wird und mit dem Netzwerk verbunden ist}
+	\label{pic: Sensorbaustein_geschaltet}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{graphics/Sensorbaustein_keine_Verbindung.png}
+	\caption{Die Leistung des Sensorbausteins, wenn er einen Verbindungsaufbau versucht, aber kein geeignetes WLAN Netzwerk vorhanden ist}
+	\label{pic: Sensorbaustein_keine_Verbindung}
+\end{figure}
+
+
+
+
+\subsubsection{Temperaturmessung}
+Es wird berechnet, wie gross die Abweichung der Temperaturmessung sein kann. Dazu wurde mit $U_\text{ref} = 2.39\,V$ und einer Temperatur von -4.6\,°C $\approx$ 5\,°C  gerechnet (folglich Kapitel \ref{tempf}), diese Temperatur wurde als untere Grenze genommen und sie wird die Abweichung im gewählten Temperaturbereich maximieren, folglich Gleichung \ref{eq: dRT}. Gerechnet wird mit einem Vorwiderstand $R_\text{V}$ von $100\,k\Omega$ mit 1\,\% Abweichung.  
+
+\begin{align}
+\Delta R_{T,5} &= \Delta R_V \cdot \frac{U_{ntc,5}}{U_{ref}\;-\;U_{ntc,5}} = 1\,k\Omega \cdot \frac{1.98\,V}{(2.39\,V-1.98\,V)} \approx 5\,k\Omega \label{eq: dRT} \\
+\frac{dT}{dR_T} &= \frac{d}{dR_T} \cdot \frac{1}{\frac{1}{T_N}+\frac{1}{B} \cdot ln(\frac{R_T}{R_0})} = -\dfrac{1}{B\cdot T_0\left(\frac{\ln\left(\frac{R_\text{T}}{R_0}\right)}{B}+\frac{1}{T_0}\right)^2}
+\end{align}
+
+
+
+
 
 
