@@ -92,7 +92,7 @@ Wie in der Abbildung \ref{pic: statemaschine sensor} zu erkennen ist, wird die F
 In der Funktion shine() wird in einer for-while der Eingelesene Wert das sogenannte taservalue der jeweiligen Touchtasten mit dem Tresholdwert, tresh verglichen. Ist das tastervalue kleiner als tresh, wird eine MQTT-Message mit der entsprechenden Topic und der Payloud "ON" published. Ebenso wird die Led der entsprechenden Taste HIGH gesetzt. Trifft der andere Fall zu, wenn das tastervalue grösser als tresh ist wird die entsprechende Led LOW gesetzt.
 \subsubsection{tread()}
 In der Funktion tread() werden in einer for-while die aktuellen Werte der vier Touch-Tasten eingelesen und in den int-array tastervalue gesetzt, um Ausreisser zu eliminieren, wird ein Mittelwert erstellt. Es werden jeweils 15 Messungen addiert und aschliessend durch die Anzahl Messungen dividiert.  
-\subsubsection{tempf()}
+\subsubsection{tempf()} \label{tempf}
 In dieser Funktion wird die Temperatur mit dem NTC ermittelt. So wird als erstes $U_{ref}$ und $U_{ntc}$ als ADC-Wert eingelesen und über 10 Werte gemittelt. Danach wird eine Geradengleichung (Gl.: \ref{eq: U_ADC_sensor}) verwendet, um die ADC-Werte in eine Spannung zu konvertieren. Wie im Kapitel \ref{Temperatursensor} beschrieben und in der Abbildung \ref{pic: Temperatursensor} ersichtlich, bildet ein Vorwiderstand von 100\,K$\omega$ und der NTC einen Spannungsteiler an dem $U_{ref}$ angelegt wird und am NTC die Spannung $U_{ntc}$ gemessen wird. Aufgrund dessen wird der Widerstand des NTCs $R_T$ mit \ref{eq: R_T} berechnet. Für $U_{ref}$ wird maximal eine Spannung von 2.5\,V verwendet, da der ADC danach nicht mehr linear ansteigt, diese Spannung wird mithilfe eines DACs im Setup() ausgegeben. Die Temperatur in Kelvin ergibt sich dann aus der Gleichung \ref{eq: T}, von dieser Zahl wird danach 273.15 abgezogen, um den Wert in °C zu kriegen. Die angesprochene Gerade (Gl.: \ref{eq: U_ADC_sensor}) ist so ausgelegt, dass sie in dem Spannungsbereich der Temperaturmessung funktioniert. Um sie auszulegen und gleichzeitig die Temperatur zu verifizieren wurde folgendes Verfahren angewendet. Als erstes wurde der Temperaturbereich festgelegt, welcher von -5\,°C bis +45\,°C reicht. Dann wurde mittels eines Klimaschrankes \ref{pic: Klimaschrank} die Temperaturen in 5\,°C $\pm$1°C Schritten festgelegt. Um die Temperatur genauer zu messen wurde ein NiCr-Ni Temperaturfühlers (Messgerät Therm 2250-1) verwendet. Der Sensorbaustein und der Temperaturfühler werden nun verschiedenen Temperaturen ausgesetzt und der Sensorbaustein gibt seine ADC-Werte weiter (Tabelle: \ref{tab: Temp_ADC}). Es wurde festgestellt, dass $U_{ref}$ annäherungsweise über die Temperatur konstant bleibt, hier war der ADC Wert 2768\,$\pm$1. $U_{ref}$ wurde ebenso mittels eines Multimeters gemessen und es ergab sich eine Spannung von U$_{ref}$ = 2.39\,V. Die mit dem NiCr-Ni Temperaturfühler gemessenen Temperaturen wurden mithilfe von Gleichung \ref{eq: R_T,2} und \ref{eq: U_ntc} in Spannungen verrechnet, welche theoretisch an dem NTC anliegen müssten. Diese theoretischen Spannungen wurden genommen, entgegnen den ADC-Werten gesetzt und einen linearen Fit mit QtiPlot erstellt. Die Gerade (Gl.: \ref{eq: U_ADC_sensor}) kam dabei heraus und sie wurde auf die ADC-Werte der Tabelle \ref{tab: Temp_ADC} angewendet, um dann mithilfe von den Gleichungen \ref{eq: R_T} und \ref{eq: T} die Temperaturen zu berechnen, die der Sensorbaustein schlussendlich anzeigt. Diese berechneten Temperaturen des Sensorbausteins wurden dann den gemessenen Temperaturen des Temperaturfühlers in der Tabelle \ref{tab: Temp_ADC} verglichen, die grösste Abweichung war 0.23\,K bei 39.2\,°C, bei welchen der Sensorbaustein 39.43\,°C anzeigen würde. Der Grund dieses Verfahrens ist, dass $U_{ref}$ leicht unterschiedliche Werte annehmen kann, da der DAC nicht genau ist, vereinfacht gesagt wurde im Bereich von $U_{ref}$ = 2.39\, linearisiert. $U_{ref}$ wird wie $U_{ntc}$ gemessen, was bedeutet dass es keine Rolle spielt ob, $U_{ref}$ = 2.30\,V oder 2.4\,V ist.
 \\
 \begin{center}	
@@ -100,7 +100,8 @@ Berechnungen zur Temperaturmessung:
 \begin{align}
 	U &= ADC \cdot m_{sensor} + b_{sensor} \label{eq: U_ADC_sensor}\\
 	\frac{R_T}{R_V} &= \frac{U_{ntc}}{U_{ref}\;-\;U_{ntc}} \label{eq: R_T}\\
-	T &= \frac{1}{\frac{1}{T_N}+\frac{1}{B} \cdot ln(\frac{R_T}{R_V})} \label{eq: T}\\
+	T &= \frac{1}{\frac{1}{T_N}+\frac{1}{B} \cdot ln(\frac{R_T}{R_0})}\; 
+	\widehat{=}\; \frac{1}{\frac{1}{T_N}+\frac{1}{B} \cdot ln(\frac{R_T}{R_V})}  \label{eq: T}\\
 	R_T &= R_0 e^{B\left(\frac{1}{T} - \frac{1}{T_0}\right)} \label{eq: R_T,2}\\
 	U_{ntc} &= \frac{R_T}{(R_V + R_T)} \cdot U_{ref} \label{eq: U_ntc}
 \end{align}
@@ -113,7 +114,14 @@ Konstanten zur Temperaturmessung:
 	R_0 &= 100\,k\Omega\; \text{(Widerstand des NTCs bei 25\,°C)}\\
 	B &= 4250\,K\; \text{(B-Konstante des NTCs)}
 \end{align*}
-
+\\Variablen zur Temperaturmessung:
+\begin{align*}
+ U_{ntc}\; &\text{(Spannung über NTC)}\\
+ U_{ref}\; &\text{(Spannung über Vorwiderstand und NTC)}\\
+ U\; &\text{(Spannung allgemein)}\\
+ ADC\; &\text{(ADC-Wert allgemein)}\\
+ T\; &\text{(momentante Temperatur in Kelvin)}\\
+\end{align*}
 \end{center}
 
 \begin{table}[H]
