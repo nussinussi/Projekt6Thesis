@@ -70,12 +70,43 @@ Der Sensorbaustein wurde unter folgenden Bedingungen gemessen:
 
 
 \subsubsection{Temperaturmessung}
-Es wird berechnet, wie gross die Abweichung der Temperaturmessung sein kann. Dazu wurde mit $U_\text{ref} = 2.39\,V$ und einer Temperatur von -4.6\,°C $\approx$ 5\,°C  gerechnet (folglich Kapitel \ref{tempf}), diese Temperatur wurde als untere Grenze genommen und sie wird die Abweichung im gewählten Temperaturbereich maximieren, folglich Gleichung \ref{eq: dRT}. Gerechnet wird mit einem Vorwiderstand $R_\text{V}$ von $100\,k\Omega$ mit 1\,\% Abweichung.  
-
+Es wird berechnet, wie gross die Abweichung der Temperaturmessung sein kann. Dazu wurde mit $U_\text{ref} = 2.39\,V$ und einer Temperatur von -4.6\,°C $\approx$ 5\,°C  gerechnet (folglich Kapitel \ref{tempf}), diese Temperatur wurde als untere Grenze genommen und sie wird die Abweichung im gewählten Temperaturbereich maximieren, folglich Gleichung \ref{eq: dRT}. Gerechnet wird mit einem Vorwiderstand $R_{\text{V}}$ von $100\,k\Omega$ mit 1\,\% Abweichung und einem NTC mit einem Widerstand von $R_{\text{T}}$, welcher 5\,\% Abweichung hat.
+\\
+Werte:
+\begin{align*}
+R_{T,4.6} &= 481\,k\Omega\\
+R_{T,max} &= 481\,k\Omega \cdot 1.05 = 505\,k\Omega\\
+R_{T,20.2} &= 126\,k\Omega\\
+R_{T,20.2,max} &= 126\,k\Omega \cdot 1.05 = 132\,k\Omega\\
+R_V &= 100\,k\Omega\\
+R_{V,min} &= 100\,\Omega \cdot 0.99 = 99k\,\Omega\\
+B &= 4250\,K\\
+T_{25} &= 298.15\,K\\
+\end{align*}
+\\
+Was als erhöhte Spannung an $U_{ntc}$ bei -4.6°C anliegen würde:
 \begin{align}
-\Delta R_{T,5} &= \Delta R_V \cdot \frac{U_{ntc,5}}{U_{ref}\;-\;U_{ntc,5}} = 1\,k\Omega \cdot \frac{1.98\,V}{(2.39\,V-1.98\,V)} \approx 5\,k\Omega \label{eq: dRT} \\
-\frac{dT}{dR_T} &= \frac{d}{dR_T} \cdot \frac{1}{\frac{1}{T_N}+\frac{1}{B} \cdot ln(\frac{R_T}{R_0})} = -\dfrac{1}{B\cdot T_0\left(\frac{\ln\left(\frac{R_\text{T}}{R_0}\right)}{B}+\frac{1}{T_0}\right)^2}
+U_{ntc,max} &= U_{\text{ref}} \cdot \frac{R_{T,max}}{R_{T,max}\;+\;R_{V,min}} = 2.39\;V \cdot \frac{ 505\,k\Omega}{(505\,k\Omega\;+\;99\,k\Omega)} = 2.00\,V\label{eq: U_{ntc,max}} \\
 \end{align}
+\\
+Was als erhöhte Spannung an $U_{ntc}$ bei 20.2°C anliegen würde:
+\begin{align}
+U_{ntc,max} &= U_{\text{ref}} \cdot \frac{R_{T,max}}{R_{T,max}\;+\;R_{V,min}} = 2.39\;V \cdot \frac{ 132\,k\Omega}{(132\,k\Omega\;+\;99\,k\Omega)} = 1.37\,V\label{eq: U_{ntc,20.2,max}}
+\end{align}
+\\
+Temperatur Berechnung bei -4.6°C im Mikrocontroller:
+\begin{align}
+\frac{R_T}{R_V}_{max} &= \frac{U_{ntc,max}}{U_{ref}\;-\;U_{ntc,max}} = 5.13\\
+T &= \frac{1}{\frac{1}{T_{25}}+\frac{1}{B} \cdot ln(\frac{R_T}{R_V}_{max})} = 267.46\,K = -5.68\,^\circ C\\
+\Delta T_{max} &= -4.6^\circ C - (-5.7^\circ C) = 1.1\,K
+\end{align}
+\\
+Temperatur Berechnung bei 20.2°C im Mikrocontroller:
+\begin{align}
+\frac{R_T}{R_V}_{max} &= \frac{U_{ntc,max}}{U_{ref}\;-\;U_{ntc,max}} = 1.34\\
+T &= \frac{1}{\frac{1}{T_{25}}+\frac{1}{B} \cdot ln(\frac{R_T}{R_V}_{max})} = 267.46\,K = -5.68\,^\circ C\\
+\Delta T_{max} &= -4.6^\circ C - (-5.7^\circ C) = 1.1\,K
+\end{align}w
 
 
 
