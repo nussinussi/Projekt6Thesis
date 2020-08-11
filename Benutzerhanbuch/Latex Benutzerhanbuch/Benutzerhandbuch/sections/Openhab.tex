@@ -21,9 +21,38 @@ Openhab ist die Schnittstelle, welche in diesem Projekt die Geräte mit einender
 
 \item Um Konfigurationen mit Visual Studio Code zu Bearbeiten wird der Ordner openHab-conf in Netzlaufwerk vom Notebook verbunden. Eingabe Ordner: "\textbackslash \textbackslash 192.168.137.8 \textbackslash openHAB-conf" verbinden, mit andern Anmeldedaten anmelden Username:"openhabian", Passwort: "openhabian" wählen.
 
-\item Visual Studio Code öffnen Ordner öffnen openHab-conf wählen. In Einstellungen, Erweiterungen, OpenHab Configuration, Host in "settings.json" bearbeiten wählen. \\
+\item In Visual Studio Code Addon Openhab istallieren ,Ordner öffnen openHab-conf wählen. In Einstellungen, Erweiterungen, OpenHab Configuration, Host in "settings.json" bearbeiten wählen. \\
 \colorbox{lightgray}{openhab.host: "192.168.137.8",
 	"git.autofetch": true} eingeben.
    
    
  \end{enumerate}
+\subsection{Openhab Configurieren}
+
+\begin{enumerate}
+	\item In der Ordnerstruktur wird der services geöffnet und file addons.cfg bearbeitet. "binding =" wird ein kommentiert, das Binding "mqtt" wird hinzugefügt. Ebenso wird "misc" ein Kommentiert und "mqttbroker, openhabcloud" hinzugefügt, anschliessend ist ein Reboot des Raspi notwendig.  
+	   \begin{figure}[H]
+		\centering
+		\includegraphics[width=0.9\textwidth]{graphics/addpnscfg.PNG}
+		\caption{File: addons.cfg} 	
+		\label{pic: addons.cfg}
+	\end{figure} 
+\item Things werden im Webinterface hinzugefügt Openhab ist unter URL <IP-Adresse>:8080 erreichbar. Button Paper UI wählen, in der Inbox befindet sich der MQTT Broker, welcher mit click auf den Bestätigungsbutton hinzugefügt wird. 
+\item Mit dem Menüpunkt Configuration, Thing ist der MQTT Broker sichtbar, mit den blauen add Button werden weitere MQTT-Things hinzugefügt, ADD MANUALLY, Generic MQTT Thing wählen, Parameter gemäss nachfolgender Abbildung wählen.
+	   \begin{figure}[H]
+	\centering
+	\includegraphics[width=0.75\textwidth]{graphics/MQTT-Thing.PNG}
+	\caption{Configure MQTT-Thing} 	
+	\label{pic: Configure MQTT-Thing}
+\end{figure} 
+\item In Configuration, Thing ist das nun erstellte gerät aufgetaucht, dies wählen und Button Channels add wählen, Channel type On/OFF Switch eingeben, Channel id beliebig eingeben, darf keine Leerschläge enthalten, Entsprechende MQTT Configurationen eingeben, Topic siehe Tabelle \ref{tab: MQTT-Topics Aktor}.
+   \begin{figure}[H]
+	\centering
+	\includegraphics[width=0.9\textwidth]{graphics/Channel.PNG}
+	\caption{Configure Channel} 	
+	\label{pic: Configure Channel}
+\end{figure} 
+\item In Visual Studio Code in Ordner items neue Datei erstellen mit Endung .items und öffnen, wird nun das Addon Openhab geöffnet sind zwei Things ersichtlich. Im Tropdown Menü ist das zuvor erstellte Channel "Licht Wohnzimmer" ersichtlich und kann in .items Datei importiert werden.
+\item Weitere Dateien werden angelegt und Configuriert. Für die Benutzeroberfläche wird im Ordner Sitemaps eine Datei mit Endung .sitemap angelegt ebenso wird für alle Automatischen Vorgängen im Ordner rules eine Datei mit Endung .rules angelegt. Informationen um Items, Rules, oder Sitmaps zu Initialisieren sind unter Dokumentation \cite{noauthor_introduction_nodate} vorhanden.
+\item	Fils aus Dokumentation können übernommen werden, dabei muss der Channel Link angepasst werden.
+\end{enumerate}	
