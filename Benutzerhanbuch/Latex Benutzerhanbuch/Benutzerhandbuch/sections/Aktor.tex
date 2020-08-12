@@ -1,6 +1,6 @@
 \clearpage
 \section{Installation Aktor}\label{sec:Aktor}
-Das Aktor-Bord ist die Phisikalische Schnittstellen zu den Elektronischen Verbraucher oder Sensoren. An den Relais K1 bis K4 können ADC 250 Volt und 10 Ampere schalten. An den 0-10 Volt Ausgängen darf einen Maximalen Storm vom 4 mA bezogen werden.
+Das Aktor-Bord ist die Phisikalische Schnittstellen zu den Elektronischen Verbraucher oder Sensoren. Die Relais K1 bis K4 können ADC 250 Volt und 10 Ampere schalten. An den 0-10 Volt Ausgängen darf einen Maximalen Strom vom 4 mA bezogen werden.
 \subsection{Anleitung einrichten}
 \begin{figure}[H]
 	\centering
@@ -10,19 +10,19 @@ Das Aktor-Bord ist die Phisikalische Schnittstellen zu den Elektronischen Verbra
 \end{figure} 
 
 \begin{enumerate}
-	\item Das Gehäuse des Aktor-Bords soll in eine Haupt- oder Unterverteilung eingebaut werden, wichtig ist zu beachten, dass sich dieser Standort innerhalb der Wlan Reichweite befindet.\\
+	\item Das Gehäuse des Aktor-Bords soll in eine Haupt- oder Unterverteilung eingebaut werden, wichtig ist zu beachten, dass sich dieser Standort innerhalb der eigenen Wlan Reichweite befindet.\\
 	\\
-	\item Verbraucher wie Leuchten, Storen oder Ventilator können in Schliesser- oder Öffnerbetrieb an den Relais K1 bis K4 angeschlossen werden. Wichtig ist zu beachten dass die Maximale Spannung von 250 Volt ADC und Maximaler Strom von 10 Ampere nicht überschritten wird.\\
+	\item Verbraucher wie Leuchten, Storen oder Ventilator können in Schliesser- oder Öffnerbetrieb an den Relais K1 bis K4 angeschlossen werden. Wichtig ist zu beachten, dass die maximale Spannung von 250 Volt ADC und maximaler Strom von 10 Ampere nicht überschritten wird.\\
 		\\
-	\item An den out1 und out2 Klemmen können 0-10 Volt Verbraucher angeschlossen werden. Ein Maximaler Strom von 4 mA darf nicht überschritten werden.\\
+	\item An den out1 und out2 Klemmen können 0-10 Volt Verbraucher angeschlossen werden. Ein maximaler Strom von 4 mA darf nicht überschritten werden, damit die Spannung stabil bleibt.\\
 	\\
-	\item An den in1 und in2 Klemmen können 0-10 Volt Sensoren angeschlossen werden.\\
+	\item An den In1 und In2 Klemmen können 0-10 Volt Sensoren angeschlossen werden.\\
 	\\
-	\item Als Energieversorgung kann an den Power Klemmen eine 24 V DC Quelle angeschlossen werden. Das Bord kann auch mit einem 24 V DC Hohlstecker verbunden werden.
+	\item Als Energieversorgung kann an den Power Klemmen eine 24 V DC Quelle angeschlossen werden. Das Bord kann auch mit einem 24 V DC Hohlstecker verbunden werden. Jumper muss entsprechend gesteckt werten jack für Hohlstecker oder terminal wenn die Speisung über Klemmen erfolgt. 
 \end{enumerate}
 
 \subsection{Inbetriebnahme}
-Sobald das Aktor-Bord mit Spannung versorgt wird, startet das Configportal des Bords. Mit einem beliebigen Gerät kann im nach einem Wlan Netzwerk gesucht werden. Das Netzwerk hat den Namen "Aktor" gefolgt von der 10 Stelligen Chip-ID des Mikrocontrollers. 
+Sobald das Aktor-Bord mit Spannung versorgt wird, startet das Configportal des Bords. Mit einem beliebigen Gerät kann im nach einem Wlan Netzwerk gesucht werden. Das Netzwerk hat den Namen 'Aktor' gefolgt von der 10 Stelligen Chip-ID des Mikrocontrollers. 
  
 \begin{figure}[H]
 	\begin{center}
@@ -37,7 +37,7 @@ Sobald das Aktor-Bord mit Spannung versorgt wird, startet das Configportal des B
 	\end{minipage}
 \end{center}
 \end{figure}
-Mit der Funktion Scan WiFi werden vohanden Netzwerke angezeigt. Wird ein eigener MQTT Server installiert kann an dieser Stelle die IP adresse angegeben der Port ist Default "1883". Die Eingabe bei "board location" wird verwendet um MQTT-topics zu generieren, sie muss also eindeutig sein. Werden mehrere Aktor Bords verbaut unterscheiden sie sich an der "bord location". Mit der Taste "save" werden die Eingaben gesichert un müssen bei einem erneuten Start nicht mehr eingegeben werden. Kann sich das Aktor Bord erfolgreich ins Lokale Netztwerk anmelden, blinkt die Status Led in einem regelmässigen Zyklus. Bei jeder Zustandsänderung der Statusleuchte wird eine Messung an den In1 und In2 durchgeführt. 
+Mit der Funktion Scan WiFi werden vohanden Netzwerke angezeigt. Wird ein eigener MQTT Server installiert kann an dieser Stelle die IP-Adresse angegeben werden, ansonsten der URL des öffentlichen MQTT-Broker. Der Port ist Default '1883' anzugeben. Die Eingabe bei 'board location' wird verwendet um MQTT-topics zu generieren, sie muss also eindeutig sein und sollte keine Sonderzeichen beinhalten. Werden mehrere Aktor Bords verbaut unterscheiden sie sich an der 'bord location'. Mit der Taste 'save' werden die Eingaben gesichert und müssen bei einem erneuten Start nicht mehr eingegeben werden. Kann sich das Aktor Bord erfolgreich ins Lokale Netzwerk anmelden, blinkt die Status Led in einem regelmässigen Zyklus. Bei jeder Zustandsänderung der Statusleuchte wird eine Messung an den In1 und In2 durchgeführt. 
 
 \subsection{Programmierung}
 Verschiedene Eigenschaften können mit dem Entwicklertool zusätzlich verändert werden wenn der Programmcode des Mikrocontrollers bearbeitet wird. In der nachfolgenden Tabelle sind Default-Konfigurationen enthalten.
@@ -49,18 +49,20 @@ Verschiedene Eigenschaften können mit dem Entwicklertool zusätzlich verändert
 	\hline 
 	Zeit Interwall Messungen & NUM\_SEC & 10 \\ 
 	\hline 
-	Allgemeiner MQTT-Topic  & MQTT\_SERIAL\_PUB & "data/aktorboard/" \\ 
+	Allgemeiner MQTT-Topic  & MQTT\_SERIAL\_PUB & 'data/aktorboard/' \\ 
 	\hline 
 	Messungen für Mean Wert ADC & I & 100 \\ 
 	\hline  
 \end{tabular} 	
 \end{table}
-Werden schnelle Reaktionszeiten vom System verlangt können Funktionen direkt im Programmcode Eingebunden werden. So kann eine Reaktionszeit von 300 ms erreicht werden. In diesem Fall wird in der Funktion callback() definiert, wenn topic "data/sensorboard/s1" empfangen wird wird Relais1 geschalten.
+Werden schnelle Reaktionszeiten vom System verlangt, von Befehlseingabe bis zur Ausführung, können Funktionen direkt im Programmcode Eingebunden werden. So kann eine Reaktionszeit von 300 ms erreicht werden. In diesem Fall wird in der Funktion callback() definiert, wenn topic 'data/sensorboard/s1' empfangen wird wird Relais1 geschalten.
 \subsection{Netzwerkeinstellungen ändern}
-Soll sich das Aktor Bord in ein anderes Netzwerk anmelden gibt es zwei verschiedenen Möglichkeiten. Wenn während des Startvorgangs die Clear taste betätigt wird, eröffnet der Mikrocontroller das Config-Portal. Das Configportal wird ebenfalls geöffnet wenn das einst eingetragene Netzwerk nicht mehr gefunden wird.
+Soll sich das Aktor Bord in ein anderes Netzwerk anmelden gibt es zwei verschiedenen Möglichkeiten die Einstellungen zu ändern. Wenn während des Startvorgangs die Mode Taste betätigt wird, eröffnet der Mikrocontroller das Config-Portal. Das Config-Portal wird ebenfalls geöffnet, wenn das einst eingetragene Netzwerk nicht mehr gefunden wird und keine Verbindung hergestellt werden kann.
+\subsection{System Tasten}
+Mit der Taste 'enable' wird manuell ein Neustart durchgeführt. Mit der Taste 'mode' wird während dem Startvorgang das Config-Portal eröffnet. Die Taste 'Clear' hat auf dem Prototyp Aktor-Bord keine Funktion.
 
 \subsection{Topics}
-In Nachfolgenden Tabelle die generierten Topics, welche weiter in Openhab verwendet werden. Als location wurde im Configportal "location" eingetragen.
+In der Nachfolgenden Tabelle sind die automatisch generierten Topics, welche weiter in Openhab verwendet werden um Regeln festzulegen, welches Relais bei welchem Befehl Schaltet usw. Als location wurde im Config-Portal in diesem Fall 'location' eingetragen.
 \begin{table}[H]
 	\centering
 	\begin{tabular}{|l|l|}
@@ -84,8 +86,8 @@ In Nachfolgenden Tabelle die generierten Topics, welche weiter in Openhab verwen
 		data/aktorboard/location/E2 & Publish 0-10V Input 2  \\ 
 		\hline
 	\end{tabular} 	
+\caption{Generierte MQTT-Topics Aktor-Bord}
 \label{tab: MQTT-Topics Aktor}
-\caption{MQTT-Topics}
 \end{table}
  
- Mit den Topics werden die verschiedenen Anwendungen unterschieden, wobei sich der Zustand mit der Payload unterscheidet. Bei den Relais wird zwischen "ON" und "OFF" unterschieden. Bei den 0-10 Volt Inputs so wie Outputs enthält die Payload den entsprechenden Wert. 
+ Mit den Topics werden die verschiedenen Anwendungen unterschieden, wobei sich der Zustand mit der Payload unterscheidet. Bei den Relais wird zwischen 'ON' und 'OFF' unterschieden. Bei den 0-10 Volt Inputs so wie Outputs enthält die Payload den entsprechenden Wert. 

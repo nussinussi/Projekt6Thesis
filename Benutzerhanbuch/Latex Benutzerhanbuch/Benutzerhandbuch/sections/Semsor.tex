@@ -8,16 +8,19 @@ Das Sensor-Bord ist die Physikalische Schnittstelle, wo Actionen ausgelösst wer
 		\begin{minipage}[b]{.3\linewidth} % [b] => Ausrichtung an \caption
 			\includegraphics[width=\textwidth]{graphics/Sensor1.PNG}
 			\caption{Sensor-Bord Rückseite}
+			\label{pic: Sensorbord}
 		\end{minipage}
 		\hspace{.1\linewidth}% Abstand zwischen Bilder
 		\begin{minipage}[b]{.3\linewidth} % [b] => Ausrichtung an \caption
 			\includegraphics[width=\textwidth]{graphics/Sensor3.PNG}
 			\caption{Frontprint}
+			\label{pic: Frontprint}
 		\end{minipage}
 	\hspace{.1\linewidth}% Abstand zwischen Bilder
 		\begin{minipage}[b]{.3\linewidth} % [b] => Ausrichtung an \caption
 	\includegraphics[width=\textwidth]{graphics/Sensor2.PNG}
 	\caption{Spannungsversorgung Rückseite}
+	\label{pic: ruckseite}
 \end{minipage}
 \end{center}
 \end{figure}
@@ -25,18 +28,18 @@ Das Sensor-Bord ist die Physikalische Schnittstelle, wo Actionen ausgelösst wer
 \begin{enumerate}
 	\item Die Installation ist in einem Spannungslosen Zustand durchzuführen.\\
 	\\
-	\item An der Rückseite vom der Spannungsversorgung wird die Netzspannung 230 V ADC angeschlossen\\
+	\item An der Rückseite von der Spannungsversorgung wird die Netzspannung 230 V ADC angeschlossen siehe Abbildung \ref{pic: ruckseite}.\\
 	\\
-	\item Das Sensor-Bord wird zusammen gesteckt mit der Spannungsversorgung und mit einem Standart Feller Gr 1 Befestigungs Rahmen in eine Vorgesehene Einbauschalteröffnung eingebaut \\
+	\item Das Sensor-Bord \ref{pic: Sensorbord} wird mit der Spannungsversorgung \ref{pic: ruckseite} und wird mit einem Standard Feller Gr-1 Befestigungsrahmen in eine Vorgesehene Einbauschalteröffnung eingebaut. \\
 	\\
-	\item Der Frontplatte wird mit dem Abdeckrahmen Gr 1 auf das Sensor-Bord gesteckt. Die Beschriftung ist dringend zu Beachten.\\
+	\item Der Frontplatte \ref{pic: Frontprint} wird mit dem Abdeckrahmen Gr-1 auf das Sensor-Bord \ref{pic: Sensorbord} gesteckt. Die Beschriftung der Pins, GND zu GND ist dringend zu Beachten beim zusammenstecken.\\
 	\\
 	\end{enumerate}
 
 \subsection{Inbetriebnahme}
-Sobald das Sensor-Bord mit Spannung versorgt wird, startet das Configportal des Bords. Mit einem beliebigen Gerät kann im nach einem Wlan Netzwerk gesucht werden. Das Netzwerk hat den Namen "Sensor" gefolgt von der 10 Stelligen Chip-ID des Mikrocontrollers. 
+Sobald das Sensor-Bord mit Spannung versorgt wird, startet das Config-Portal des Bords. Mit einem beliebigen Gerät kann im nach einem Wlan Netzwerk gesucht werden. Das Netzwerk hat den Namen 'Sensor' gefolgt von der 10 Stelligen Chip-ID des Mikrocontrollers. 
 
-Mit der Funktion Scan WiFi werden vorhanden Netzwerke angezeigt. Wird ein eigener MQTT Server installiert kann an dieser Stelle die IP Adresse angegeben der Port ist Default "1883". Die Eingabe bei "board location" wird verwendet um MQTT-Topics zu generieren, sie muss also eindeutig sein. Werden mehrere Sensor-Bords verbaut unterscheiden sie sich an der "bord location". Mit dem Button "save" werden die Eingaben gesichert un müssen bei einem erneuten Start nicht mehr eingegeben werden. Kann sich das Sensor-Bord erfolgreich ins Lokale Netzwerk anmelden, blinkt die Status Led in einem regelmässigen Zyklus. Bei jeder Zustandsänderung der Statusleuchte wird eine Temperatur Messung mit dem NTC-Widerstand durchgeführt. 
+Mit der Funktion Scan WiFi werden vorhanden Netzwerke angezeigt. Wird ein eigener MQTT Server installiert kann an dieser Stelle die IP-Adresse angegeben der Port ist Default '1883' anzugeben. Die Eingabe bei 'board location' wird verwendet um MQTT-Topics zu generieren, sie muss also eindeutig sein. Werden mehrere Sensor-Bords verbaut unterscheiden sie sich an der 'bord location'. Mit dem Button 'save' werden die Eingaben gesichert und müssen bei einem erneuten Start nicht mehr eingegeben werden. Kann sich das Sensor-Bord erfolgreich ins Lokale Netzwerk anmelden, blinkt die Status Led in einem regelmässigen Zyklus. Bei jeder Zustandsänderung der Statusleuchte wird eine Temperatur Messung mit dem NTC-Widerstand durchgeführt. 
 
 \subsection{Programmierung}
 Verschiedene Eigenschaften können mit dem Entwicklertool zusätzlich verändert werden wenn der Programmcode des Mikrocontrollers bearbeitet wird. In der nachfolgenden Tabelle sind die wichtigsten Default-Konfigurationen enthalten.
@@ -63,10 +66,12 @@ Verschiedene Eigenschaften können mit dem Entwicklertool zusätzlich verändert
 	\end{tabular} 	
 \end{table}
 \subsection{Netzwerkeinstellungen ändern}
-Soll sich das Sensor-Bord in ein anderes Netzwerk anmelden gibt es zwei verschiedenen Möglichkeiten. Wenn während des Startvorgangs die Clear Taste betätigt wird, eröffnet der Mikrocontroller das Config-Portal. Das Config-Portal wird ebenfalls geöffnet wenn das einst eingetragene Netzwerk nicht mehr erreichbar ist.
+Soll sich das Sensor Bord in ein anderes Netzwerk anmelden gibt es zwei verschiedenen Möglichkeiten die Einstellungen zu ändern. Wenn während des Startvorgangs die Mode Taste betätigt wird, eröffnet der Mikrocontroller das Config-Portal. Das Config-Portal wird ebenfalls geöffnet, wenn das einst eingetragene Netzwerk nicht mehr gefunden wird und keine Verbindung hergestellt werden kann.
+\subsection{System Tasten}
+Mit der Taste 'enable' wird manuell ein Neustart durchgeführt. Mit der Taste 'mode' wird während dem Startvorgang das Config-Portal eröffnet. Die Taste 'clear' hat auf dem Prototyp Sensor-Bord keine Funktion.
 
 \subsection{Topics}
-In Nachfolgenden Tabelle die generierten Topics, welche weiter in Openhab verwendet werden. Als location wurde im Config-Portal "location" eingetragen.
+In der Nachfolgenden Tabelle sind die Automatisch generierten Topics, welche weiter in Openhab verwendet werden. Als location wurde im Config-Portal 'location' eingetragen.
 \begin{table}[H]
 	\centering
 	\begin{tabular}{|l|l|}
