@@ -70,7 +70,7 @@ Der Sensorbaustein wurde unter folgenden Bedingungen gemessen:
 
 
 \subsubsection{Temperaturmessung}
-Es wird berechnet, wie gross ungefähr die Abweichung der Temperaturmessung um die Raumtemperatur von Wohngebäuden, was üblicherweise 20\,°C entspricht, ist. Dazu wurde mit $U_\text{ref} = 2.39\,V$ und einer Temperatur von 20.2\,°C $\approx$ 20\,°C  gerechnet (folglich Kapitel \ref{tempf}). Gerechnet wird mit einem Vorwiderstand $R_{\text{V}}$ von $100\,k\Omega$ mit 0.1\,\% Abweichung und einem NTC (NCU18WF104J60RB von Murata) mit einem Widerstand von $R_{\text{T}}$, welcher 5\,\% Abweichung hat. Um die Abweichung zu berechnen, wird die anliegende Spannung bei 20.2\,°C berechnet (Gl.: \ref{eq: U_{ntc,20.2,max}}). Um $U_{ntc,max}$ zu maximieren, wurde der maximale Widerstand des NTC bei 20.2\,°C und der kleinst anliegende Wert von dem Vorwiderstand $R_V$ verwendet. Danach wurden mit \ref{eq: R_T/R_V_{max}} und \ref{eq: T_{min}} die Temperatur berechnet. Die Abweichung ergab sich aus der Differenz, des zu erwartenden und des zu berechnenden Wertes, was 0.9\,K entspricht. Da dieser Wert zu hoch erscheint, grösser als 0.5\,°C, wäre ein NTC mit geringerer Toleranz besser gewesen. Dazu gibt es Baugleiche NTCs mit den gleichen Parametern, einfach kleinere Toleranzen.
+Es wird berechnet, wie gross ungefähr die Abweichung der Temperaturmessung um die Raumtemperatur von Wohngebäuden, was üblicherweise 20\,°C entspricht, ist. Dazu wurde mit $U_\text{ref} = 2.39\,V$ und einer Temperatur von 20.2\,°C $\approx$ 20\,°C  gerechnet (folglich Kapitel \ref{tempf}). Gerechnet wird mit einem Vorwiderstand $R_{\text{V}}$ von $100\,k\Omega$ mit 0.1\,\% Abweichung und einem NTC (NCU18WF104J60RB von Murata) mit einem Widerstand von $R_{\text{T}}$, bei welchem der Widerstand R$_{25}$ bei 25\,°C eine Abweichung von 5\,\% hat. Um die Abweichung zu berechnen, wird die anliegende Spannung bei 20.2\,°C berechnet (Gl.: \ref{eq: U_{ntc,20.2,max}}). Um $U_{ntc,max}$ zu maximieren, wurde der maximale Widerstand des NTC bei 20.2\,°C und der kleinst anliegende Wert von dem Vorwiderstand $R_V$ verwendet. Danach wurden mit \ref{eq: R_T/R_V_{max}} und \ref{eq: T_{min}} die Temperatur berechnet. Die Abweichung ergab sich aus der Differenz, des zu erwartenden und des zu berechnenden Wertes, was 0.9\,K entspricht. Da dieser Wert zu hoch erscheint, grösser als 0.5\,°C, wäre ein NTC mit geringerer Toleranz besser gewesen. Dazu gibt es Baugleiche NTCs mit den gleichen Parametern, einfach kleinere Toleranzen.
 \\
 Werte:
 \begin{align*}
@@ -94,7 +94,56 @@ T &= \frac{1}{\frac{1}{T_{25}}+\frac{1}{B} \cdot ln\Biggl( \Biggl( \frac{R_T}{R_
 \Delta T_{max} &= 20.2\,^\circ C - 19.3\,^\circ C = 0.9\,K \label{dT_{max}}
 \end{align}
 
+\subsection{Aktorbaustein}
+\subsubsection{Energieverbrauch des Aktorbaustein}
+Der Aktorbaustein wurde unter folgenden Bedingungen gemessen:
 
+\begin{enumerate}
+	\item ungeschalteter Normalzustand (Abbildung: \ref{pic: Aktorbaustein_ungeschaltet}) \\(Der Aktorbaustein wird nicht bedient und hat eine Verbindung mit einem WLAN Netzwerk) \\
+	Der Aktorbaustein hat eine mittlere Leistungsaufnahme von ca. 629\,mW. Auffällig ist, wie beim Sensorbaustein, dass die Leistung mit einer Periode von 10\,s schwankt, was wiederum, wegen des blinkenden Status LED ist. Dazu kommt es alle 10\, zu kurzen Leistungssprüngen.
+	\\
+	\item geschalteter Normalzustand (Abbildung: \ref{pic: Aktorbaustein_geschaltet})\\ (Der Aktorrbaustein wird bedient und hat eine Verbindung mit einem WLAN Netzwerk)\\
+	Die Relais werden nacheinander eingeschalten und danach wieder ausgeschaltet, ein eingeschaltetes Relais und ein LED verbrauchen zusammen somit ca. (900\,mW - 620m\,W)/4 = 70\,mW.
+	\\
+	\item Keine Verbindung (Abbildung: \ref{pic: Aktorbaustein_keine_Verbindung})\\ (Der Aktorbaustein findet kein zulässiges WLAN Netzwerk)\\
+	In diesem Zustand hat der Aktorbaustein eine mittlere Leistungsaufnahme von 1020\,mW, was ähnlich viel wie beim Sensorbaustein ist, die Ursachen hierfür werden die gleichen sein.
+	\\
+	\item Keine Verbindung (Abbildung: \ref{pic: Aktorbaustein_Sparmodus})\\ (Der Aktorbaustein schaltet alle Relais einmal mit und einmal ohne Sparmodus)\\
+	Zu erwarten ist, dass der Sparmodus ca. 1.5W einspart, denn der eingestellte Dutycycle beträgt 30\,\%, und ein Relais verbraucht 400\,mW, wenn es mit 24\,V betrieben wird. Somit ergibt sich aus der Glaichung \ref{eq: P_{gespart,theoretisch}} eine Erparnis von 1.5\,W. In der Grafik ist im Vergleich dazu eine Ersparnis von 1.7\,W (Gl.:  \ref{P_{gespart, gemessen}}). Der Unterschied ist daher, dass es der ausgegebene Dutycycle nicht ganz genau 30\,\% und die Amplitude nicht ganz genau 24\,V beträgt.
+\end{enumerate}
+
+\begin{align}
+P_\text{gespart,theoretisch} &= (1-0.3^2) \cdot 4 \cdot 400\,mW = 1.5\,W \label{eq: P_{gespart,theoretisch}} \\
+P_\text{gespart, gemessen} &= 2680\,mW - 940\,mW = 1.7\,W \label{P_{gespart, gemessen}}
+\end{align}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{graphics/Aktorbaustein_ungeschaltet.png}
+	\caption{Die Leistung des Aktorbausteins, wenn er nicht bedient wird und mit dem Netzwerk verbunden ist}
+	\label{pic: Aktorbaustein_ungeschaltet}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{graphics/Aktorbaustein_geschaltet.png}
+	\caption{Die Leistung des Aktorbausteins, wenn er bedient wird und mit dem Netzwerk verbunden ist}
+	\label{pic: Aktorbaustein_geschaltet}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{graphics/Aktorbaustein_keine_Verbindung.png}
+	\caption{Die Leistung des Aktorbausteins, wenn er einen Verbindungsaufbau versucht, aber kein geeignetes WLAN Netzwerk vorhanden ist}
+	\label{pic: Aktorbaustein_keine_Verbindung}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{graphics/Aktorbaustein_Sparmodus.png}
+	\caption{Die Leistung des Aktorrbausteins mit und ohne Sparmodus, wenn er alle Relais schaltet}
+	\label{pic: Aktorbaustein_Sparmodus}
+\end{figure}
 
 
 
