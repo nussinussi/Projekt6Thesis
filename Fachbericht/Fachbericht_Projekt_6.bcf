@@ -1980,27 +1980,52 @@
     <bcf:citekey order="3">noauthor_wi-fi_nodate</bcf:citekey>
     <bcf:citekey order="4">noauthor_mqtt-v5.0.pdf_nodate</bcf:citekey>
     <bcf:citekey order="5">noauthor_mqtt-v5.0.pdf_nodate</bcf:citekey>
-    <bcf:citekey order="6">noauthor_mqtt-v5.0.pdf_nodate</bcf:citekey>
-    <bcf:citekey order="7">noauthor_osgi_nodate</bcf:citekey>
-    <bcf:citekey order="8">noauthor_osgi_nodate</bcf:citekey>
-    <bcf:citekey order="9">noauthor_osgi_nodate</bcf:citekey>
-    <bcf:citekey order="10">noauthor_osgi_nodate</bcf:citekey>
-    <bcf:citekey order="11">noauthor_event_nodate</bcf:citekey>
-    <bcf:citekey order="12">noauthor_durchbruch_nodate</bcf:citekey>
-    <bcf:citekey order="13">noauthor_durchbruch_nodate</bcf:citekey>
-    <bcf:citekey order="14">randomnerdtutorials_esp32_2019</bcf:citekey>
-    <bcf:citekey order="15">randomnerdtutorials_esp32_2019</bcf:citekey>
-    <bcf:citekey order="16">noauthor_visual_nodate</bcf:citekey>
-    <bcf:citekey order="17">platformio_platformio_nodate</bcf:citekey>
-    <bcf:citekey order="18">noauthor_arduino_nodate</bcf:citekey>
-    <bcf:citekey order="19">zhouhan0126_zhouhan0126/wifimanager-esp32_2019</bcf:citekey>
-    <bcf:citekey order="20">noauthor_arduino_nodate-1</bcf:citekey>
-    <bcf:citekey order="21">noauthor_introduction_nodate-1</bcf:citekey>
-    <bcf:citekey order="22">noauthor_introduction_nodate-1</bcf:citekey>
-    <bcf:citekey order="23">noauthor_xtext_nodate</bcf:citekey>
-    <bcf:citekey order="24">espressif_esp32-wroom-32_datasheet_en_2019</bcf:citekey>
-    <bcf:citekey order="25">hager_hager_kat1_08_technik_d_2019</bcf:citekey>
-    <bcf:citekey order="26">hager_hager_kat1_08_technik_d_2019</bcf:citekey>
-    <bcf:citekey order="27">mikrocontroller.net_relais_nodate</bcf:citekey>
-    <bcf:citekey order="28">ronald_locher_2017</bcf:citekey>
-    <bcf:citekey order="29">miller_rc-glied_nodate</bcf:citekey>
+    <bcf:citekey order="6">steve_understanding_nodate</bcf:citekey>
+    <bcf:citekey order="7">steve_understanding_nodate</bcf:citekey>
+    <bcf:citekey order="8">steve_understanding_nodate</bcf:citekey>
+    <bcf:citekey order="9">steve_understanding_nodate</bcf:citekey>
+    <bcf:citekey order="10">steve_understanding_nodate</bcf:citekey>
+    <bcf:citekey order="11">noauthor_osgi_nodate</bcf:citekey>
+    <bcf:citekey order="12">noauthor_osgi_nodate</bcf:citekey>
+    <bcf:citekey order="13">noauthor_osgi_nodate</bcf:citekey>
+    <bcf:citekey order="14">noauthor_osgi_nodate</bcf:citekey>
+    <bcf:citekey order="15">noauthor_event_nodate</bcf:citekey>
+    <bcf:citekey order="16">noauthor_durchbruch_nodate</bcf:citekey>
+    <bcf:citekey order="17">noauthor_durchbruch_nodate</bcf:citekey>
+    <bcf:citekey order="18">randomnerdtutorials_esp32_2019</bcf:citekey>
+    <bcf:citekey order="19">randomnerdtutorials_esp32_2019</bcf:citekey>
+    <bcf:citekey order="20">noauthor_visual_nodate</bcf:citekey>
+    <bcf:citekey order="21">platformio_platformio_nodate</bcf:citekey>
+    <bcf:citekey order="22">noauthor_arduino_nodate</bcf:citekey>
+    <bcf:citekey order="23">zhouhan0126_zhouhan0126/wifimanager-esp32_2019</bcf:citekey>
+    <bcf:citekey order="24">noauthor_arduino_nodate-1</bcf:citekey>
+    <bcf:citekey order="25">noauthor_introduction_nodate-1</bcf:citekey>
+    <bcf:citekey order="26">noauthor_introduction_nodate-1</bcf:citekey>
+    <bcf:citekey order="27">noauthor_xtext_nodate</bcf:citekey>
+    <bcf:citekey order="28">espressif_esp32-wroom-32_datasheet_en_2019</bcf:citekey>
+    <bcf:citekey order="29">hager_hager_kat1_08_technik_d_2019</bcf:citekey>
+    <bcf:citekey order="30">hager_hager_kat1_08_technik_d_2019</bcf:citekey>
+    <bcf:citekey order="31">mikrocontroller.net_relais_nodate</bcf:citekey>
+    <bcf:citekey order="32">ronald_locher_2017</bcf:citekey>
+    <bcf:citekey order="33">miller_rc-glied_nodate</bcf:citekey>
+    <bcf:citekey order="34">schleuniger_emv_w8_2020</bcf:citekey>
+    <bcf:citekey order="35">schleuniger_emv_w8_2020</bcf:citekey>
+    <bcf:citekey order="36">schleuniger_emv_w8_2020</bcf:citekey>
+  </bcf:section>
+  <!-- SORTING TEMPLATES -->
+  <bcf:sortingtemplate name="none">
+    <bcf:sort order="1">
+      <bcf:sortitem order="1">citeorder</bcf:sortitem>
+    </bcf:sort>
+  </bcf:sortingtemplate>
+  <!-- DATALISTS -->
+  <bcf:datalist section="0"
+                name="none/global//global/global"
+                type="entry"
+                sortingtemplatename="none"
+                sortingnamekeytemplatename="global"
+                labelprefix=""
+                uniquenametemplatename="global"
+                labelalphanametemplatename="global">
+  </bcf:datalist>
+</bcf:controlfile>
