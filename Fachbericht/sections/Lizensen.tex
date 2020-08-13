@@ -1,0 +1,28 @@
+\section{Lizensen}
+In diesem Kapitel werden, die Lizensen, welche in der Software genutzt werden behandelt. In der Tabelle \ref{tab: Lizensen} sind die Lizensen der verwendeten Bibliothek aufgeführt und für was sie verwendet wurden. Die Standard GNU GPL erlaubt die Verwendung nur für freie Software und die aufgeführte GNU LGPL auch für proprietäre Software \cite{noauthor_gnuorg_nodate}. Iostream ist unter GNU Lizens, was unsere Software ebenso unter dieser Lizens stellt.
+
+
+\begin{table}[]
+	\small
+	\begin{tabular}{|c|c|c|c|}
+		\hline
+		\textbf{Bibliothek} & \textbf{Lizenz} & \textbf{Herausgeber} & \textbf{Zweck} \\ \hline
+		Arduino.h & \begin{tabular}[c]{@{}c@{}}GNU LGPL  2.1 \\ oder höher\end{tabular} & Arduino & \begin{tabular}[c]{@{}c@{}}Für Arduino Funktionen \\ notwendig\end{tabular} \\ \hline
+		Fs.h & \begin{tabular}[c]{@{}c@{}}GNU LGPL  2.1 \\ oder höher\end{tabular} & Ivan Grokhotkov & \begin{tabular}[c]{@{}c@{}}Ermöglicht Filesystem \\ für den Web-Server\end{tabular} \\ \hline
+		SPIFFS.h & Apache License 2.0 & Espressif Systems & \begin{tabular}[c]{@{}c@{}}Notwendig für das\\  Filesystem des ESP32\end{tabular} \\ \hline
+		iostream & \begin{tabular}[c]{@{}c@{}}GNU GPL  3.0\\  oder höher\end{tabular} & \begin{tabular}[c]{@{}c@{}}Free Software \\ Foundation\end{tabular} & \begin{tabular}[c]{@{}c@{}}Braucht es um Daten \\ zu Buffern mit C++\end{tabular} \\ \hline
+		WiFi.h & \begin{tabular}[c]{@{}c@{}}GNU LGPL  2.1 \\ oder höher\end{tabular} & Arduino & \begin{tabular}[c]{@{}c@{}}Braucht es um ein Wifi \\ einzurichten und\\  ermöglicht SSID und WPA2\end{tabular} \\ \hline
+		esp\_wifi.h & Apache License 2.0 & Espressif Systems & \begin{tabular}[c]{@{}c@{}}WIrd benötigt,  damit das Wifi\\  unter dem ESP32 läuft\end{tabular} \\ \hline
+		WebServer.h & \begin{tabular}[c]{@{}c@{}}GNU LGPL  2.1\\  oder höher\end{tabular} & Ivan Grokhotkov & Erstellt den Web-Server \\ \hline
+		DNSServer.h & \begin{tabular}[c]{@{}c@{}}Verwendet Bibliothek \\ mit MIT Lizenz\end{tabular} & Bjoern Hartmann & \begin{tabular}[c]{@{}c@{}}Port für den DNS-Server \\ des ESP32\end{tabular} \\ \hline
+		WiFiManager.h & MIT license & github: tzapu & \begin{tabular}[c]{@{}c@{}}Konfigurieren der \\ WiFi-Zugangsdaten\end{tabular} \\ \hline
+		esp\_system.h & Apache License 2.0 & Espressif Systems & \begin{tabular}[c]{@{}c@{}}Konfigueriert die\\  Perepherie des ESP32\end{tabular} \\ \hline
+		stdio.h & \begin{tabular}[c]{@{}c@{}}Nur Kopieren des \\ Copyright Absatzes\end{tabular} & \begin{tabular}[c]{@{}c@{}}University of \\ California\end{tabular} & \begin{tabular}[c]{@{}c@{}}Beinhaltet grundlegende\\  Funktionen, Makros usw.\end{tabular} \\ \hline
+		time.h & GNU C & - & \begin{tabular}[c]{@{}c@{}}Makros und Funktionen um \\ mit der Zeit zu rechnen\end{tabular} \\ \hline
+		PubSubClient.h & \begin{tabular}[c]{@{}c@{}}GNU LGPL  2.1\\  oder höher\end{tabular} & Nick O'Leary & Erstellt einen MQTT Client \\ \hline
+		driver/adc.h & Apache License 2.0 & Espressif Systems & ADC Teiber \\ \hline
+		ArduinoJson.h & MIT Lizens & Benoit Blanchon & \begin{tabular}[c]{@{}c@{}}allgemeine library für C++, \\ wird für den Buffer verwendet\end{tabular} \\ \hline
+	\end{tabular}
+	\caption{Verwendete Bibliothen und deren Lizensen}
+	\label{tab: Lizensen}
+\end{table}

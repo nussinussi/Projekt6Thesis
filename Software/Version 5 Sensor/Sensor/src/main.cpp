@@ -8,7 +8,6 @@
 #include <DNSServer.h>   //https://github.com/zhouhan0126/DNSServer---esp32
 #include <WiFiManager.h> //https://github.com/zhouhan0126/WIFIMANAGER-ESP32
 #include "esp_system.h"
-#include <Wire.h>
 #include <stdio.h>
 #include <time.h>
 #include <PubSubClient.h>
@@ -374,5 +373,6 @@ void loop()
       status = 0;
     }
     tempf();
+    Serial.println(digitalRead(reset));
   }
 }

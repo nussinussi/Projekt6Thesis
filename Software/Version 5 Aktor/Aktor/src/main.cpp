@@ -8,7 +8,6 @@
 #include <DNSServer.h>   //https://github.com/zhouhan0126/DNSServer---esp32
 #include <WiFiManager.h> //https://github.com/zhouhan0126/WIFIMANAGER-ESP32
 #include "esp_system.h"
-#include <Wire.h>
 #include <stdio.h>
 #include <time.h>
 #include <PubSubClient.h>
@@ -56,7 +55,7 @@ const int AD1 = 34;
 const int AD2 = 35;
 
 // setting PWM properties
-const int freq = 20000;
+const int freq = 40000;
 const int Channel1 = 0;
 const int Channel2 = 1;
 #define Channel3 2
@@ -79,7 +78,7 @@ float in2 = 0;
 
 // liniear fit constants for analog input
 float m = 0.00344919;
-float b = -0.276399;
+float b = -0.34;
 
 // Outputs
 int outpins[][2] = {{Channel3, LED_1}, {Channel4, LED_2}, {Channel5, LED_3}, {Channel6, LED_4}};
@@ -171,14 +170,14 @@ void callback(char *topicin, byte *payload, unsigned int length)
   { //Subscribe Analogausgänge
     payload[length] = '\0';
     voltage1 = String((char *)payload).toFloat() * 10;
-    int duty1 = (voltage1 / 3.2 * 1024) / 3.25;
+    int duty1 = (voltage1 / 3.2 * 1024) / 3.24;
     ledcWrite(Channel1, duty1);
   }
   if (!strncmp((char *)topicin, (char *)topic[5], 50))
   {
     payload[length] = '\0';
     voltage2 = String((char *)payload).toFloat() * 10;
-      int duty2 = (voltage2 / 3.2 * 1024) / 3.25;
+      int duty2 = (voltage2 / 3.2 * 1024) / 3.24;
       ledcWrite(Channel2, duty2);
   }
 }

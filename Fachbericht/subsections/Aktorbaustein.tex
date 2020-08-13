@@ -65,25 +65,9 @@ U_{AD,measure} &= 0.003449\,V \cdot ADC - 0.276\,V
 	\caption{Spannung gegenüber dem ADC Wert gemessen an beiden 10\,V Eingängen und dann gemittelt}
 	\label{pic: /ADC_Input_Kurve}
 \end{figure}
-
+\newpage
 \subsubsection{Ausgänge}
-Bei den $10\;V$ Ausgängen wird jeweils ein PWM vom Mikrocontroller herausgegeben und dann das Signal mittels eines Tiefpasses geglättet (Abb. \ref{pic: Output_aktor}). Die Polfrequenz sowie die $-3dB$ Grenzfrequenz des Tiefpass erster Ordnung berechnet sich für einen 10 Bit AD Wandler und einen Quarz von $40\;MHz$, welcher im ESP32 verbaut ist, folgendermassen: . Die Verzögerungszeit $t_{end}$ ist im Übrigen gleich der Dauer bis die Spannung am Kondensator im Bereich von 1 LSB vom Endwert ist \cite{ronald_locher_2017}. $173\;ms$ Verzögerungszei scheinen recht lange zu sein, wenn man diese Zeit verkürzen möchte, könnte man auf einen 8 Bit AD Wandler wechseln, wodurch die Polfrequenz auf $156\;kHz$ angehoben wird. Ein anderer Trick besteht darin eine höhere Filterordnung zu wählen. Um eine Abschwächung von 1024 oder 60 dB des $40\;kHz$ PWM Taktes zu erzielen, kann bei zweiter Filterordnung, welche $40\;dB/dec$ Dämpfung hat, die $40\;kHz$ nicht durch 3 Dekaden (Faktor 1000) sondern nur um 1.5 Dekaden (Faktor 31,6) teilen, um die neue Polfrequenz $f_p$ herauszufinden. Hier macht es aber auch Sinn $-80\;dB$ (Faktor 100) bei $40\;KHz$ zu nehmen, um noch ein sauberes Ausgangssignal zu kriegen. Also ist die gewählte Polfrequenz $f_p$ bei $400\;Hz$, $\tau$ bei $2.5\;ms$ und $ t_{end}$ bei $17\;ms$. Die Komponenten der Filterstufen wurden dann wie folgt gewählt: erste Stufe mit $R_1 = 3.9\;k \Omega $ \& $C_1 = 100\;nF$ und die zweite Stufe mit $R_2 = 39\;k \Omega $ \& $C_2 = 10\;nF$. Da $R_1 \cdot C_1 = R_2 \cdot C_2$ ist, ist die Polgüte $q_p = 0.5$, woraus resultiert, dass die Dämpfung bei der Polfrequenz $f_p = 400\;Hz$ einen Wert von $-6\;dB$ annimmt. Die $-3\;dB$ Grenzfrequenz ist folglich bei $f_g = f_p \cdot \sqrt{2^{1/2}-1} = 257\;Hz$ \cite{miller_rc-glied_nodate} und die Dämpfung bei $40\;kHz$ entspricht nach wie vor den gewünschten $-80\;dB$. Nach dem Tiefpass gelangt das Signal in einen positiven Verstärker welcher die maximale Ausgangsspannung des ESP32 von $3.3\;V$ auf theoretisch $ 3.3\;V \cdot (1+ 22/10) = 10.56\;V$ erhöht. An dieser Stelle muss auch wieder kalibriert werden, so dass die maximale Ausgangsspannung $10\;V$ beträgt.
-
-
-
-\begin{align}
-\begin{split}T(z) &= B_1 \sinh (kz) + B_2 \cosh (kz) + B_3 z \sinh (kz)  + B_4 z \cosh (kz) \\
-& \quad + B_5 z^2 \sinh (kz)  + B_6 z^2 \cosh (kz) 
-\end{split} \label{eq:t_sinh}
-\end{align}
-
-\begin{align}
-\begin{split}
-40\,MHz \text{Takt} \to 40\,kHz \text{PWM Zeitkonstante} \tau \\
-= 1000/40 kHz = 25\,ms \to \text{Zeit bis zum Endwert}\\
-t_{end} = \tau \cdot ln(1024) = 173\,ms \to Grenzfrequenz fg = 1/\tau = 40\,Hz
-\end{split} \label{eq: Grenzfrequenz}
-\end{align}
+Bei den $10\;V$ Ausgängen wird jeweils ein PWM vom Mikrocontroller herausgegeben und dann das Signal mittels eines Tiefpasses geglättet (Abb. \ref{pic: Output_aktor}). Die Polfrequenz sowie die $-3dB$ Grenzfrequenz des Tiefpass erster Ordnung berechnet sich für einen 10 Bit AD Wandler und einen Quarz von $40\;MHz$, welcher im ESP32 verbaut ist, folgendermassen: $40\;MHz$ Takt --> $40\;kHz$ PWM --> Zeitkonstante $\tau = 1000/40\;kHz = 25\;ms $ --> Zeit bis zum Endwert $ t_{end}=\tau * ln(1024) = 173\;ms$ --> Grenzfrequenz $f_g = 1/\tau = 40\;Hz$. Die Verzögerungszeit $t_{end}$ ist im Übrigen gleich der Dauer bis die Spannung am Kondensator im Bereich von 1 LSB vom Endwert ist \cite{ronald_locher_2017}. $173\;ms$ Verzögerungszeit scheinen recht lange zu sein, wenn man diese Zeit verkürzen möchte, könnte man auf einen 8 Bit AD Wandler wechseln, wodurch die Polfrequenz auf $156\;kHz$ angehoben wird. Ein anderer Weg besteht darin eine höhere Filterordnung zu wählen. Um eine Abschwächung von 1024 oder 60 dB des $40\;kHz$ PWM Taktes zu erzielen, kann bei zweiter Filterordnung, welche $40\;dB/dec$ Dämpfung hat, die $40\;kHz$ nicht durch 3 Dekaden (Faktor 1000) sondern nur um 1.5 Dekaden (Faktor 31,6) teilen, um die neue Polfrequenz $f_p$ herauszufinden. Hier macht es aber auch Sinn $-80\;dB$ (Faktor 100) bei $40\;KHz$ zu nehmen, um noch ein sauberes Ausgangssignal zu kriegen. Also ist die gewählte Polfrequenz $f_p$ bei $400\;Hz$, $\tau$ bei $2.5\;ms$ und $ t_{end}$ bei $17\;ms$. Die Komponenten der Filterstufen wurden dann wie folgt gewählt: erste Stufe mit $R_1 = 3.9\;k \Omega $ \& $C_1 = 100\;nF$ und die zweite Stufe mit $R_2 = 39\;k \Omega $ \& $C_2 = 10\;nF$. Da $R_1 \cdot C_1 = R_2 \cdot C_2$ ist, ist die Polgüte $q_p = 0.5$, woraus resultiert, dass die Dämpfung bei der Polfrequenz $f_p = 400\;Hz$ einen Wert von $-6\;dB$ annimmt. Die $-3\;dB$ Grenzfrequenz ist folglich bei $f_g = f_p \cdot \sqrt{2^{1/2}-1} = 257\;Hz$ \cite{miller_rc-glied_nodate} und die Dämpfung bei $40\;kHz$ entspricht nach wie vor den gewünschten $-80\;dB$. Nach dem Tiefpass gelangt das Signal in einen positiven Verstärker welcher die maximale Ausgangsspannung des ESP32 von $3.3\;V$ auf theoretisch $ 3.3\;V \cdot (1+ 22/10) = 10.56\;V$ erhöht..
 
 \begin{figure}[h!]
 	\centering

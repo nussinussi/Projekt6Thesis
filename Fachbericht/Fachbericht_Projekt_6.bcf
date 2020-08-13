@@ -2004,3 +2004,25 @@
     <bcf:citekey order="27">mikrocontroller.net_relais_nodate</bcf:citekey>
     <bcf:citekey order="28">ronald_locher_2017</bcf:citekey>
     <bcf:citekey order="29">miller_rc-glied_nodate</bcf:citekey>
+    <bcf:citekey order="30">schleuniger_emv_w8_2020</bcf:citekey>
+    <bcf:citekey order="31">schleuniger_emv_w8_2020</bcf:citekey>
+    <bcf:citekey order="32">schleuniger_emv_w8_2020</bcf:citekey>
+    <bcf:citekey order="33">noauthor_gnuorg_nodate</bcf:citekey>
+  </bcf:section>
+  <!-- SORTING TEMPLATES -->
+  <bcf:sortingtemplate name="none">
+    <bcf:sort order="1">
+      <bcf:sortitem order="1">citeorder</bcf:sortitem>
+    </bcf:sort>
+  </bcf:sortingtemplate>
+  <!-- DATALISTS -->
+  <bcf:datalist section="0"
+                name="none/global//global/global"
+                type="entry"
+                sortingtemplatename="none"
+                sortingnamekeytemplatename="global"
+                labelprefix=""
+                uniquenametemplatename="global"
+                labelalphanametemplatename="global">
+  </bcf:datalist>
+</bcf:controlfile>
