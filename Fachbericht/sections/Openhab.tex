@@ -1,16 +1,15 @@
 \section{OpenHab}
-In dieser Arbeit wird als Server ein RaspberryPi verwendet. Als Software befindet sich Openhab auf dem Linux Betriebssystem vom RaspberryPi. Openhab ist eine Gebäudeautomation Software und bietet Kontabilität zwischen verschiedenen Smarthome Komponenten wie KNX, Sonos, oder Philips Hue. Der für das Projekt benötigte MQTT Brocker kann als Binding in Openhab eingebunden werden. Nach den Installationen kann der funktionserhalt mit den Geräten im selben lokalen Netzwerk gewährleistet werden, auch ohne Verbindung mit dem öffentlichen Internet.
+In dieser Arbeit wird als Server ein Raspberrypi verwendet. Als Software befindet sich Openhab auf dem Linux Betriebssystem. Openhab ist eine Gebäudeautomation Software und bietet Kontabilität zwischen verschiedenen Smarthome Komponenten wie KNX, Sonos, oder Philips Hue. Der für das Projekt benötigte MQTT Broker kann als Binding in Openhab eingebunden werden. Nach den Installationen kann der Funktionserhalt mit den Geräten im selben lokalen Netzwerk gewährleistet werden, auch ohne Verbindung mit dem öffentlichen Internet.
 \subsection{Archidektur}
-OpenHab basiert auf der modularen OSGI Architektur.
+Openhab basiert auf der modularen OSGI Architektur.
 \subsubsection{OSGI}
-Die OSGI Technologie bietet eine Vielzahl  von dynamischen Spezifikationen für Java Systemkomponenten. Dies ermöglicht ein Entwicklungsmodell, bei dem eine Anwendung aus  mehreren Komponenten Entsteht die als Pakete gebündelt sind. Die Komponenten sind Bausteine und sind wiederverwendbar, sie kommunizieren lokal untereinander. Die OSGI Architektur ermöglicht es den Komponenten die Implementierung vor andern Komponenten zu verbergen, während Dienste kommunizieren über Objekte gerade wenn sie von anderen Komponenten gemeinsam genutzt werden. Dies reduziert die Gesamtkomplexität und ermöglicht eine hohe Zuverlässigkeit, da während laufendem System Wartung und Entwicklungsarbeiten Durchführt werden können.  
+Die OSGI Technologie bietet eine Vielzahl  von dynamischen Spezifikationen für Java Systemkomponenten. Dies ermöglicht ein Entwicklungsmodell, bei dem eine Anwendung aus  mehreren Komponenten entsteht die als Pakete gebündelt sind. Die Komponenten sind Bausteine und wiederverwendbar, sie kommunizieren lokal untereinander. Die OSGI Architektur ermöglicht es den Komponenten die Implementierung vor andern Komponenten zu verbergen. Dies reduziert die Gesamtkomplexität und ermöglicht eine hohe Zuverlässigkeit, da während laufendem System Wartung und Entwicklungsarbeiten Durchführt werden können.  
 
-%quelle: https://www.openhab.org/v2.2/docs/developer/prerequisites/osgi.html#bundles
 
  \begin{figure}[H]
 	\centering
-	\includegraphics[width=\textwidth]{graphics/OSGI.png}
-	\caption{OSGI Layers https://www.osgi.org/wp-content/uploads/layering-osgi.png} 	
+	\includegraphics[width=0.8\textwidth]{graphics/OSGI.png}
+	\caption{OSGI Layers \cite{noauthor_osgi_nodate} }	
 	\label{pic: OSGILayers}
 \end{figure} 
 
@@ -26,8 +25,8 @@ Die Bundles können in Laufzeit installiert, deinstalliert und geändert werden.
 
  \begin{figure}[H]
 	\centering
-	\includegraphics[width=\textwidth]{graphics/BundleState.png}
-	\caption{Bundle State Diagramm} 	
+	\includegraphics[width=0.5\textwidth]{graphics/BundleState.png}
+	\caption{Bundle State Diagramm \cite{noauthor_osgi_nodate}} 	
 	\label{pic: BundleState}
 \end{figure} 
 
@@ -35,15 +34,13 @@ In diesem Diagramm ist ersichtlich, dass Bundles während des Ausführens nicht 
 
 \subsubsection{JAR}
 \subsubsection{Übersicht Kommunikation Verbindungen}
-Die Kommunikation zwischen den Komponenten geschieht mittels Event Bus. Alle nicht statusbezogenen Bundels informieren darüber andere Bundles über den Status von Events. Über diesen Bus Kommunizieren alle Binding mit einem phsikalischen Link zur realen Hardware. Mit dem Events werden auf asynchrone weise in diesem Bus veröffentlicht, durch den EventSubscriber definierte Callback-Schnittstellen werden diese zur entsprechender Funktion vorgesehenen Events wiederum Empfangen. Der EventSubsciber ist als OSGI Dienst registriert \cite{noauthor_event_nodate}.
+Die Kommunikation zwischen den Komponenten geschieht mittels Event Bus. Alle nicht Status bezogenen Bundels informieren darüber andere Bundles über den Status von Events. Über diesen Bus Kommunizieren alle Binding mit einem phsikalischen Link zur realen Hardware. Mit dem Events werden auf asynchrone weise in diesem Bus veröffentlicht, durch den EventSubscriber definierte Callback-Schnittstellen werden diese zur entsprechender Funktion vorgesehenen Events wiederum Empfangen. Der EventSubsciber ist als OSGI Dienst registriert \cite{noauthor_event_nodate}.
 
-https://www.openhab.org/docs/developer/utils/events.html
-   
   \begin{figure}[H]
  	\centering
- 	\includegraphics[width=\textwidth]{graphics/Eventbus.PNG}
- 	\caption{Eventbus Openhab https://www.innoq.com/de/articles/2014/11/durchbruch/} 	
+ 	\includegraphics[width=0.8\textwidth]{graphics/Eventbus.PNG}
+ 	\caption{Eventbus Openhab \cite{noauthor_durchbruch_nodate } }	
  	\label{pic: Eventbus}
  \end{figure} 
  
- In der Abbildung \ref{pic: Eventbus} ist der Eventbus dargestellt verschiedene Bindings mit Hardwarekomponenten von verschiedenen Smarthome lösungen empfange, die für sie vorgesehene Events
+ In der Abbildung \ref{pic: Eventbus} ist der Eventbus dargestellt verschiedene Bindings mit Hardwarekomponenten von verschiedenen Smarthome Lösungen empfangen, die für sie vorgesehene Events
