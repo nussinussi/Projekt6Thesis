@@ -56,21 +56,21 @@ const int AD1 = 34;
 const int AD2 = 35;
 
 // setting PWM properties
-const int freq = 40000;
+const int freq = 20000;
 const int Channel1 = 0;
 const int Channel2 = 1;
 #define Channel3 2
 #define Channel4 3
 #define Channel5 4
 #define Channel6 5
-const int resolution = 12;
+const int resolution = 10;
 float voltage1 = 0;
 float voltage2 = 0;
 int duty1 = 0;
 int duty2 = 0;
 
-int R_duty1 = 4095;       //Anfangsmodus
-int R_duty2 = 4095 * 0.3; //Stromsparmodus
+int R_duty1 = 1024;       //Anfangsmodus
+int R_duty2 = 1024 * 0.3; //Stromsparmodus
 int R_duty3 = 0;          //Off
 
 // variable for storing analog input
@@ -171,14 +171,14 @@ void callback(char *topicin, byte *payload, unsigned int length)
   { //Subscribe Analogausgänge
     payload[length] = '\0';
     voltage1 = String((char *)payload).toFloat() * 10;
-    int duty1 = (voltage1 / 3.2 * 4095) / 3.25;
+    int duty1 = (voltage1 / 3.2 * 1024) / 3.25;
     ledcWrite(Channel1, duty1);
   }
   if (!strncmp((char *)topicin, (char *)topic[5], 50))
   {
     payload[length] = '\0';
     voltage2 = String((char *)payload).toFloat() * 10;
-      int duty2 = (voltage2 / 3.2 * 4095) / 3.25;
+      int duty2 = (voltage2 / 3.2 * 1024) / 3.25;
       ledcWrite(Channel2, duty2);
   }
 }
