@@ -93,7 +93,7 @@ Ein Client ist ein Programm oder Gerät, welches MQTT verwendet. Dieser baut ein
 Veröffentlichen, abonnieren oder  Publish/Subscribe kann in Form von One-to-many Nachrichten verwendet werden.\\
 MQTT benötigt wenig Zusatzinformationen beim Transport und minimiert so die Protokoll Austausche, somit wird die Belastung des Netzwerkverkehrs minimiert.\\
 Es gibt ein Mechanismus zur Benachrichtigung interessierter Parteien, wenn eine Unterbrechung einer Verbindung auftritt.\\
-Für die Nachrichten Zustellung gibt es drei Service Qualitäten \cite{noauthor_mqtt-v5.0.pdf_nodate}:\\
+Für die Nachrichten Zustellung gibt es drei Service Qualitäten \cite{steve_understanding_nodate}:\\
 \begin{itemize}
 	\item Einmal übertragen, in diesem Fall wird die Nachricht, mit den besten Bemühungen der Betriebsumgebung, übermittelt.\\
 		\item Mindestens einmal übertragen, wobei sichergestellt wird, dass die Nachricht ankommt, aber Duplikate auftreten können.\\
@@ -106,7 +106,7 @@ MQTT ist ein binärbasiertes Protokoll, bei dem die Steuerelemente Binäre Bytes
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.75\textwidth]{graphics/MQTTProtocolCommands.jpg}
-	\caption{Protokoll Verbindung Client zu Broker} 	
+	\caption{Protokoll Verbindung Client zu Broker \cite{steve_understanding_nodate}} 	
 	\label{pic: MQTTBrokerToClient}
 \end{figure} 
 
@@ -115,7 +115,7 @@ Topic Namen, Client-ID und Benutzernamen werden als UTF-8-Strings kodiert. Die P
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.75\textwidth]{graphics/MQTT-Standard-Packet.jpg}
-	\caption{Standard MQTT Paket Struktur} 	
+	\caption{Standard MQTT Paket Struktur \cite{steve_understanding_nodate}} 	
 	\label{pic: Struktur}
 \end{figure} 
 
