@@ -41,22 +41,46 @@ Die Anforderungen an ein Relais sind, dass es $230\,VAC$ schalten und die Relais
 	\label{pic: Relais_aktor}
 \end{figure}
 
-\subsubsection{Eingänge/Ausgänge 0..10 V }
-Die $10\;V$ Eingänge werden mittels eines Varistors vor Überspannung geschützt (Abb. \ref{pic: Input_aktor}). Das Signal geht dann durch einen Puffer, damit die Signalquelle nicht belastet wird. Als Verstärker wird hierfür ein LM324A eingesetzt, da er sich gut als rail to rail OpAmp eignet. Als letztes wird mittels einer Spannungsteilers die obere Signalstärke von $10\;V$ auf $ 10\;V \cdot 22/(47+22) = 3.188\;V$ beschränkt. Hier muss dann in der Praxis kalibriert werden, da die Widerstände Toleranz behaftet sind. Bei den $10\;V$ Ausgängen wird jeweils ein PWM vom Mikrocontroller herausgegeben und dann das Signal mittels eines Tiefpasses geglättet (Abb. \ref{pic: Output_aktor}). Die Polfrequenz sowie die $-3dB$ Grenzfrequenz des Tiefpass erster Ordnung berechnet sich für einen 10 Bit AD Wandler und einen Quarz von $40\;MHz$, welcher im ESP32 verbaut ist, folgendermassen: $40\;MHz$ Takt --> $40\;kHz$ PWM --> Zeitkonstante $\tau = 1000/40\;kHz = 25\;ms $ --> Zeit bis zum Endwert $ t_{end}=\tau * ln(1024) = 173\;ms$ --> Grenzfrequenz $f_g = 1/\tau = 40\;Hz$. Die Verzögerungszeit $t_{end}$ ist im Übrigen gleich der Dauer bis die Spannung am Kondensator im Bereich von 1 LSB vom Endwert ist \cite{ronald_locher_2017}. $173\;ms$ Verzögerungszeit scheinen recht lange zu sein, wenn man diese Zeit verkürzen möchte, könnte man auf einen 8 Bit AD Wandler wechseln, wodurch die Polfrequenz auf $156\;kHz$ angehoben wird. Ein anderer Trick besteht darin eine höhere Filterordnung zu wählen. Um eine Abschwächung von 1024 oder 60 dB des $40\;kHz$ PWM Taktes zu erzielen, kann bei zweiter Filterordnung, welche $40\;dB/dec$ Dämpfung hat, die $40\;kHz$ nicht durch 3 Dekaden (Faktor 1000) sondern nur um 1.5 Dekaden (Faktor 31,6) teilen, um die neue Polfrequenz $f_p$ herauszufinden. Hier macht es aber auch Sinn $-80\;dB$ (Faktor 100) bei $40\;KHz$ zu nehmen, um noch ein sauberes Ausgangssignal zu kriegen. Also ist die gewählte Polfrequenz $f_p$ bei $400\;Hz$, $\tau$ bei $2.5\;ms$ und $ t_{end}$ bei $17\;ms$. Die Komponenten der Filterstufen wurden dann wie folgt gewählt: erste Stufe mit $R_1 = 3.9\;k \Omega $ \& $C_1 = 100\;nF$ und die zweite Stufe mit $R_2 = 39\;k \Omega $ \& $C_2 = 10\;nF$. Da $R_1 \cdot C_1 = R_2 \cdot C_2$ ist, ist die Polgüte $q_p = 0.5$, woraus resultiert, dass die Dämpfung bei der Polfrequenz $f_p = 400\;Hz$ einen Wert von $-6\;dB$ annimmt. Die $-3\;dB$ Grenzfrequenz ist folglich bei $f_g = f_p \cdot \sqrt{2^{1/2}-1} = 257\;Hz$ \cite{miller_rc-glied_nodate} und die Dämpfung bei $40\;kHz$ entspricht nach wie vor den gewünschten $-80\;dB$. Nach dem Tiefpass gelangt das Signal in einen positiven Verstärker welcher die maximale Ausgangsspannung des ESP32 von $3.3\;V$ auf theoretisch $ 3.3\;V \cdot (1+ 22/10) = 10.56\;V$ erhöht. An dieser Stelle muss auch wieder kalibriert werden, so dass die maximale Ausgangsspannung $10\;V$ beträgt.
+\subsubsection{Eingänge}
+Die $10\;V$ Eingänge werden mittels Varistoren (AMCV-0402-260-C180N-T) und Shottky-Dioden vor Überspannung geschützt (Abb. \ref{pic: Input_aktor}) Überspannungen können entstehen, wenn eine lange Signalleitung verwendet wird, welche induktiv wirkt und dann abgeschaltet wird. Die Nennspannung des Varistors beträgt 18.4\,VAC bzw. 26\,VDC, mit einer Varistorspannung von 31\,V bis 38\,V. Darunter schützen die Shottky-Dioden den ADC-Eingang. Falls der der Varistor zerstört wird, wird er leitend und es entsteht ein Kurzschluss am Eingang, was zu falschen Messresultaten führt. Auf Grund dessen, dass der ADC (Abbildung: \ref{pic: ESP32_Kurve}), erst ab 170\,mV ein Signal erkennt, muss ein Widerstandsnetzwerk verwendet werden. Hierdurch können auch niedrigere Spannungen gemessen werden können. Es wurde in der Gleichung \ref{eq: U_AD1} die Übertragungsfunktion des Wiederstandnetzwerkes ausgerechnet, durch den Offset ist es nun theoretisch möglich 0\,V zu messen. Es wurde eine variable Spannung mit 1\,\% Toleranz an die 10\,V Eingänge des Aktorbausteins gelegt und dann der ADC-Wert aufgenommen (Abbildung \ref{pic: /ADC_Input_Kurve}). Die so erstellte Regressionsgerade $U_{AD,measure}$ unterscheidet sich von der theoretisch berechneten Gerade $U_{AD1}$. Für das Programm wurde die Regressionsgerade verwendet.
+
+\begin{align}
+U_{AD1} &= U_{in1} \cdot \frac{R_{23}||R_{24}}{R_{21}+R_{23}||R_{24}} + 3.3\,V \cdot \frac{R_{33}||R_{24}}{R_{23}+R_{33}||R_{24}} =  U_{in1} \cdot 0.2339 + 0.2123\,V \label{eq: U_AD1}\\
+ADC &= U_{AD1} \cdot 1253.1 - 218.54 = (U_{in1} \cdot 0.2339 + 0.2123\,V) \cdot 1253.1 \frac{1}{V} - 218.54\\
+ADC &= U_{AD1} \cdot 293.1 \frac{1}{V} + 47.5\\
+U_{AD1} &= 0.003412\,V \cdot ADC - 0.162\,V\\
+U_{AD,measure} &= 0.003449\,V \cdot ADC - 0.276\,V
+\end{align}
+
 \begin{figure}[h!]
 	\centering
-	\includegraphics[width=0.55\textwidth]{graphics/shematics_aktor_input.png}
-	\caption{Eingänge 10 V Aktorbaustein}
+	\includegraphics[width=0.5\textwidth]{graphics/shematics_aktor_input.png}
+	\caption{10\,V Eingänge des Aktorbausteins}
 	\label{pic: Input_aktor}
 \end{figure}
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=1\textwidth]{graphics/ADC_Input_Kurve.png}
+	\caption{Spannung gegenüber dem ADC Wert gemessen an beiden 10\,V Eingängen und dann gemittelt}
+	\label{pic: /ADC_Input_Kurve}
+\end{figure}
+
+\subsubsection{Eingänge}
+Bei den $10\;V$ Ausgängen wird jeweils ein PWM vom Mikrocontroller herausgegeben und dann das Signal mittels eines Tiefpasses geglättet (Abb. \ref{pic: Output_aktor}). Die Polfrequenz sowie die $-3dB$ Grenzfrequenz des Tiefpass erster Ordnung berechnet sich für einen 10 Bit AD Wandler und einen Quarz von $40\;MHz$, welcher im ESP32 verbaut ist, folgendermassen: . Die Verzögerungszeit $t_{end}$ ist im Übrigen gleich der Dauer bis die Spannung am Kondensator im Bereich von 1 LSB vom Endwert ist \cite{ronald_locher_2017}. $173\;ms$ Verzögerungszeit scheinen recht lange zu sein, wenn man diese Zeit verkürzen möchte, könnte man auf einen 8 Bit AD Wandler wechseln, wodurch die Polfrequenz auf $156\;kHz$ angehoben wird. Ein anderer Trick besteht darin eine höhere Filterordnung zu wählen. Um eine Abschwächung von 1024 oder 60 dB des $40\;kHz$ PWM Taktes zu erzielen, kann bei zweiter Filterordnung, welche $40\;dB/dec$ Dämpfung hat, die $40\;kHz$ nicht durch 3 Dekaden (Faktor 1000) sondern nur um 1.5 Dekaden (Faktor 31,6) teilen, um die neue Polfrequenz $f_p$ herauszufinden. Hier macht es aber auch Sinn $-80\;dB$ (Faktor 100) bei $40\;KHz$ zu nehmen, um noch ein sauberes Ausgangssignal zu kriegen. Also ist die gewählte Polfrequenz $f_p$ bei $400\;Hz$, $\tau$ bei $2.5\;ms$ und $ t_{end}$ bei $17\;ms$. Die Komponenten der Filterstufen wurden dann wie folgt gewählt: erste Stufe mit $R_1 = 3.9\;k \Omega $ \& $C_1 = 100\;nF$ und die zweite Stufe mit $R_2 = 39\;k \Omega $ \& $C_2 = 10\;nF$. Da $R_1 \cdot C_1 = R_2 \cdot C_2$ ist, ist die Polgüte $q_p = 0.5$, woraus resultiert, dass die Dämpfung bei der Polfrequenz $f_p = 400\;Hz$ einen Wert von $-6\;dB$ annimmt. Die $-3\;dB$ Grenzfrequenz ist folglich bei $f_g = f_p \cdot \sqrt{2^{1/2}-1} = 257\;Hz$ \cite{miller_rc-glied_nodate} und die Dämpfung bei $40\;kHz$ entspricht nach wie vor den gewünschten $-80\;dB$. Nach dem Tiefpass gelangt das Signal in einen positiven Verstärker welcher die maximale Ausgangsspannung des ESP32 von $3.3\;V$ auf theoretisch $ 3.3\;V \cdot (1+ 22/10) = 10.56\;V$ erhöht. An dieser Stelle muss auch wieder kalibriert werden, so dass die maximale Ausgangsspannung $10\;V$ beträgt.
+
+\begin{align}
+	40\;MHz$ \text{Takt} --> 40\;kHz$ \text{PWM --> Zeitkonstante} $\tau = 1000/40\;kHz = 25\;ms  \text{--> Zeit bis zum Endwert} t_{end}=\tau * ln(1024) = 173\;ms \text{--> Grenzfrequenz f_g} = 1/\tau = 40\;Hz
+\end{align}
+
 \begin{figure}[h!]
 	\centering
 	\includegraphics[width=0.8\textwidth]{graphics/shematics_aktor_output.png}
-	\caption{Ausgänge 10 V Aktorbaustein}
+	\caption{10\,V Ausgänge des Aktorbausteins}
 	\label{pic: Output_aktor}
 \end{figure}
 \newpage
-\subsubsection{Spannungsversorgung} \todo{zu viel nummerische Werte im Text eventuell Tabelle erstellen und Formeln separat}
+\subsubsection{Spannungsversorgung}
 Mithilfe eines üblichen $24\;V$ Netzgerätes, welches einen Zylinderstecker 2.1 x 5.5 $mm$ (engl. DC Barrel Jack) hat, kann der Aktorbaustein betrieben werden. So gibt z.B von XP-Power ein $18\;W$  $24\;V/DC$ Netzgerät für 11.73 CHF bei mouser. Um die Logik zu betreiben werden jedoch $3.3\;V$ benötigt. Hier kommt der Spannungswandler MIC4680 zum Einsatz, welcher eine Effizienz von bis zu 90 \% aufweist. Vom Wandler Ausgegeben werden typischerweise $3.3\;V$, im aller schlimmsten Fall kann die Spannung jedoch zwischen $3.201\;V$ und $3.399\;V$ liegen. In der Abbildung \ref{pic: Versorgung_aktor} ist das Schema der $3.3\;V$ Spannungsversorgung zu erkennen, es wurde hier noch eine Sicherung eingebaut da der Print nicht zerstört wird, falls zu viel Strom fliesst. Der Schraubklemmen sind dafür da, um z.B einen ON-OFF-Wippschalter, welcher am Gehäuse montiert wird, anzuschliessen. Die Beschaltung um den Spannungswandler ist dem Datenblatt des MIC4680 zu entnehmen.
 \begin{figure}[h!]
 	\centering

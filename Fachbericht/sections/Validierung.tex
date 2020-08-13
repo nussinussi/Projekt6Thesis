@@ -34,10 +34,10 @@ Das Resultat war, dass der Sensorbaustein beim Prüfschärfegrad 4 Schaden nahm.
 \subsubsection{Energieverbrauch des Sensorbausteins}
 Der Sensorbaustein wurde unter folgenden Bedingungen gemessen:
 \begin{enumerate}
-	\item ungeschalteter Normalzustand (Abbildung: \ref{pic: Sensorbaustein_ungeschaltet}) \\(Der Sensorbaustein wird nicht bedient und hat eine Verbindung mit einem WLAN Netzwerk) \\
+	\item Ungeschalteter Normalzustand (Abbildung: \ref{pic: Sensorbaustein_ungeschaltet}) \\(Der Sensorbaustein wird nicht bedient und hat eine Verbindung mit einem WLAN Netzwerk) \\
 	Der Sensorbaustein hat eine mittlere Leistungsaufnahme von ca. 370\,mW. Auffällig ist, dass die Leistung mit einer Periode von 10\,s schwankt, was dem zu Programm zugrunde liegt, denn die Temperaturmessung, denn das Status LED toggelt alle 10\,s, um anzuzeigen, dass die Temperatur nach 10\,s wieder gemessen wird. Unregelmäßige Leistungssprünge von bis zu ca. 400\,mW kommen häufiger vor, was wahrscheinlich durch das WLAN ausgelöst wird.
 	\\
-	\item geschalteter Normalzustand (Abbildung: \ref{pic: Sensorbaustein_geschaltet})\\ (Der Sensorbaustein wird bedient und hat eine Verbindung mit einem WLAN Netzwerk)\\
+	\item Geschalteter Normalzustand (Abbildung: \ref{pic: Sensorbaustein_geschaltet})\\ (Der Sensorbaustein wird bedient und hat eine Verbindung mit einem WLAN Netzwerk)\\
 	In den Zeiten um ca. 35\,s, 60\,s und 85\,s werden alle Vier Taster betätigt, die Leistungsaufnahme steigt um 10\,mW von vorher 370\,mW auf ca. 380\,mW, was vertretbar ist.
 	\\
 	\item Keine Verbindung (Abbildung: \ref{pic: Sensorbaustein_keine_Verbindung})\\ (Der Sensorbaustein findet kein zulässiges WLAN Netzwerk)\\
@@ -89,7 +89,7 @@ U_{ntc,max} &= U_{\text{ref}} \cdot \frac{R_{T,20.2,max}}{R_{T,20.2,max}\;+\;R_{
 \\
 Temperatur Berechnung bei 20.2\,°C im Mikrocontroller:
 \begin{align}
-\Biggl( \frac{R_T}{R_V}\Biggr)_{max} &= \frac{U_{ntc,max}}{U_{ref}\;-\;U_{ntc,max}} = 1.36 \label{eq: R_T/R_V_{max}}\\
+\Biggl( \frac{R_T}{R_V}\Biggr)_{max} &= \frac{U_{ntc,max}}{U_{ref}\;-\;U_{ntc,max}} = 1.32 \label{eq: R_T/R_V_{max}}\\
 T &= \frac{1}{\frac{1}{T_{25}}+\frac{1}{B} \cdot ln\Biggl( \Biggl( \frac{R_T}{R_V}\Biggr)_{max}\Biggr)} = 292.45\,K = 19.3\,\,^\circ C \label{eq: T_{min}}\\
 \Delta T_{max} &= 20.2\,^\circ C - 19.3\,^\circ C = 0.9\,K \label{dT_{max}}
 \end{align}
@@ -99,17 +99,17 @@ T &= \frac{1}{\frac{1}{T_{25}}+\frac{1}{B} \cdot ln\Biggl( \Biggl( \frac{R_T}{R_
 Der Aktorbaustein wurde unter folgenden Bedingungen gemessen:
 
 \begin{enumerate}
-	\item ungeschalteter Normalzustand (Abbildung: \ref{pic: Aktorbaustein_ungeschaltet}) \\(Der Aktorbaustein wird nicht bedient und hat eine Verbindung mit einem WLAN Netzwerk) \\
+	\item Ungeschalteter Normalzustand (Abbildung: \ref{pic: Aktorbaustein_ungeschaltet}) \\(Der Aktorbaustein wird nicht bedient und hat eine Verbindung mit einem WLAN Netzwerk) \\
 	Der Aktorbaustein hat eine mittlere Leistungsaufnahme von ca. 629\,mW. Auffällig ist, wie beim Sensorbaustein, dass die Leistung mit einer Periode von 10\,s schwankt, was wiederum, wegen des blinkenden Status LED ist. Dazu kommt es alle 10\, zu kurzen Leistungssprüngen.
 	\\
-	\item geschalteter Normalzustand (Abbildung: \ref{pic: Aktorbaustein_geschaltet})\\ (Der Aktorrbaustein wird bedient und hat eine Verbindung mit einem WLAN Netzwerk)\\
+	\item Geschalteter Normalzustand (Abbildung: \ref{pic: Aktorbaustein_geschaltet})\\ (Der Aktorrbaustein wird bedient und hat eine Verbindung mit einem WLAN Netzwerk)\\
 	Die Relais werden nacheinander eingeschalten und danach wieder ausgeschaltet, ein eingeschaltetes Relais und ein LED verbrauchen zusammen somit ca. (900\,mW - 620m\,W)/4 = 70\,mW.
 	\\
 	\item Keine Verbindung (Abbildung: \ref{pic: Aktorbaustein_keine_Verbindung})\\ (Der Aktorbaustein findet kein zulässiges WLAN Netzwerk)\\
 	In diesem Zustand hat der Aktorbaustein eine mittlere Leistungsaufnahme von 1020\,mW, was ähnlich viel wie beim Sensorbaustein ist, die Ursachen hierfür werden die gleichen sein.
 	\\
 	\item Keine Verbindung (Abbildung: \ref{pic: Aktorbaustein_Sparmodus})\\ (Der Aktorbaustein schaltet alle Relais einmal mit und einmal ohne Sparmodus)\\
-	Zu erwarten ist, dass der Sparmodus ca. 1.5W einspart, denn der eingestellte Dutycycle beträgt 30\,\%, und ein Relais verbraucht 400\,mW, wenn es mit 24\,V betrieben wird. Somit ergibt sich aus der Glaichung \ref{eq: P_{gespart,theoretisch}} eine Erparnis von 1.5\,W. In der Grafik ist im Vergleich dazu eine Ersparnis von 1.7\,W (Gl.:  \ref{P_{gespart, gemessen}}). Der Unterschied ist daher, dass es der ausgegebene Dutycycle nicht ganz genau 30\,\% und die Amplitude nicht ganz genau 24\,V beträgt.
+	Zu erwarten ist, dass der Sparmodus ca. 1.5W einspart, denn der eingestellte Dutycycle beträgt 30\,\%, und ein Relais (G5LE-1-VD DC24) verbraucht 400\,mW, wenn es mit 24\,V betrieben wird. Somit ergibt sich aus der Glaichung \ref{eq: P_{gespart,theoretisch}} eine Erparnis von 1.5\,W. In der Grafik ist im Vergleich dazu eine Ersparnis von 1.7\,W (Gl.:  \ref{P_{gespart, gemessen}}). Der Unterschied ist daher, dass der ausgegebene Dutycycle nicht ganz genau 30\,\% und die Amplitude nicht ganz genau 24\,V beträgt.
 \end{enumerate}
 
 \begin{align}
@@ -145,6 +145,40 @@ P_\text{gespart, gemessen} &= 2680\,mW - 940\,mW = 1.7\,W \label{P_{gespart, gem
 	\label{pic: Aktorbaustein_Sparmodus}
 \end{figure}
 
+\subsubsection{Wärmeverteilung}
+Es wurde verifiziert, wie stark sich der Aktorbaustein in Betrieb erwärmt. Hierfür wurde eine Infrarotkamera von Flir verwendet. Erwärmt haben sich bei normalen Betrieb insbesondere die Diode D14 (Abbildung: \ref{pic: IR_Diode}), der ESP32 (Abbildung: \ref{pic: IR_ESP}) und der DC/DC-Wandler (Abbildung: \ref{pic: IR_Wandler}). Um zu verifizieren wie stark sich die Relaisschaltung erwärmt, wurde eine Last von 9.2\,A 230\,VAC über ein Relais geschaltet, laut Infrarot Kamera wurde eine Temperatur von 58\,°C gemessen, was mit unbestimmten Unsicherheiten zu verstehen ist.
 
 
+\begin{figure}[htb]
+	\centering
+	\begin{minipage}[t]{0.45\linewidth}
+		\centering
+		\includegraphics[width=0.9\textwidth]{graphics/IR_Diode.jpg}
+		\caption{Wärmeentwicklung über der Diode D14}
+		\label{pic: IR_Diode}
+	\end{minipage}% <- sonst wird hier ein Leerzeichen eingefügt
+	\hfill
+	\begin{minipage}[t]{0.45\linewidth}
+		\centering
+		\includegraphics[width=0.9\textwidth]{graphics/IR_Wandler.jpg}
+		\caption{Wärmeentwicklung über dem DC/DC-Wandler}
+		\label{pic: IR_Wandler}
+	\end{minipage}
+\end{figure}
 
+\begin{figure}[htb]
+	\centering
+	\begin{minipage}[t]{0.45\linewidth}
+		\centering
+		\includegraphics[width=0.9\textwidth]{graphics/IR_ESP.jpg}
+		\caption{Wärmeentwicklung über dem ESP32}
+		\label{pic: IR_ESP}
+	\end{minipage}% <- sonst wird hier ein Leerzeichen eingefügt
+	\hfill
+	\begin{minipage}[t]{0.45\linewidth}
+		\centering
+		\includegraphics[width=0.9\textwidth]{graphics/IR_Relais.jpg}
+		\caption{Wärmeentwicklung über ein Relais welches 9.2\,A / 230\,VAC schaltet}
+		\label{pic: IR_Relais}
+	\end{minipage}
+\end{figure}
