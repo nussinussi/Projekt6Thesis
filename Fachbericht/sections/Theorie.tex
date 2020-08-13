@@ -70,7 +70,7 @@ WPA3 Enterprise bietet kryptografischen Schutz mit der Stärke von 192 Bit, somi
 \newpage
 \subsection{Message Queuing Telemetry Transport (MQTT)}
 \subsubsection{Beschreibung}
-MQTT ist ein Nachrichtentransport Protokoll, mittels Client werden Nachrichten veröffentlicht und abonniert und mit dem MQTT-Server verwaltet. Anwendung findet MQTT im Bereich in eingeschränkten Umgebungen, wie Kommunikation von Maschine zu Maschine (M2M) und Internet der Dinge (IoT). Das Protokoll läuft über TCP/IP oder über andere Netzwerkprotokolle die verlustfreie bidirektionale Verbindungen bieten \cite{noauthor_mqtt-v5.0.pdf_nodate}. 
+MQTT ist ein Nachrichtentransport Protokoll, mittels Client werden Nachrichten veröffentlicht sprich abonniert und mit dem MQTT-Broker verwaltet. Anwendung findet MQTT im Bereich in eingeschränkten Umgebungen, wie Kommunikation von Maschine zu Maschine (M2M) und Internet der Dinge (IoT). Das Protokoll läuft über TCP/IP oder über andere Netzwerkprotokolle die verlustfreie bidirektionale Verbindungen bieten \cite{noauthor_mqtt-v5.0.pdf_nodate}. 
 
 \subsubsection{Geschichte}
 MQTT wurde 1999 von dr.Andy Stanford-Clark von IBM und Arlen Nipper von Arcom erfunden. Seit 2013 ist MQTT über die nicht gewinnorientierte Organisation OASIS als Protokoll des Internet der Dinge standardisiert \cite{noauthor_mqtt-v5.0.pdf_nodate}. .
@@ -81,17 +81,17 @@ MQTT wurde 1999 von dr.Andy Stanford-Clark von IBM und Arlen Nipper von Arcom er
  	\caption{Übersicht MQTT} 	
  	\label{pic: OverMQTT}
  \end{figure} 
-In der Abbildung \ref{pic: OverMQTT} werden Daten von einem Thermostat veröffentlicht. Ein Heizsystem, ein Notebook und ein Smartphone haben die Daten abonniert und der MQTT Brocker verwaltet die Nachrichten. 
+In der Abbildung \ref{pic: OverMQTT} werden Daten von einem Thermostat veröffentlicht. Ein Heizsystem, ein Notebook und ein Smartphone haben die Daten abonniert und der MQTT-Broker verwaltet die Nachrichten. 
 
-\subsubsection{MQTT-Server (Brocker)}
+\subsubsection{MQTT-Server (Broker)}
 Der MQTT-Server ist ein Programm oder Gerät, welches als Vermittler zwischen Clients dient und wird auch als MQTT-Broker bezeichnet. Der Broker nimmt Netzwerkverbindungen von Clients an, empfängt so die Nachrichten von Clients und gibt diese Nachrichten an jene Clients weiter, welche ein Abonnement abgeschlossen haben.
 
 \subsubsection{Client}
-Ein Client ist ein Programm oder Gerät, welches MQTT verwendet. Ein Client baut eine Verbindung zum Broker auf. Der Client veröffentlicht Nachrichten mit einem Topic und einem Inhalt. Ist ein Client an bestimmten Daten interessiert abonniert er diesen Topic und empfängt somit den Inhalt.
+Ein Client ist ein Programm oder Gerät, welches MQTT verwendet. Dieser baut eine Verbindung zum Broker auf. Der Client veröffentlicht Nachrichten mit einem Topic und einer Payload. Ist ein Client an bestimmten Daten interessiert abonniert er diesen Topic und empfängt somit die Payload.
  
-\subsubsection{Eigenschaften MQTT Brocker}
+\subsubsection{Eigenschaften MQTT Broker}
 Veröffentlichen, abonnieren oder  Publish/Subscribe kann in Form von One-to-many Nachrichten verwendet werden.\\
-MQTT benötigt wenig Zusatzinformationen beim Transport und minimiert so die Protokollaustausche, somit wird die Belastung des Netzwerkverkehrs minimiert.\\
+MQTT benötigt wenig Zusatzinformationen beim Transport und minimiert so die Protokoll Austausche, somit wird die Belastung des Netzwerkverkehrs minimiert.\\
 Es gibt ein Mechanismus zur Benachrichtigung interessierter Parteien, wenn eine Unterbrechung einer Verbindung auftritt.\\
 Für die Nachrichten Zustellung gibt es drei Service Qualitäten \cite{noauthor_mqtt-v5.0.pdf_nodate}:\\
 \begin{itemize}
@@ -105,16 +105,16 @@ MQTT ist ein binärbasiertes Protokoll, bei dem die Steuerelemente Binäre Bytes
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=\textwidth]{graphics/MQTTProtocolCommands.jpg}
+	\includegraphics[width=0.75\textwidth]{graphics/MQTTProtocolCommands.jpg}
 	\caption{Protokoll Verbindung Client zu Broker} 	
 	\label{pic: MQTTBrokerToClient}
 \end{figure} 
 
-Topic Namen, Client-ID und Benutzernamen werden als UTF-8-strings kodiert. Die Payload sind binäre Daten, und der Inhalt wie das Format sind anwendungsspezifisch. Das MQTT-Packet besteht aus einem festen 2 Byte-Header und der Payload bei bedarf kann noch ein variablen Header hinzugefügt werden.
+Topic Namen, Client-ID und Benutzernamen werden als UTF-8-Strings kodiert. Die Payload sind binäre Daten, der Inhalt wie das Format sind anwendungsspezifisch. Das MQTT-Packet besteht aus einem festen 2 Byte-Header und der Payload bei bedarf kann noch ein variablen Header hinzugefügt werden.
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=\textwidth]{graphics/MQTT-Standard-Packet.jpg}
+	\includegraphics[width=0.75\textwidth]{graphics/MQTT-Standard-Packet.jpg}
 	\caption{Standard MQTT Paket Struktur} 	
 	\label{pic: Struktur}
 \end{figure} 
@@ -131,4 +131,4 @@ Die Mindestgrösse des Paketlänge Felds beträgt 1 Bit was für Nachrichten die
 
 Die maximale Paket grösse beträgt 256 MB
 
-Das Steuerfeld ist das erste Byte des Headers es ist in zwei 4-Bit Felder unterteilt und enthält Protokollbefehle und antworten.
+Das Steuerfeld ist das erste Byte des Headers es ist in zwei 4-Bit Felder unterteilt und enthält Protokollbefehle wie auch antworten.
