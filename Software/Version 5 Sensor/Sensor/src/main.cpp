@@ -295,7 +295,9 @@ void setup()
   wifiManager.addParameter(&custom_mqtt_port);
   wifiManager.addParameter(&custom_board_token);
 
-  if (digitalRead(reset) == 1) //Sobald reset =1 Fehler auf Layout Theoretisch pin 25
+  pinMode(reset, INPUT_PULLUP);
+
+  if (digitalRead(reset) == 0)
   {
     wifiManager.startConfigPortal();
   }
