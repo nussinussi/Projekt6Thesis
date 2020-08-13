@@ -14,3 +14,12 @@ Um den Sprachassistent einzubinden ist ein weiterer Server mit der Home Assistan
 
 In der Abbildung \ref{pic: Systemübersicht} kann erkannt werden, dass sich beide Server im selben Lokalen Netzwerk befinden. Die Kommunikation zwischen den beiden Server findet über MQTT statt, es besteht die Möglichkeit den Openhab-Server zu umgehen und eine direkte Kommunikation vom Home Assistant zu dem Sensor- oder zum Aktorbord zu realisieren. In diesem Fall müssen aber die Regeln bei welchem Aktion, welche Schalthandlung ausgelösst wird, in den entsprechenden Mikrocontroller Programmiert werden.
 
+\subsection{Sprachassistent}
+Der Home Assistant wird als Brücke für den Google Assistant installiert. Mit der Home Assistant Cloud wird eine Verbindung zum Google Assistant hergestellt. Der Grund warum die Verbindung so aufgebaut wird liegt daran, dass dynamische DNS Adresse, SSL-Zertifikate und das öffnen von Ports auf dem Router so umgangen werden. Leider ist die Cloud nach einer Testphase kostenpflichtig. Wird die Lösung ohne Cloud bevorzugt kann nach Anleitung \cite{assistant_google_nodate} gearbeitet werden. Die Cloud ist im /config/configuration.yaml file schon vorinstalliert. Im Webinterface vom Home Assistant kann in den Einstellungen ein Benutzerkonto angelegt werden und schon ist die Cloud aktiv. Das hinzufügen von Schalter um Mqtt-Befehle zu generieren wird im Benutzerhandbuch im Anhang beschrieben. Die Installation auf dem Google Nest, mit einem Smartphone durchgeführt. Mittels Google Home App kann das Gerät 'Home Assistant' hinzugefügt werden.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.5\textwidth]{graphics/GoogleAssistant.png}
+	\caption{Google Assistant Mobile-App}
+	\label{pic: GoogleAssistant}
+\end{figure}   
+In der Abbildung \ref{pic: GoogleAssistant} können die Schalter, welche Home Assistant definiert wurden erkannt werden. Sie können mit Sprachbefehl geschalten werden in dem die Schalter Bezeichnung und Zustand genannt wird wie Beispielsweise "Licht Büro ein". Die Verschiedenen Geräte können nebst dem Sprachbefehl in dieser Ansicht mit einem Touch Befehl geschalten werden.

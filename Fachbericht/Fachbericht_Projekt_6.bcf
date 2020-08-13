@@ -2002,19 +2002,17 @@
     <bcf:citekey order="25">noauthor_introduction_nodate-1</bcf:citekey>
     <bcf:citekey order="26">noauthor_introduction_nodate-1</bcf:citekey>
     <bcf:citekey order="27">noauthor_xtext_nodate</bcf:citekey>
-    <bcf:citekey order="28">espressif_esp32-wroom-32_datasheet_en_2019</bcf:citekey>
-    <bcf:citekey order="29">hager_hager_kat1_08_technik_d_2019</bcf:citekey>
+    <bcf:citekey order="28">assistant_google_nodate</bcf:citekey>
+    <bcf:citekey order="29">espressif_esp32-wroom-32_datasheet_en_2019</bcf:citekey>
     <bcf:citekey order="30">hager_hager_kat1_08_technik_d_2019</bcf:citekey>
-    <bcf:citekey order="31">mikrocontroller.net_relais_nodate</bcf:citekey>
-    <bcf:citekey order="32">ronald_locher_2017</bcf:citekey>
-    <bcf:citekey order="33">miller_rc-glied_nodate</bcf:citekey>
-    <bcf:citekey order="34">schleuniger_emv_w8_2020</bcf:citekey>
+    <bcf:citekey order="31">hager_hager_kat1_08_technik_d_2019</bcf:citekey>
+    <bcf:citekey order="32">mikrocontroller.net_relais_nodate</bcf:citekey>
+    <bcf:citekey order="33">ronald_locher_2017</bcf:citekey>
+    <bcf:citekey order="34">miller_rc-glied_nodate</bcf:citekey>
     <bcf:citekey order="35">schleuniger_emv_w8_2020</bcf:citekey>
     <bcf:citekey order="36">schleuniger_emv_w8_2020</bcf:citekey>
-    <bcf:citekey order="37">noauthor_gnuorg_nodate</bcf:citekey>
-    <bcf:citekey order="38">noauthor_copyleft_2020</bcf:citekey>
-    <bcf:citekey order="39">noauthor_mit_2020</bcf:citekey>
-    <bcf:citekey order="40">noauthor_apache_2020</bcf:citekey>
+    <bcf:citekey order="37">schleuniger_emv_w8_2020</bcf:citekey>
+    <bcf:citekey order="38">noauthor_gnuorg_nodate</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="none">

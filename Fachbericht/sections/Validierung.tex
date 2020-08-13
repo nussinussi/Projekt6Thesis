@@ -182,3 +182,21 @@ Es wurde verifiziert, wie stark sich der Aktorbaustein in Betrieb erwärmt. Hier
 		\label{pic: IR_Relais}
 	\end{minipage}
 \end{figure}
+
+\subsubsection{Reaktion Zeiten}
+Die Reaktionszeiten von Taster Betätigung auf dem Touch Sensor bis die Schalthandlung am Relais auf dem Aktor Bord  Ausgeführt wird, wurde in nachfolgender Messung ermittelt. 
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.75\textwidth]{graphics/ZeitmessungOH.PNG}
+	\caption{Signal Taster ist gelb dargestellt, Signal Relais blau dargestellt}
+	\label{pic: Zeitmessung Openhab}
+\end{figure}
+In der Abbildung \ref{pic: Zeitmessung Openhab} kann zwischen dem Auslöse-Signal und dem Schalt-Signal eine Zeitdifferenz von 1.18 Sekunden erkannt werden. Der Grund warum so eine grosse Zeitdifferenz entsteht liegt daran, dass Openhab in den Ruls der Schaltbefehl für den Aktor generiert werden muss.\\
+\\
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.75\textwidth]{graphics/ZeitmessungohneOH.PNG}
+	\caption{Zeitmessung ohne Openhab Rules, Signal Taster ist gelb und Signal Relais blau dargestellt}
+\label{pic: Zeitmessung ohne Openhab}
+\end{figure}
+In der Abbildung \ref{pic: Zeitmessung ohne Openhab} kann zwischen dem Auslöse-Signal und dem Schalt-Signal eine Zeitdifferenz von 356 ms erkannt werden. Bei dieser Messung wurde der Schaltbefehl, also Topic und Payload im Sensor-Programmcode so angepasst, dass direkt eine Schalthandlung ausgelöst wird, sprich Rules von Openhab wurden umgangen.
