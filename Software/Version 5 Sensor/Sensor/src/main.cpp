@@ -232,6 +232,7 @@ void tempf() {
 
 void setup()
 {
+  pinMode(reset, INPUT_PULLUP);
   Serial.begin(115200);
   for (size_t i = 0; i < 5; i++)
   {
@@ -294,7 +295,6 @@ void setup()
   wifiManager.addParameter(&custom_mqtt_port);
   wifiManager.addParameter(&custom_board_token);
 
-  pinMode(reset, INPUT_PULLUP);
 
   if (digitalRead(reset) == 0)
   {
