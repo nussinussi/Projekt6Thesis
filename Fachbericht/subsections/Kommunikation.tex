@@ -176,7 +176,8 @@ Im loop() wird als erstes die Funktion clien.loop() aufgerufen. Diese Funktion i
  \subsubsection{publishADC()}
 Mit dieser Funktion werden die 0-10 Volt Eingänge ausgewertet und Resultate als MQTT-Message versendet. Der jeweiligen Messreihe am ADC wird der Mittelwert berechnet, welcher dann von einem float in ein char-Array umgewandelt wird. Als nächstes wird der char-Array und die entsprechende Topic vom PupsubClient veröffentlicht.
 
-
+\subsection{Task2code()}
+Diese Funktion wird im Gegensatz zum Rest des Programms im zweiten Kernel des ESP32 verwendet. Falls ein Relais in der Callback() Funktion gesetzt wird, wird in dieser Funktion die Zeit gemessen und nach 25\,ms wird der Sparmodus für das jeweilige Relais gesetzt. Das setzten des Sparmodus passiert für alle Relais einzeln, es spielt keine Rolle wann ein Relais gesetzt wird, es dauert immer 25\,ms $\pm 3 \,ms$. Der zweite Kernel ist somit nur damit beschäftigt, zu prüfen ob ein Relais aktiviert wurde und es dann nach einer vordefinierten Zeit in den Sparmodus zu bringen.
 \newpage
 
 \subsection{Programmcode Openhab}        
@@ -225,5 +226,5 @@ Das Item zeigt den Status des Verbrauchers oder den gemessenen Wert eines Sensor
 Automatische Prozesse werden mit i Rules definiert. Um das System Benutzerfreundlicher zu Gestalten werden in den Rules die Befehle der Taster verarbeitet und die Entsprechenden Befehle an die Relais generiert. So kann gewährleistet werden, dass der Kunde selber keine Änderungen an den Aktoren und Sensoren selber vornehmen muss. Die Rule Syntax basiert auf Xbase \cite{noauthor_xtext_nodate}. Um die Aufgeben der Befehls Weiterleitung zu übernehmen bestehen die Ruls im wesentlichen aus when und then. In diesem Fall sind sie im Teil when, auf den Empfang des jeweiligen Update getriggert. Somit wird mit einem Update des Status der Teil then ausgelöst, wo sich eine if Bedingung befinden. In diese Bedingung wird der Stus überprüft      
 
 \subsubsection{Sitemaps} 
-
 Als Sitemaps wird das Userinterface bezeichnet. Auf einer Sitemap  gibt es die Möglichkeit verschiedene Elemente in Form von Frame, Text oder Schalter darzustellen, diese Elemente präsentieren Status und Informationen vom System. Das Frame ist Beispielsweise die Aufteilung von einem Haus in seine einzelnen Stockwerke. In den einzelnen Stockwerken werden dann Schalter für jeweilige Geräte als Item hinzugefügt. Mehrere Schalter können als Gruppe zusammen gefasst werden, so kann in zentral Schalter ein/aus realisiert werden. Das erstellte Sitmap ist im Webbrowser mittels IP-Adresse des Servers oder mit dem Openhab Mobile-App erreichbar.
+
