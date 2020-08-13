@@ -2011,6 +2011,10 @@
     <bcf:citekey order="34">schleuniger_emv_w8_2020</bcf:citekey>
     <bcf:citekey order="35">schleuniger_emv_w8_2020</bcf:citekey>
     <bcf:citekey order="36">schleuniger_emv_w8_2020</bcf:citekey>
+    <bcf:citekey order="37">noauthor_gnuorg_nodate</bcf:citekey>
+    <bcf:citekey order="38">noauthor_copyleft_2020</bcf:citekey>
+    <bcf:citekey order="39">noauthor_mit_2020</bcf:citekey>
+    <bcf:citekey order="40">noauthor_apache_2020</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="none">
