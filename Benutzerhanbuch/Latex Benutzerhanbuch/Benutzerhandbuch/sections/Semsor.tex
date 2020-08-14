@@ -1,7 +1,7 @@
 \clearpage
 \section{Installation Sensor}\label{sec:Sensor}
 
-Das Sensor-Bord ist die Physikalische Schnittstelle, wo Actionen ausgelösst werden und anschliessend von Openhab empfangen und verarbeitet werden.
+Das Sensor-Bord ist die physikalische Schnittstelle, wo Aktionen ausgelöst werden und anschliessend von Openhab empfangen und verarbeitet werden.
 \subsection{Anleitung einrichten}
 \begin{figure}[H]
 	\begin{center}
@@ -26,20 +26,20 @@ Das Sensor-Bord ist die Physikalische Schnittstelle, wo Actionen ausgelösst wer
 \end{figure}
 
 \begin{enumerate}
-	\item Die Installation ist in einem Spannungslosen Zustand durchzuführen.\\
+	\item Die Installation ist in einem spannungslosen Zustand durchzuführen.\\
 	\\
-	\item An der Rückseite von der Spannungsversorgung wird die Netzspannung 230 V ADC angeschlossen siehe Abbildung \ref{pic: ruckseite}.\\
+	\item An der Rückseite von der Spannungsversorgung wird die Netzspannung 230\,VAC angeschlossen siehe Abbildung \ref{pic: ruckseite}.\\
 	\\
 	\item Das Sensor-Bord \ref{pic: Sensorbord} wird mit der Spannungsversorgung \ref{pic: ruckseite} und wird mit einem Standard Feller Gr-1 Befestigungsrahmen in eine Vorgesehene Einbauschalteröffnung eingebaut. \\
 	\\
-	\item Der Frontplatte \ref{pic: Frontprint} wird mit dem Abdeckrahmen Gr-1 auf das Sensor-Bord \ref{pic: Sensorbord} gesteckt. Die Beschriftung der Pins, GND zu GND ist dringend zu Beachten beim zusammenstecken.\\
+	\item Der Frontplatte \ref{pic: Frontprint} wird mit dem Abdeckrahmen Gr-1 auf das Sensor-Bord \ref{pic: Sensorbord} gesteckt. Die Beschriftung der Pins, GND zu GND ist dringend zu Beachten beim zusammenstecken, es kann auch auf den Markierungspunkt beim Stecker geachtet werden.\\
 	\\
 	\end{enumerate}
 
 \subsection{Inbetriebnahme}
-Sobald das Sensor-Bord mit Spannung versorgt wird, startet das Config-Portal des Bords. Mit einem beliebigen Gerät kann im nach einem Wlan Netzwerk gesucht werden. Das Netzwerk hat den Namen 'Sensor' gefolgt von der 10 Stelligen Chip-ID des Mikrocontrollers. 
+Sobald das Sensor-Board mit Spannung versorgt wird, startet das Config-Portal des Bords. Mit einem beliebigen Gerät kann im nach einem WLAN-Netzwerk gesucht werden. Das Netzwerk hat den Namen 'Sensor' gefolgt von der 10 Stelligen Chip-ID des Mikrocontrollers. 
 
-Mit der Funktion Scan WiFi werden vorhanden Netzwerke angezeigt. Wird ein eigener MQTT Server installiert kann an dieser Stelle die IP-Adresse angegeben der Port ist Default '1883' anzugeben. Die Eingabe bei 'board location' wird verwendet um MQTT-Topics zu generieren, sie muss eindeutig sein. Werden mehrere Sensor-Bords verbaut unterscheiden sie sich an der 'bord location'. Mit dem Button 'save' werden die Eingaben gesichert und müssen bei einem erneuten Start nicht mehr eingegeben werden. Kann sich das Sensor-Bord erfolgreich ins Lokale Netzwerk anmelden, blinkt die Status Led in einem regelmässigen Zyklus. Bei jeder Zustandsänderung der Statusleuchte, wird eine Temperatur Messung mit dem NTC-Widerstand durchgeführt. 
+Mit der Funktion 'Scan WiFi' werden vorhanden Netzwerke angezeigt. Wird ein eigener MQTT Server installiert, kann an dieser Stelle die IP-Adresse angegeben werden und der Port ist Default '1883' anzugeben. Die Eingabe bei 'board location' wird verwendet um MQTT-Topics zu generieren, sie muss eindeutig sein. Werden mehrere Sensor-Bords verbaut, unterscheiden sie sich an der 'bord location'. Mit dem Button 'save' werden die Eingaben gesichert und müssen bei einem erneuten Start nicht mehr eingegeben werden. Kann sich das Sensor-Board erfolgreich ins Lokale Netzwerk anmelden, blinkt die Status LED in einem regelmässigen Zyklus. Bei jeder Zustandsänderung der Statusleuchte, wird eine Temperaturmessung mit dem NTC-Widerstand durchgeführt. 
 
 \subsection{Programmierung}
 Verschiedene Eigenschaften können mit dem Entwicklertool zusätzlich verändert werden wenn der Programmcode des Mikrocontrollers bearbeitet wird. In der nachfolgenden Tabelle sind die wichtigsten Default-Konfigurationen enthalten.
