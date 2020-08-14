@@ -1,5 +1,5 @@
 \section{OpenHab}
-In dieser Arbeit wird als Server ein Raspberrypi verwendet. Als Software befindet sich Openhab auf dem Linux Betriebssystem. Openhab ist eine Gebäudeautomation Software und bietet Kontabilität zwischen verschiedenen Smarthome Komponenten wie KNX, Sonos, oder Philips Hue. Der für das Projekt benötigte MQTT Broker kann als Binding in Openhab eingebunden werden. Nach den Installationen kann der Funktionserhalt mit den Geräten im selben lokalen Netzwerk gewährleistet werden, auch ohne Verbindung mit dem öffentlichen Internet.
+In dieser Arbeit wird als Server ein Raspberry Pi verwendet. Als Software befindet sich Openhab auf dem Linux Betriebssystem. Openhab ist eine Gebäudeautomation Software und bietet Kontabilität zwischen verschiedenen Smarthome Komponenten wie KNX, Sonos, oder Philips Hue. Der für das Projekt benötigte MQTT Broker kann als Binding in Openhab eingebunden werden. Nach den Installationen kann der Funktionserhalt mit den Geräten im selben lokalen Netzwerk gewährleistet werden, auch ohne Verbindung mit dem öffentlichen Internet.
 \subsection{Archidektur}
 Openhab basiert auf der modularen OSGI Architektur.
 \subsubsection{OSGI}
@@ -13,7 +13,7 @@ Die OSGI Technologie bietet eine Vielzahl  von dynamischen Spezifikationen für 
 	\label{pic: OSGILayers}
 \end{figure} 
 
-Bundles sind Module sie sind die kleinste Einheit der Modularisierung. Ein Bundle ist eine JAR-Datei mit zusätzlichen Meta-Informationen.\\
+Bundles sind Module, welche die kleinste Einheit der Modularisierung bilden. Ein Bundle ist eine JAR-Datei mit zusätzlichen Meta-Informationen.\\
 \\
 In den Meta-Informationen sind Bundlesabhängigkeits Informationen. Ein Bundle kann von einem andern Bundel oder von einem Paket abhängig sein.\\
 \\
@@ -43,4 +43,4 @@ Die Kommunikation zwischen den Komponenten geschieht mittels Event Bus. Alle nic
  	\label{pic: Eventbus}
  \end{figure} 
  
- In der Abbildung \ref{pic: Eventbus} ist der Eventbus dargestellt verschiedene Bindings mit Hardwarekomponenten von verschiedenen Smarthome Lösungen empfangen, die für sie vorgesehene Events
+ In der Abbildung \ref{pic: Eventbus} ist der Eventbus dargestellt, welcher verschiedene Bindings von Hardwarekomponenten verschiedener Smarthome-Lösungen empfängt und der Item Registry weitergibt.

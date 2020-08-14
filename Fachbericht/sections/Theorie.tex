@@ -1,7 +1,7 @@
 \section{Theorie}
 \subsection{Wireless Local Area Network (WLAN)} 
 \subsubsection{Beschreibung}
-Als lokales Funknetz ist WLAN weit verbreitet. WLAN ist eine Abkürzung für Wireless-Local-Area-Netzwerk, in deutsch ein Drahtloses-Lokales-Areal-Netzwerk. Die Idee der Lokalen Funkkommunikation war, dass in Büros mit mobilen Geräten wie Laptops eine kabellose Verbindung zum Internet hergestellt werden kann. Damit die Anbindung an das standardisierte LAN nicht in jedem Büro unterschiedliche Eigenschaften benötigt, wurde vom IEEE-Komitee entschieden ein Standard einzuführen, das Komitee entwickelte somit den 802.11 Standard für die drahtlosen Verbindungen. IEEE-802.11 Systeme nutzen unlizenzierte Frequenzbänder Bänder wie z.B. 902-928 MHz oder 2.4 - 2.5 GHz. Sämtliche Geräte dürfen dieses Spektrum nutzen, vorausgesetzt sie begrenzen ihre Sendeleistung, damit mehrere Geräte nebeneinander betrieben werden können. IEEE-802.11 Netze bestehen aus Clients wie Laptops und Smartphones sowie einer Infrastruktur, Zugangspunkt AP (Access Point), welcher im Gebäude Installiert ist. Der AP ist die Schnittstelle zum verkabelten Netz und ist im Privaten Haushalt auch oft direkt im Modem nebst dem Router integriert siehe Abbildung \ref{pic: IEEE802.11}.
+Als lokales Funknetz ist WLAN weit verbreitet. WLAN ist eine Abkürzung für Wireless-Local-Area-Netzwerk, in deutsch ein Drahtloses-Lokales-Areal-Network. Die Idee der lokalen Funkkommunikation war, dass in Büros mit mobilen Geräten wie Laptops eine kabellose Verbindung zum Internet hergestellt werden kann. Damit die Anbindung an das standardisierte LAN nicht in jedem Büro unterschiedliche Eigenschaften benötigt, wurde vom IEEE-Komitee entschieden ein Standard einzuführen, das Komitee entwickelte somit den 802.11 Standard für die drahtlosen Verbindungen. IEEE-802.11 Systeme nutzen unlizenzierte Frequenzbänder Bänder wie z.B. 902-928 MHz oder 2.4 - 2.5 GHz. Sämtliche Geräte dürfen dieses Spektrum nutzen, vorausgesetzt sie begrenzen ihre Sendeleistung, damit mehrere Geräte nebeneinander betrieben werden können. IEEE-802.11 Netze bestehen aus Clients wie Laptops und Smartphones sowie einer Infrastruktur, Zugangspunkt AP (Access Point), welcher im Gebäude installiert ist. Der AP ist die Schnittstelle zum verkabelten Netz und ist im Privathaushalt oft direkt im Modem nebst dem Router integriert, siehe Abbildung \ref{pic: IEEE802.11}.
 
 
  \begin{figure}[H]
@@ -70,7 +70,7 @@ WPA3 Enterprise bietet kryptografischen Schutz mit der Stärke von 192 Bit, somi
 \newpage
 \subsection{Message Queuing Telemetry Transport (MQTT)}
 \subsubsection{Beschreibung}
-MQTT ist ein Nachrichtentransport Protokoll, mittels Client werden Nachrichten veröffentlicht sprich abonniert und mit dem MQTT-Broker verwaltet. Anwendung findet MQTT im Bereich in eingeschränkten Umgebungen, wie Kommunikation von Maschine zu Maschine (M2M) und Internet der Dinge (IoT). Das Protokoll läuft über TCP/IP oder über andere Netzwerkprotokolle die verlustfreie bidirektionale Verbindungen bieten \cite{noauthor_mqtt-v5.0.pdf_nodate}. 
+MQTT ist ein Nachrichtentransport Protokoll, mittels Client werden Nachrichten veröffentlicht sprich abonniert und mit dem MQTT-Broker verwaltet. Anwendung findet MQTT im Bereich in eingeschränkten Umgebungen, wie Kommunikation von Maschine zu Maschine (M2M) und Internet der Dinge (IoT). Das Protokoll läuft über TCP/IP oder über andere Netzwerkprotokolle, welche verlustfreie bidirektionale Verbindungen bieten \cite{noauthor_mqtt-v5.0.pdf_nodate}. 
 
 \subsubsection{Geschichte}
 MQTT wurde 1999 von dr.Andy Stanford-Clark von IBM und Arlen Nipper von Arcom erfunden. Seit 2013 ist MQTT über die nicht gewinnorientierte Organisation OASIS als Protokoll des Internet der Dinge standardisiert \cite{noauthor_mqtt-v5.0.pdf_nodate}. .
@@ -127,8 +127,8 @@ Es gibt 3 Grundlegende Paket Formate
 	\item Fester Header (Steuerfeld und Länge) variabler Header und variable Payload\\
 \end{itemize}
 
-Die Mindestgrösse des Paketlänge Felds beträgt 1 Bit was für Nachrichten die ohne Header kleiner als 127 Byte sind. 
+Die Mindestlänge eines Pakets beträgt 1 Bit. 
 
-Die maximale Paket grösse beträgt 256 MB
+Die maximale Paket grösse beträgt 256 MB.
 
 Das Steuerfeld ist das erste Byte des Headers es ist in zwei 4-Bit Felder unterteilt und enthält Protokollbefehle wie auch antworten.
