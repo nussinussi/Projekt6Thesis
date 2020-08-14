@@ -1,11 +1,11 @@
 \clearpage
 \section{Installation Sprach Assistant} \label{sec:Assistant}
-Der Home Assistant ist die Schnittstelle, welche den Google Assistant mit Openhab verbindet. Die Kommunikation zwischen Homeassistant und Openhab findet über MQTT statt. Die Homeassistant Software wird auf ein weiteres Rasberrypi installiert. Die Verbindung zwischen Home Assistant und Google Assistant Basiert auf einer Öffentlichen Cloud gemäss Abbildung \ref{pic: Systemübersicht}.
+Der Home Assistant ist die Schnittstelle, welche den Google Assistant mit Openhab verbindet. Die Kommunikation zwischen Homeassistant und Openhab findet über MQTT statt. Die Homeassistant Software wird auf ein weiteres Rasberry Pi installiert. Die Verbindung zwischen Home Assistant und Google Assistant basiert auf einer Öffentlichen Cloud gemäss Abbildung \ref{pic: Systemübersicht}.
 
 \begin{enumerate}
 	\item Download des Images für die Installation auf dem eigenen Raspi von der offiziellen Home Assistant \cite{assistant_installing_nodate} Webseite.
 \item Image auf Micro SD-Card mit balenaEtcher \cite{noauthor_balenaetcher_nodate} schreiben. 
-\item Ein USB-Stick, FAT32 formatieren und ihn als 'CONFIG' benennen, ein Ordner mit dem Namen 'network' erstellen, darin eine Text Datei erstellen, in der die Wlan Konfigurationen enthalten sind wie als Beispiel \cite{noauthor_home-assistantoperating-system_nodate} beschrieben oder in der Projekt-Dokumentation enthalten ist.
+\item Ein USB-Stick, FAT32 formatieren und ihn als 'CONFIG' benennen, ein Ordner mit dem Namen 'network' erstellen, darin eine Text Datei erstellen, in der die Wlan Konfigurationen enthalten sind, wie im Beispiel \cite{noauthor_home-assistantoperating-system_nodate} beschrieben oder in der Projekt-Dokumentation enthalten ist.
 \item USB-Stick und Micro SD-Card in Raspi einsetzen und in Betrieb nehmen, dauert ca 20 min. Der USB Stick ist nur bei der ersten Inbetriebnahme notwendig um Netzkonfigurationen zu Initialisieren.
 \item Im Browser wird mit dem URL: \colorbox{lightgray}{http://homeassistant.local:8123} die Benutzeroberfläche des Homeassistanten angezeigt. 
 \item Durch anwählen des Benutzernamen öffnet sich das Profil, 'Erweiterter Modus' wählen.
