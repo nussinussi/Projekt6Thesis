@@ -85,7 +85,7 @@ int outpins[][2] = {{Channel3, LED_1}, {Channel4, LED_2}, {Channel5, LED_3}, {Ch
 
 // Task für 2 Core
 TaskHandle_t Task2;
-int sparmodus[4] = {0, 0, 0, 0}; //Sparmodus für Relais
+int sparmodus[4] = {0, 0, 0, 0}; //economy mode relais
 
 void saveConfigCallback()
 {
@@ -167,7 +167,7 @@ void callback(char *topicin, byte *payload, unsigned int length)
     }
   }
   if (!strncmp((char *)topicin, (char *)topic[4], 50))
-  { //Subscribe Analogausgänge
+  { //Subscribe analog output
     payload[length] = '\0';
     voltage1 = String((char *)payload).toFloat() * 10;
     int duty1 = (voltage1 / 3.2 * 1024) / 3.24;
@@ -218,7 +218,7 @@ void publishADC()
   client.publish(buffer0, buffer2);
 }
 
-//Funktion um 2 Core zu benutzen
+//function for 2. core
 void Task2code(void *pvParameters)
 {
   int waitTime = 25;
@@ -250,18 +250,18 @@ void Task2code(void *pvParameters)
 
 void setup()
 {
-  analogReadResolution(12); //Leg die Auflösung von Analogread auf 12 bits
+  analogReadResolution(12); //Set the resolution of analog read to 12 bits
 
   // configure LED PWM functionalitites
-  ledcSetup(Channel1, freq, resolution); //Out PWM 0-10V Konfigurieren
-  ledcSetup(Channel2, freq, resolution); //Out PWM 0-10V Konfigurieren
+  ledcSetup(Channel1, freq, resolution); //Out PWM 0-10V 
+  ledcSetup(Channel2, freq, resolution); //Out PWM 0-10V 
   ledcSetup(Channel3, freq, resolution); //R1
   ledcSetup(Channel4, freq, resolution); //R2
   ledcSetup(Channel5, freq, resolution); //R3
   ledcSetup(Channel6, freq, resolution); //R4
 
   // attach the channel to the GPIO to be controlled
-  ledcAttachPin(out1, Channel1); // chanel dem Output zuweisen
+  ledcAttachPin(out1, Channel1); // assign chanel to output
   ledcAttachPin(out2, Channel2);
   ledcAttachPin(R_1, Channel3);
   ledcAttachPin(R_2, Channel4);
@@ -276,7 +276,7 @@ void setup()
 
   Serial.begin(115200);
   pinMode(34, INPUT);
-  pinMode(02, INPUT); //Pin I02 Prüf-Messstelle
+  pinMode(02, INPUT); //Pin I02 test measuring point
   pinMode(clear_pin, INPUT_PULLUP);
   pinMode(LED_status, OUTPUT); //LED-Status
   pinMode(00, INPUT);          //Mode Taster
@@ -290,7 +290,7 @@ void setup()
 
   Serial.println("mounting FS...");
 
-  if (SPIFFS.begin(true)) //true/false, Je nach dem wieviel flash ein MC hat
+  if (SPIFFS.begin(true)) //true/false, depending on how much flash an MC has
   {
     Serial.println("mounted file system");
     if (SPIFFS.exists("/config.json"))
@@ -342,7 +342,7 @@ void setup()
   wifiManager.addParameter(&custom_mqtt_port);
   wifiManager.addParameter(&custom_board_token);
 
-  if (digitalRead(clear_pin) == 0) //Sobald reset = 0 Fehler auf Layout Theoretisch pin 00 oder 25
+  if (digitalRead(clear_pin) == 0) //reset 
   {
     wifiManager.startConfigPortal();
   }
@@ -418,7 +418,7 @@ void loop()
   this_time = clock();
   tcount += (double)(this_time - last_time);
   last_time = this_time;
-  if (tcount > (double)(NUM_SEC * CLOCKS_PER_SEC)) // wird nur alle x Sec durchgeführt
+  if (tcount > (double)(NUM_SEC * CLOCKS_PER_SEC)) // is only performed every x Sec
   {
     tcount -= (double)(NUM_SEC * CLOCKS_PER_SEC);
     if (status == 0)
@@ -431,6 +431,6 @@ void loop()
       digitalWrite(LED_status, LOW);
       status = 0;
     }
-    publishADC(); //Analogwert Einlesen 0-10V In1 & In2
+    publishADC(); //Analog value read 0-10V In1 & In2
   }
 }

@@ -1,0 +1,24 @@
+Group:Switch:OR(ON,OFF)     Relais_all_on 
+
+
+Group   Wohnzimmer  "Wohnzimmer" 
+
+Switch LichtWohnzimmer "Licht Wohnzimmer" (Wohnzimmer,Relais_all_on){channel="mqtt:topic:07aaf2e2:LichtWohnzimmer"}
+Switch LichtEsszimmer "Licht Esszimmer" (Wohnzimmer,Relais_all_on){channel="mqtt:topic:07aaf2e2:LichtEsszimmer"}
+Switch LichtBuero "Licht Büro" (Wohnzimmer,Relais_all_on){channel="mqtt:topic:07aaf2e2:LichtBureo"}
+Switch LichtAussen "Licht Aussen" (Wohnzimmer,Relais_all_on){channel="mqtt:topic:07aaf2e2:LichtAussen"}
+Dimmer Ouput1 "Output1" (Wohnzimmer){channel="mqtt:topic:07aaf2e2:Ouput1"}
+Dimmer Output2 "Output2" (Wohnzimmer){channel="mqtt:topic:07aaf2e2:Output2"}
+Number Input1 "Spannung 1 in Volt [%.2f V]" {channel="mqtt:topic:07aaf2e2:Input1"}
+Number Input2 "Spannung 2 in Volt [%.2f V]" {channel="mqtt:topic:07aaf2e2:Input2"}
+
+Switch Touch1 "Touch1" {channel="mqtt:topic:326efd22:Touch1"}
+Switch Touch2 "Touch2" {channel="mqtt:topic:326efd22:Touch2"}
+Switch Touch3 "Touch3" {channel="mqtt:topic:326efd22:Touch3"}
+Switch Touch4 "Touch4" {channel="mqtt:topic:326efd22:Touch4"}
+Number Temperatur "Temperatur [%.1f °C]" (Wohnzimmer){channel="mqtt:topic:326efd22:Temperatur"}
+
+Switch GoogleLichtWohnzimmer "Google Licht Wohnzimmer" {channel="mqtt:topic:d5b503dd:GoogleLichtWohnzimmer"}
+Switch GoogleLichtEsszimmer "Google Licht Esszimmer" {channel="mqtt:topic:d5b503dd:GoogleLichtEsszimmer"}
+Switch GoogleLichtBuero "Google Licht Büro" {channel="mqtt:topic:d5b503dd:GoogleLichtBuero"}
+Switch GoogleLichtAussen "Google Licht Aussen" {channel="mqtt:topic:d5b503dd:GoogleLichtAussen"}

@@ -23,21 +23,21 @@ Openhab ist die Schnittstelle, welche in diesem Projekt die verschiedenen Gerät
 
 \item In Visual Studio Code Addon 'Openhab' istallieren ,Ordner öffnen openHab-conf wählen. In Einstellungen, Erweiterungen, OpenHab Configuration, Host in 'settings.json' bearbeiten wählen. \\
 \colorbox{lightgray}{openhab.host: '192.168.137.8',
-	'git.autofetch': true} eingeben. Anschliessend ist ein Neustart von Visual Studio Code erforderlich.
+	'git.autofetch': true} eingeben. File ist in der Projekt Dokumentation vorhanden. Anschliessend ist ein Neustart von Visual Studio Code erforderlich.
    
    
  \end{enumerate}
 \subsection{Openhab Configurieren}
 
 \begin{enumerate}
-	\item In der Ordnerstruktur wird der Ordner 'services' geöffnet und das File 'addons.cfg' bearbeitet. 'binding =' wird ein Kommentiert, das Binding 'mqtt' wird hinzugefügt. Ebenso wird 'misc' ein Kommentiert und 'mqttbroker, openhabcloud' hinzu gefügt gemäss Abbildung \ref{pic: addons.cfg}, anschliessend ist ein Reboot des Raspis notwendig.  
+	\item Openhab Bindings (Schnittstellen) einrichten in Visual Studio Code. In der Ordnerstruktur wird der Ordner 'services' geöffnet und das File 'addons.cfg' bearbeitet. 'binding =' wird ein Kommentiert, das Binding 'mqtt' wird hinzugefügt. Ebenso wird 'misc' ein Kommentiert und 'mqttbroker, openhabcloud' hinzu gefügt gemäss Abbildung \ref{pic: addons.cfg}, anschliessend ist ein Reboot des Raspis notwendig.  
 	   \begin{figure}[H]
 		\centering
 		\includegraphics[width=0.9\textwidth]{graphics/addpnscfg.PNG}
 		\caption{File: addons.cfg} 	
 		\label{pic: addons.cfg}
 	\end{figure} 
-\item Things werden im Webinterface hinzugefügt Openhab ist unter URL <IP-Adresse>:8080 erreichbar. Button Paper UI wählen, in der Inbox befindet sich der MQTT Broker, welcher mit einem Click auf den Bestätigungsbutton hinzugefügt wird. 
+\item Openhab mit Things (Geräten) verbinden. Things werden im Webinterface hinzugefügt Openhab ist unter URL <IP-Adresse>:8080 erreichbar. Button Paper UI wählen, in der Inbox befindet sich der MQTT Broker, welcher mit einem Click auf den Bestätigungsbutton hinzugefügt wird. 
 \item Mit dem Menüpunkt 'Configuration', 'Thing' ist der MQTT Broker sichtbar, mit den blauen add Button werden weitere MQTT-Things hinzugefügt, 'ADD MANUALLY', 'Generic MQTT Thing' wählen, Parameter gemäss Abbildung \ref{pic: Configure MQTT-Thing}  wählen. Dieser Vorgang wird für jedes Bord durchgeführt ein Bord wird als Gerät also als Thing bezeichnet.
 	   \begin{figure}[H]
 	\centering
