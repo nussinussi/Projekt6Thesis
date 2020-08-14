@@ -38,7 +38,7 @@ Der Sensorbaustein wurde unter folgenden Bedingungen gemessen:
 	Der Sensorbaustein hat eine mittlere Leistungsaufnahme von ca. 370\,mW. Auffällig ist, dass die Leistung mit einer Periode von 10\,s schwankt, was dem zu Programm zugrunde liegt, denn die Temperaturmessung, denn das Status LED toggelt alle 10\,s, um anzuzeigen, dass die Temperatur nach 10\,s wieder gemessen wird. Unregelmäßige Leistungssprünge von bis zu ca. 400\,mW kommen häufiger vor, was wahrscheinlich durch das WLAN ausgelöst wird.
 	\\
 	\item Geschalteter Normalzustand (Abbildung: \ref{pic: Sensorbaustein_geschaltet})\\ (Der Sensorbaustein wird bedient und hat eine Verbindung mit einem WLAN Netzwerk)\\
-	In den Zeiten um ca. 35\,s, 60\,s und 85\,s werden alle Vier Taster betätigt, die Leistungsaufnahme steigt um 10\,mW von vorher 370\,mW auf ca. 380\,mW, was vertretbar ist.
+	In den Zeiten um ca. 35\,s, 60\,s und 85\,s werden alle vier Taster betätigt, die Leistungsaufnahme steigt um 10\,mW von vorher 370\,mW auf ca. 380\,mW, was vertretbar ist.
 	\\
 	\item Keine Verbindung (Abbildung: \ref{pic: Sensorbaustein_keine_Verbindung})\\ (Der Sensorbaustein findet kein zulässiges WLAN Netzwerk)\\
 	In diesem Zustand hat der Sensorbaustein eine mittlere Leistungsaufnahme von 930\,mW, was beträchtlich ist. Dies ist daran geschuldet, dass der Sensorbaustein vermutlich seine seine Signalstärke erhöht, um ein Netzwerk zu finden. Deswegen wird nicht empfohlen, den Sensorbaustein, in diesem Zustand zu lassen.
@@ -209,8 +209,5 @@ Falls die 10\,V Ausgänge kurzgeschlossen werden, nimmt der Aktorbaustein keiner
 
 \paragraph{Verpolungsschutz Speisung}\\
 Falls die Klemmen für die Speisung verwendet werden, wird der Strom über die Diode D15 auf die PPTC Sicherung gelangen. Dies wurde getestet und die Sicherung wurde heiss und begrenzte so den Strom, der Aktorbaustein hat unbeschadet überstanden.
-
-
-\paragraph{Kurzschluss an den Ein- und Ausgängen}\\
 
 
