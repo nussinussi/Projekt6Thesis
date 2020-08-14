@@ -1,0 +1,6 @@
+{
+    "openhab.host": "192.168.137.8",
+    "openhab.port": 8080,
+    "openhab.useRestApi": true,
+    "git.autofetch": true
+}

@@ -60,7 +60,7 @@ int UOref = 190;
 float temp;
 float B = 4250;
 float TN = 298.15;
-float TK = 273.15;
+float TK = 275.15;
 float Untc = 0;
 float Uref = 0;
 float RT = 0;
@@ -212,22 +212,27 @@ void tread()
   }
 }
 
-void tempf() {
-    temp = 0;
-    Untc = 0;
-    Uref = 0;
-    for (int i = 0; i < 10; i++)
-    {
-        Untc += analogRead(Untc_pin);
-        Uref += analogRead(UMref_pin);
-    }
-    Untc = Untc/10;
-    Uref = Uref/10;
-    Untc = Untc * m_sensor + b_sensor;
-    Uref = Uref * m_sensor + b_sensor;
-    RT = Untc / (Uref-Untc);
-    temp = 100/(100/TN + 100/B * log(RT));
-    temp = temp - TK;
+void tempf() //Measure temperature
+{
+  temp = 0;
+  Untc = 0;
+  Uref = 0;
+  for (int i = 0; i < 10; i++) // mean value
+  {
+    Untc += analogRead(Untc_pin);
+    Uref += analogRead(UMref_pin);
+  }
+  Untc = Untc / 10;
+  Uref = Uref / 10;
+  Untc = Untc * m_sensor + b_sensor;
+  Uref = Uref * m_sensor + b_sensor;
+  RT = Untc / (Uref - Untc);
+  temp = 100 / (100 / TN + 100 / B * log(RT));
+  temp = temp - TK;
+
+  char buffer1[40];
+  sprintf(buffer1, "%.2f", temp);
+  publishSerialData(buffer1);
 }
 
 void setup()
@@ -240,6 +245,7 @@ void setup()
   }
 
   pinMode(UOref_pin, OUTPUT);
+  dacWrite(UOref_pin, UOref);
 
   Serial.println("mounting FS...");
 
@@ -294,7 +300,6 @@ void setup()
   wifiManager.addParameter(&custom_mqtt_server);
   wifiManager.addParameter(&custom_mqtt_port);
   wifiManager.addParameter(&custom_board_token);
-
 
   if (digitalRead(reset) == 0)
   {
@@ -373,6 +378,5 @@ void loop()
       status = 0;
     }
     tempf();
-    Serial.println(digitalRead(reset));
   }
 }

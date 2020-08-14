@@ -1,0 +1,147 @@
+rule "MQTT1"
+
+when 
+Item Touch1 received update
+
+then
+ if(LichtWohnzimmer.state == (OFF) ) {
+    val mqttActions = getActions("mqtt","mqtt:systemBroker:embedded-mqtt-broker")
+    mqttActions.publishMQTT("data/aktorboard/location/K1","ON", true)
+    sendCommand(LichtWohnzimmer,ON)
+    
+     }else{
+    val mqttActions = getActions("mqtt","mqtt:systemBroker:embedded-mqtt-broker")
+    mqttActions.publishMQTT("data/aktorboard/location/K1","OFF", true)
+    sendCommand(LichtWohnzimmer,OFF)
+    
+   }
+end
+rule "MQTT2"
+when 
+Item Touch2 received update
+
+then
+ if(LichtEsszimmer.state == (OFF) ) {
+    val mqttActions = getActions("mqtt","mqtt:systemBroker:embedded-mqtt-broker")
+    mqttActions.publishMQTT("data/aktorboard/location/K2","ON", true)
+    
+    sendCommand(LichtEsszimmer,ON)
+     }else{
+    val mqttActions = getActions("mqtt","mqtt:systemBroker:embedded-mqtt-broker")
+    mqttActions.publishMQTT("data/aktorboard/location/K2","OFF", true)
+    sendCommand(LichtEsszimmer,OFF)
+    
+   }
+end
+rule "MQTT3"
+when 
+Item Touch3 received update
+
+then
+ if(LichtBuero.state == (OFF) ) {
+    val mqttActions = getActions("mqtt","mqtt:systemBroker:embedded-mqtt-broker")
+    mqttActions.publishMQTT("data/aktorboard/location/K3","ON", true)
+    
+    sendCommand(LichtBuero,ON)
+     }else{
+    val mqttActions = getActions("mqtt","mqtt:systemBroker:embedded-mqtt-broker")
+    mqttActions.publishMQTT("data/aktorboard/location/K3","OFF", true)
+    sendCommand(LichtBuero,OFF)
+    
+   }
+end
+rule "MQTT4"
+when 
+Item Touch4 received update
+
+then
+ if(LichtAussen.state == (OFF) ) {
+    val mqttActions = getActions("mqtt","mqtt:systemBroker:embedded-mqtt-broker")
+    mqttActions.publishMQTT("data/aktorboard/location/K4","ON", true)
+    
+    sendCommand(LichtAussen,ON)
+     }else{
+    val mqttActions = getActions("mqtt","mqtt:systemBroker:embedded-mqtt-broker")
+    mqttActions.publishMQTT("data/aktorboard/location/K4","OFF", true)
+    sendCommand(LichtAussen,OFF)
+    
+   }
+end
+
+rule "MQTT1_HomeAssistant"
+
+when 
+Item GoogleLichtWohnzimmer received update
+
+then
+ if(LichtWohnzimmer.state == (OFF) && GoogleLichtWohnzimmer.state == (ON)) {
+    val mqttActions = getActions("mqtt","mqtt:systemBroker:embedded-mqtt-broker")
+    mqttActions.publishMQTT("data/aktorboard/location/K1","ON", true)
+    sendCommand(LichtWohnzimmer,ON)
+    
+     }else{
+    val mqttActions = getActions("mqtt","mqtt:systemBroker:embedded-mqtt-broker")
+    mqttActions.publishMQTT("data/aktorboard/location/K1","OFF", true)
+    sendCommand(LichtWohnzimmer,OFF)
+    
+   }
+end
+
+rule "MQTT2_HomeAssistant"
+
+when 
+Item GoogleLichtEsszimmer received update
+
+then
+ if(LichtEsszimmer.state == (OFF) && GoogleLichtEsszimmer.state == (ON)) {
+    val mqttActions = getActions("mqtt","mqtt:systemBroker:embedded-mqtt-broker")
+    mqttActions.publishMQTT("data/aktorboard/location/K2","ON", true)
+    sendCommand(LichtEsszimmer,ON)
+    
+     }else{
+    val mqttActions = getActions("mqtt","mqtt:systemBroker:embedded-mqtt-broker")
+    mqttActions.publishMQTT("data/aktorboard/location/K2","OFF", true)
+    sendCommand(LichtEsszimmer,OFF)
+    
+   }
+end
+
+rule "MQTT3_HomeAssistant"
+
+when 
+Item GoogleLichtBuero received update
+
+then
+ if(LichtBuero.state == (OFF) && GoogleLichtBuero.state == (ON)) {
+    val mqttActions = getActions("mqtt","mqtt:systemBroker:embedded-mqtt-broker")
+    mqttActions.publishMQTT("data/aktorboard/location/K3","ON", true)
+    sendCommand(LichtBuero,ON)
+    
+     }else{
+    val mqttActions = getActions("mqtt","mqtt:systemBroker:embedded-mqtt-broker")
+    mqttActions.publishMQTT("data/aktorboard/location/K3","OFF", true)
+    sendCommand(LichtBuero,OFF)
+    
+   }
+end
+
+rule "MQTT4_HomeAssistant"
+
+when 
+Item GoogleLichtAussen received update
+
+then
+ if(LichtAussen.state == (OFF) && GoogleLichtAussen.state == (ON)) {
+    val mqttActions = getActions("mqtt","mqtt:systemBroker:embedded-mqtt-broker")
+    mqttActions.publishMQTT("data/aktorboard/location/K4","ON", true)
+    sendCommand(LichtAussen,ON)
+    
+     }else{
+    val mqttActions = getActions("mqtt","mqtt:systemBroker:embedded-mqtt-broker")
+    mqttActions.publishMQTT("data/aktorboard/location/K4","OFF", true)
+    sendCommand(LichtAussen,OFF)
+    
+   }
+end
+
+
