@@ -11,7 +11,7 @@ Vom Auftraggeber ist ein Sensorbaustein mit 4-Tasten-Feld und Temperaturfühler 
 \end{figure} 
 
 \subsubsection{Übersicht Frontplatte}
-Die Frontplatte besteht aus einem 2-Lagen Print. Auf der Vorderseite (Abb. \ref{pic: Frontplatte_vorne}) sind vier runde Kupferflächen angebracht, welche als Touch Fläche fungieren. Wenn nun ein Anwender eine dieser Fläche berührt, wird die Kapazität zwischen dieser Fläche und Ground vergrössert. Natürlich befindet sich ein Lötstopplack zwischen Finger und Kupferfläche der Dielektrikum darstellt. Der ESP32 hat intern Touchsensoren verbaut, welche ein Signal auf auf die Pins geben und dann  \todo{ wie genau?} vermutlich mithilfe eines Spannungsteilers messen ob, dass Signal grösser oder kleiner wird. Zu den Tasten gibt es jeweils eine LED, welche von der Rückseite montiert werden. Der NTC ist auf der Rückseite der Frontplatte angebracht. Um die Temperatur der tatsächlichen Raumluft zu messen wurde auf der Frontplatte eine Kupferfläche auf der Aussenseite angebracht, welche die Wärme via Vias zum NTC weitergibt. Als Verbindung zur Hauptplatine des Sensorbausteins ist ein 12-Pin Stecker mit 2.54\,mm Rastermass vorgesehen. Eine Randnotiz: Es wurde darauf geachtet, dass keine visuell störenden Vias, das optische Erscheinungsbild beeinträchtigen.
+Die Frontplatte besteht aus einem 2-Lagen Print. Auf der Vorderseite (Abb. \ref{pic: Frontplatte_vorne}) sind vier runde Kupferflächen angebracht, welche als Touch Fläche fungieren. Wenn nun ein Anwender eine dieser Fläche berührt, wird die Kapazität zwischen dieser Fläche und Ground vergrössert. Natürlich befindet sich ein Lötstopplack zwischen Finger und Kupferfläche der Dielektrikum darstellt. Der ESP32 hat intern Touchsensoren verbaut, welches ein Signal $V_{refh}$ auf auf die Pins geben (Abbildung: \ref{pic: touch_funktion}). Die vorhandene Kapazität im ESP32 wird sich nun nach einer Zeit mit $V_{refh}$ aufladen, falls die Spannung über der Kapazität $V_{refh}$ erreicht hat, wird das tiefere Signal $V_{refl}$ ausgegeben. Wenn es die Spannung nun wiederum $V_{refl}$ erreicht hat wird wieder  $V_{refh}$ ausgegeben und so weiter, so bildet sich am Touch-Pin ein Dreiecksignal. Falls nun am Touchpin die Kapazität durch berühren vergrössert wird, wird es länger dauern bis sich die gesamte Kapazität aufladet und die Frequenz des Dreiecksignals nimmt ab, bei einem Test mit dem Sensorbaustein nahm die Frequenz von 11\,kHz auf 5\,kHz ab. Die Periodendauer wird vom ESP gemessen und ein zur Frequenz proportionales Signal ausgegeben. Zu den Tasten gibt es jeweils eine LED, welche von der Rückseite montiert werden. Der NTC ist auf der Rückseite der Frontplatte angebracht. Um die Temperatur der tatsächlichen Raumluft zu messen wurde auf der Frontplatte eine Kupferfläche auf der Aussenseite angebracht, welche die Wärme via Vias zum NTC weitergibt. Als Verbindung zur Hauptplatine des Sensorbausteins ist ein 12-Pin Stecker mit 2.54\,mm Rastermass vorgesehen. Eine Randnotiz: Es wurde darauf geachtet, dass keine visuell störenden Vias, das optische Erscheinungsbild beeinträchtigen.
 
 \begin{figure}[h!]
 	\centering
@@ -50,8 +50,28 @@ Auf der Vorderseite der Hauptplatine des Sensorbausteins (Abb. \ref{pic: Hauptpl
 	\end{minipage}
 \end{figure}
 
-\subsubsection{Übersicht Spannungsversorgung}
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=1\textwidth]{graphics/touch_funktion.png}
+	\caption{Funktion des Touches \cite{noauthor_touch_nodate}}
+	\label{pic: touch_funktion}
+\end{figure}
 
+\subsubsection{Übersicht Spannungsversorgung}
+Die Spannungsversorgung des Sensorbausteins besteht aus einem AC/DC-Leistungsmodul (IRM-02-5) mit einer Leistung von 2\,W. Die Eingangsspannung kann 85\,VAC bis 305\,VAC oder 120\,VDC to 430\,VDC betragen, ausgegeben werden 5\,VDC mit maximal 400\,mA.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.4\textwidth]{graphics/Spannungsversorgung.png}
+	\caption{Übersicht Sensorbaustein}
+	\label{pic: Spannungsversorgung}
+\end{figure} 
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=0.4\textwidth]{graphics/shematics_sensor_Shottky.png}
+	\caption{Shottky Dioden für ESD Schutz}
+	\label{pic: Sensor_Shottky}
+\end{figure}
 
 \subsubsection{Schutzbeschaltung}
 
@@ -139,7 +159,7 @@ Der Mikrocontroller kann mittels eines USB to UART Wandlers programmiert werden.
 
 \subsubsection{Spannungsversorgung}
 Der minimale Strom, welche die Spannungsquelle zur Verfügung stellen muss, ist laut Datenblatt vom ESP32 500\,mA, wobei im Normalbetrieb 80\,mA und im WiFi Sendebtrieb 160\,mA bis 260\,mA gebraucht werden.
-Um den Sensorbaustein mit 5\,V zu versorgen, macht es aus Platz gründen Sinn den 230\,VAC zu 5\,VDC Wandler separat und nicht auf der Hauptplatine zu haben. Dazu wurde der IRM-02-5 verwendet, welcher maximal 2\,W zur Verfügung stellt. Der Mikrocontroller benötigt 3.3\,V, jedoch soll der Sensorbaustein mit 5V betrieben werden können. Hierfür wird einen Spannungswandler eingesetzt. Der ausgewählte AP1117S33CTR hat einen maximale Input Spannung von 15V, eine maximale Dropoutspannung von 1.2\,V bei 800\,mA und ist, mit momentan 0.42\$ \todo{ist der Preis notwenig im Fachbericht?} bei Digi-Key, günstig. Im Schema (Abb. \ref{pic: Wandler_Sensor}) erkennt man, dass sowohl über USB wie auch über einen Stecker den Print mit 5 V versorgt werden können. Eingebaut ist eine PTC Sicherung sowie eine Diode die verhindern sollen, dass bei einem Kurzschluss oder ähnlichem der Sensorbautein anfängt grossen Schaden zu nehmen.
+Um den Sensorbaustein mit 5\,V zu versorgen, macht es aus Platz gründen Sinn den 230\,VAC zu 5\,VDC Wandler separat und nicht auf der Hauptplatine zu haben. Dazu wurde der IRM-02-5 verwendet, welcher maximal 2\,W zur Verfügung stellt. Der Mikrocontroller benötigt 3.3\,V, jedoch soll der Sensorbaustein mit 5V betrieben werden können. Hierfür wird einen Spannungswandler eingesetzt. Der ausgewählte AP1117S33CTR hat einen maximale Input Spannung von 15V, eine maximale Dropoutspannung von 1.2\,V bei 800\,mA. Im Schema (Abb. \ref{pic: Wandler_Sensor}) erkennt man, dass sowohl über USB wie auch über einen Stecker den Print mit 5 V versorgt werden können. Eingebaut ist eine PTC Sicherung sowie eine Diode die verhindern sollen, dass bei einem Kurzschluss oder ähnlichem der Sensorbautein anfängt grossen Schaden zu nehmen.
 
 \begin{figure}[h!]
 	\centering
