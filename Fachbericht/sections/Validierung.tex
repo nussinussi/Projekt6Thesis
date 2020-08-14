@@ -200,3 +200,9 @@ In der Abbildung \ref{pic: Zeitmessung Openhab} kann zwischen dem Auslöse-Signa
 \label{pic: Zeitmessung ohne Openhab}
 \end{figure}
 In der Abbildung \ref{pic: Zeitmessung ohne Openhab} kann zwischen dem Auslöse-Signal und dem Schalt-Signal eine Zeitdifferenz von 356 ms erkannt werden. Bei dieser Messung wurde der Schaltbefehl, also Topic und Payload im Sensor-Programmcode so angepasst, dass direkt eine Schalthandlung ausgelöst wird, sprich Rules von Openhab wurden umgangen.
+
+\subsubsection{Absicherungen}
+\begin{enumerate}
+	\item Kurzschluss an den Ein- und Ausgängen\\
+	Falls die 10\,V Ausgänge kurzgeschlossen werden, nimmt der Aktorbaustein keinerlei schaden, da der Kurzschlussstrom begrenzt wird durch die Widerstände R15 und R16 (Abbildung: \ref{pic: Output_aktor}) 
+\end{enumerate}

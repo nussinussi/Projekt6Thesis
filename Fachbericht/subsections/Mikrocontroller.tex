@@ -18,8 +18,14 @@ Unterstützung bei der Entwicklung:
 SDK Firmware für schnelle on-line Programmierung und open Source toolchains basiert auf GCC.\\
 Kosten bei Mouser:\\
 356-ESP32WROOM-32D 3,71 CHF/Stück
-\subsubsection{ADC}
-Der ADC des ESP32 verhält sich nicht liniear, was zu Problemen führen kann. In der Grafik \ref{pic: ESP32_Kurve} ist zu erkennen, dass der ADC nur bei grösser als U = 0.17\,V und kleiner als 3\,V überhaupt brauchbar ist, dazu kommt, dass ab 2.5\,V der ADC nichtliniear ansteigt. Die Lösung, welche hier verwendet wurde, war eine Linearisierung im Bereich von  0.2\,V bis 2.5\,V was zu folgender Geradengleichung geführt hat: $Wert_{ADC} = 1253.1\cdot U - 218.54$. Die Daten stammen aus dem Internet. Diese ist somit mit Vorsicht zu bewerten, es wurden für den Sensor- und Aktorbaustein besser passende Geradengleichungen verwendet, eine für die Temperaturmessung und eine für die analogen Eingänge. Ebenso gibt es noch weitere Probleme mit der ADC-Messung, dazu mehr im Kapitel \ref{Verbesserungen} Verbesserungen.
+\subsubsection{ADC} \label{ADC}
+Der ADC des ESP32 verhält sich nicht liniear, was zu Problemen führen kann. In der Grafik \ref{pic: ESP32_Kurve} ist zu erkennen, dass der ADC nur bei grösser als U = 0.17\,V und kleiner als 3\,V überhaupt brauchbar ist, dazu kommt, dass ab 2.5\,V der ADC nichtliniear ansteigt. Die Lösung, welche hier verwendet wurde, war eine Linearisierung im Bereich von  0.2\,V bis 2.5\,V was zur Geradengleichung geführt hat. Die Daten stammen aus dem Internet. Diese ist somit mit Vorsicht zu bewerten, es wurden für den Sensor- und Aktorbaustein besser passende Geradengleichungen verwendet, eine für die Temperaturmessung und eine für die analogen Eingänge. Ebenso gibt es noch weitere Probleme mit der ADC-Messung, dazu mehr im Kapitel \ref{Verbesserungen} Verbesserungen.
+
+\begin{align}
+ADC = 1253.1\,frac{1}{V}\cdot U - 218.54 \label{ADC_Kurve} \\
+U = 0.000798 + 0.174 \label{U_kurve}\\
+\end{align}
+
 \begin{figure}[h!]
 	\centering
 	\includegraphics[width=\textwidth]{graphics/ESP32_Kurve.png}
