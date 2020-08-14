@@ -4,9 +4,9 @@ Openhab ist die Schnittstelle, welche in diesem Projekt die verschiedenen Gerät
 
 \subsection{Openhab Betriebssystem aufsetzen}
 \begin{enumerate}
-	\item Betriebsystem Download von der Offiziellen Openhab Webseite \cite{noauthor_download_nodate-1}, anschliessend Image auf Micro SD-Card mit Balena Etcher flashen.
-   \item Auf SD-Card in Order 'openhabian.conf' File mit Lokalen Wlan Namen 'ssid' und Passwort 'psk' erweitern.
-   \item SD-Card auswerfen, Raspi mit SD-Card ausstatten und in Betrieb nehmen. Ein neuer Teilnehmer wird sichtbar im eigenen Netzwerk, Gerätenahme 'openhab'.
+	\item Betriebsystem Download von der offiziellen Openhab Webseite \cite{noauthor_download_nodate-1}, anschliessend Image auf Micro SD-Card mit Balena Etcher flashen.
+   \item Auf SD-Card in Order 'openhabian.conf' File mit lokalen WLAN Namen 'ssid' und Passwort 'psk' erweitern.
+   \item SD-Card auswerfen, Raspi mit SD-Card ausstatten und in Betrieb nehmen. Ein neuer Teilnehmer wird im eigenen Netzwerk sichtbar, Gerätenahme 'openhab'.
    \item Im Browser kann das Installierte Betriebssystem unter der IP Adresse und mit dem Port 8080 erreicht werden: http://192.168.137.51:8080/ Packet Standard Installieren. Dauert 20 min.
    \item Mit Konsole Openhabian, bearbeiten : \colorbox{lightgray}{sudo ssh openhabian@192.168.137.24}. \\
    Default Passwort 'openhabian'
@@ -19,7 +19,7 @@ Openhab ist die Schnittstelle, welche in diesem Projekt die verschiedenen Gerät
    \end{figure} 
 \item Um Openhabian weiterhin mit Konsole zu erreichen müssen sich die Verschiedenen Geräten, Notebook und Raspi im gleichen IP-Adressraum befinden, eine Änderung kann mittels Adapteroptionen, Eigenschaften Internetprotokoll IPV4, folgende Adresse vergeben, durchgeführt werden.
 
-\item Um Konfigurationen mit Visual Studio Code zu Bearbeiten wird der Ordner openHab-conf in Netzlaufwerk vom Notebook verbunden. Eingabe Ordner: '\textbackslash \textbackslash 192.168.137.8 \textbackslash openHAB-conf' verbinden, mit andern Anmeldedaten anmelden, Username:'openhabian', Passwort: 'openhabian' wählen.
+\item Um Konfigurationen mit Visual Studio Code zu Bearbeiten wird der Ordner openHab-conf in Netzlaufwerk vom Notebook verbunden. Eingabe Ordner: '\textbackslash \textbackslash 192.168.137.8 \textbackslash openHAB-conf' verbinden, mit anderen Anmeldedaten anmelden, Username:'openhabian', Passwort: 'openhabian' wählen.
 
 \item In Visual Studio Code Addon 'Openhab' istallieren ,Ordner öffnen openHab-conf wählen. In Einstellungen, Erweiterungen, OpenHab Configuration, Host in 'settings.json' bearbeiten wählen. \\
 \colorbox{lightgray}{openhab.host: '192.168.137.8',
@@ -37,8 +37,8 @@ Openhab ist die Schnittstelle, welche in diesem Projekt die verschiedenen Gerät
 		\caption{File: addons.cfg} 	
 		\label{pic: addons.cfg}
 	\end{figure} 
-\item Openhab mit Things (Geräten) verbinden. Things werden im Webinterface hinzugefügt Openhab ist unter URL <IP-Adresse>:8080 erreichbar. Button Paper UI wählen, in der Inbox befindet sich der MQTT Broker, welcher mit einem Click auf den Bestätigungsbutton hinzugefügt wird. 
-\item Mit dem Menüpunkt 'Configuration', 'Thing' ist der MQTT Broker sichtbar, mit den blauen add Button werden weitere MQTT-Things hinzugefügt, 'ADD MANUALLY', 'Generic MQTT Thing' wählen, Parameter gemäss Abbildung \ref{pic: Configure MQTT-Thing}  wählen. Dieser Vorgang wird für jedes Bord durchgeführt ein Bord wird als Gerät also als Thing bezeichnet.
+\item Openhab mit Things (Geräten) verbinden. Things werden im Webinterface hinzugefügt und Openhab ist unter URL <IP-Adresse>:8080 erreichbar. 'Button Paper UI' wählen, in der Inbox befindet sich der MQTT Broker, welcher mit einem Klick auf den Bestätigungsbutton hinzugefügt wird. 
+\item Mit dem Menüpunkt 'Configuration', 'Thing' ist der MQTT Broker sichtbar, mit den blauen Add-Button werden weitere MQTT-Things hinzugefügt, 'ADD MANUALLY', 'Generic MQTT Thing' wählen, Parameter gemäss Abbildung \ref{pic: Configure MQTT-Thing}  wählen. Dieser Vorgang wird für jedes Bord durchgeführt ein Bord wird als Gerät also als Thing bezeichnet.
 	   \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.75\textwidth]{graphics/MQTT-Thing.PNG}
@@ -53,6 +53,6 @@ Openhab ist die Schnittstelle, welche in diesem Projekt die verschiedenen Gerät
 	\label{pic: Configure Channel}
 \end{figure} 
 \item In Visual Studio Code in Ordner 'items' neue Datei erstellen mit Endung .items und öffnen, wird nun das Addon Openhab geöffnet sind zwei Things ersichtlich. Im Tropdown Menü ist das zuvor erstellte item 'Licht Wohnzimmer' ersichtlich und kann in .items Datei importiert werden.
-\item Weitere Dateien werden angelegt und Configuriert. Für die Benutzeroberfläche wird im Ordner 'Sitemaps' eine Datei mit Endung .sitemap angelegt ebenso wird für alle Automatischen Vorgängen im Ordner 'rules' eine Datei mit Endung .rules angelegt. Informationen um Items, Rules, oder Sitmaps zu Initialisieren sind unter Dokumentation \cite{noauthor_introduction_nodate} vorhanden.
-\item	Fils aus der Projekt-Dokumentation können übernommen werden, dabei muss der Channel Link und Item Bezeichnungen angepasst werden.
+\item Weitere Dateien werden angelegt und Configuriert. Für die Benutzeroberfläche wird im Ordner 'Sitemaps' eine Datei mit Endung .sitemap angelegt ebenso wird für alle automatischen Vorgängen im Ordner 'rules' eine Datei mit Endung .rules angelegt. Informationen um Items, Rules, oder Sitmaps zu initialisieren sind unter Dokumentation \cite{noauthor_introduction_nodate} vorhanden.
+\item	Fils aus der Projekt-Dokumentation können übernommen werden, dabei muss der Channel Link und Item-Bezeichnungen angepasst werden.
 \end{enumerate}	

@@ -16,7 +16,7 @@ Das Aktor-Bord ist die physikalische Schnittstelle zu den Elektronischen Geräte
 		\\
 	\item An den out1 und out2 Klemmen können Geräte mit einer 0-10 Volt Schnittstelle angeschlossen werden. Ein maximaler Strom von 4 mA darf nicht überschritten werden, damit die Spannung stabil bleibt.\\
 	\\
-	\item An den In1 und In2 Klemmen können 0-10 Volt Sensoren angeschlossen werden.\\
+	\item An den In1 und In2 Klemmen können 0-10 Volt Sensoren angeschlossen werden. Werden diese Eingänge nicht verwendet, wird eine Spannung von 0.25 V ermittelt. Falls 0 V gewünscht ist, kann der '+' Eingang auf Ground bzw. dem zweiten zweiten Anschluss der Klemme angeschlossen werden. \\
 	\\
 	\item Als Energieversorgung kann an den Power Klemmen eine 24 V DC Quelle angeschlossen werden. Das Board kann auch mit einem 24\,VDC Hohlstecker verbunden werden. Der Jumper muss entsprechend gesteckt werden, 'jack' für Hohlstecker oder "terminal" wenn die Speisung über Klemmen erfolgt. 
 \end{enumerate}
@@ -37,7 +37,7 @@ Sobald das Aktor-Bord mit Spannung versorgt wird, startet der Mikrocontroller ei
 	\end{minipage}
 \end{center}
 \end{figure}
-Mit der Funktion 'Scan WiFi' werden vorhanden Netzwerke angezeigt. Wird ein eigener MQTT Server installiert, kann an dieser Stelle die IP-Adresse angegeben werden, ansonsten der URL des öffentlichen MQTT-Broker. Der Port ist Default '1883' anzugeben. Die Eingabe bei 'board location' wird verwendet um MQTT-Topics zu generieren, sie muss also eindeutig sein und sollte keine Sonderzeichen beinhalten. Werden mehrere Aktor-Boards verbaut, unterscheiden sie sich an der 'bord location'. Mit der Taste 'save' werden die Eingaben gesichert und müssen bei einem erneuten Start nicht mehr eingegeben werden. Kann sich das Aktor Bord erfolgreich ins Lokale Netzwerk anmelden, blinkt die Status LED in einem regelmässigen Zyklus. Bei jeder Zustandsänderung der Statusleuchte wird eine Messung an den Eingängen In1 und In2 durchgeführt. 
+Mit der Funktion 'Scan WiFi' werden vorhanden Netzwerke angezeigt. Wird ein eigener MQTT Server installiert, kann an dieser Stelle die IP-Adresse angegeben werden, ansonsten der URL des öffentlichen MQTT-Broker. Der Port ist Default '1883' anzugeben. Die Eingabe bei 'board location' wird verwendet um MQTT-Topics zu generieren, sie muss also eindeutig sein und sollte keine Sonderzeichen beinhalten. Werden mehrere Aktor-Boards verbaut, unterscheiden sie sich an der 'bord location'. Mit der Taste 'save' werden die Eingaben gesichert und müssen bei einem erneuten Start nicht mehr eingegeben werden. Kann sich das Aktor Bord erfolgreich ins Lokale Netzwerk anmelden, blinkt die Status LED in einem regelmässigen Zyklus. Bei jeder Zustandsänderung der Statusleuchte wird eine Messung an den Eingängen In1 und In2 durchgeführt.
 
 \subsection{Programmierung}
 Verschiedene Eigenschaften können mit dem Entwicklertool zusätzlich verändert werden, wenn der Programmcode des Mikrocontrollers bearbeitet wird. In der nachfolgenden Tabelle sind Default-Konfigurationen enthalten.
