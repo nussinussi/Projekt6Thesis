@@ -11,7 +11,7 @@ Vom Auftraggeber ist ein Sensorbaustein mit 4-Tasten-Feld und Temperaturfühler 
 \end{figure} 
 
 \subsubsection{Übersicht Frontplatte}
-Die Frontplatte besteht aus einem 2-Lagen Print. Auf der Vorderseite (Abb. \ref{pic: Frontplatte_vorne}) sind vier runde Kupferflächen angebracht, welche als Touch Fläche fungieren. Wenn nun ein Anwender eine dieser Fläche berührt, wird die Kapazität zwischen dieser Fläche und Ground vergrössert. Natürlich befindet sich ein Lötstopplack zwischen Finger und Kupferfläche der Dielektrikum darstellt. Der ESP32 hat intern Touchsensoren verbaut, welches ein Signal $V_{refh}$ auf auf die Pins geben (Abbildung: \ref{pic: touch_funktion}). Die vorhandene Kapazität im ESP32 wird sich nun nach einer Zeit mit $V_{refh}$ aufladen, falls die Spannung über der Kapazität $V_{refh}$ erreicht hat, wird das tiefere Signal $V_{refl}$ ausgegeben. Wenn es die Spannung nun wiederum $V_{refl}$ erreicht hat wird wieder  $V_{refh}$ ausgegeben und so weiter, so bildet sich am Touch-Pin ein Dreiecksignal. Falls nun am Touchpin die Kapazität durch berühren vergrössert wird, wird es länger dauern bis sich die gesamte Kapazität aufladet und die Frequenz des Dreiecksignals nimmt ab, bei einem Test mit dem Sensorbaustein nahm die Frequenz von 11\,kHz auf 5\,kHz ab. Die Periodendauer wird vom ESP gemessen und ein zur Frequenz proportionales Signal ausgegeben. Zu den Tasten gibt es jeweils eine LED, welche von der Rückseite montiert werden. Der NTC ist auf der Rückseite der Frontplatte angebracht. Um die Temperatur der tatsächlichen Raumluft zu messen wurde auf der Frontplatte eine Kupferfläche auf der Aussenseite angebracht, welche die Wärme via Vias zum NTC weitergibt. Als Verbindung zur Hauptplatine des Sensorbausteins ist ein 12-Pin Stecker mit 2.54\,mm Rastermass vorgesehen. Eine Randnotiz: Es wurde darauf geachtet, dass keine visuell störenden Vias, das optische Erscheinungsbild beeinträchtigen.
+Die Frontplatte besteht aus einem 2-Lagen Print. Auf der Vorderseite (Abb. \ref{pic: Frontplatte_vorne}) sind vier runde Kupferflächen angebracht, welche als Touch Fläche fungieren. Wenn nun ein Anwender eine dieser Fläche berührt, wird die Kapazität zwischen dieser Fläche und Ground vergrössert. Natürlich befindet sich ein Lötstopplack zwischen Finger und Kupferfläche der Dielektrikum darstellt. Der ESP32 hat intern Touchsensoren verbaut, welches ein Signal $V_{refh}$ auf auf die Pins geben (Abbildung: \ref{pic: touch_funktion}). Die vorhandene Kapazität im ESP32 wird sich nun nach einer Zeit mit $V_{refh}$ aufladen, falls die Spannung über der Kapazität $V_{refh}$ erreicht hat, wird das tiefere Signal $V_{refl}$ ausgegeben. Wenn es die Spannung nun wiederum $V_{refl}$ erreicht hat wird wieder  $V_{refh}$ ausgegeben und so weiter, so bildet sich am Touch-Pin ein Dreiecksignal. Falls nun am Touchpin die Kapazität durch berühren vergrössert wird, wird es länger dauern bis sich die gesamte Kapazität aufladet und die Frequenz des Dreiecksignals nimmt ab, bei einem Test mit dem Sensorbaustein nahm die Frequenz von 11\,kHz auf 5\,kHz ab. Die Periodendauer wird vom ESP gemessen und ein zur Frequenz proportionales Signal ausgegeben. Zu den Tasten gibt es jeweils eine LED, welche von der Rückseite montiert werden. Der NTC ist auf der Rückseite der Frontplatte angebracht. Um die Temperatur der tatsächlichen Raumluft zu messen wurde auf der Frontplatte eine Kupferfläche auf der Aussenseite angebracht, welche die Wärme via Vias zum NTC weitergibt. Als Verbindung zur Hauptplatine des Sensorbausteins ist ein 12-Pin Stecker mit 2.54\,mm Rastermass vorgesehen.
 
 \begin{figure}[h!]
 	\centering
@@ -28,6 +28,13 @@ Die Frontplatte besteht aus einem 2-Lagen Print. Auf der Vorderseite (Abb. \ref{
 	\caption{Frontplatte Rückansicht}
 	\label{pic: Frontplatte_hinten}
 	\end{minipage}
+\end{figure}
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=1\textwidth]{graphics/touch_funktion.png}
+	\caption{Funktion des Touches \cite{noauthor_touch_nodate}}
+	\label{pic: touch_funktion}
 \end{figure}
 
 \subsubsection{Übersicht Hauptplatine}
@@ -50,15 +57,9 @@ Auf der Vorderseite der Hauptplatine des Sensorbausteins (Abb. \ref{pic: Hauptpl
 	\end{minipage}
 \end{figure}
 
-\begin{figure}[h!]
-	\centering
-	\includegraphics[width=1\textwidth]{graphics/touch_funktion.png}
-	\caption{Funktion des Touches \cite{noauthor_touch_nodate}}
-	\label{pic: touch_funktion}
-\end{figure}
 
 \subsubsection{Übersicht Spannungsversorgung}
-Die Spannungsversorgung des Sensorbausteins besteht aus einem AC/DC-Leistungsmodul (IRM-02-5) mit einer Leistung von 2\,W. Die Eingangsspannung kann 85\,VAC bis 305\,VAC oder 120\,VDC to 430\,VDC betragen, ausgegeben werden 5\,VDC mit maximal 400\,mA.
+Die Spannungsversorgung des Sensorbausteins besteht aus einem AC/DC-Leistungsmodul (IRM-02-5) mit einer Leistung von 2\,W. Die Eingangsspannung kann 85\,VAC bis 305\,VAC bzw. 120\,VDC bis 430\,VDC betragen. Ausgegeben werden 5\,VDC mit maximal 400\,mA.
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.4\textwidth]{graphics/Spannungsversorgung.png}
